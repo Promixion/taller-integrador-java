@@ -9,3 +9,4 @@
 ## Descripcion
 
 En este repositorio iremos realizando el desarrollo del taller integrador dado por la catedra, donde progresivamente iremos actualizando y subiendo los cambios al respecto.
+![UML](image.png)
