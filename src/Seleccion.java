@@ -17,5 +17,45 @@ public class Seleccion {
     public Seleccion() {
 
     }
+
+    public String getNombreFederacion() {
+        return nombreFederacion;
+    }
+
+    public void setNombreFederacion(String nombreFederacion) {
+        this.nombreFederacion = nombreFederacion;
+    }
+
+    public String getCamisetaPrincipal() {
+        return camisetaPrincipal;
+    }
+
+    public void setCamisetaPrincipal(String camisetaPrincipal) {
+        this.camisetaPrincipal = camisetaPrincipal;
+    }
+
+    public String getCamisetaSecundaria() {
+        return camisetaSecundaria;
+    }
+
+    public void setCamisetaSecundaria(String camisetaSecundaria) {
+        this.camisetaSecundaria = camisetaSecundaria;
+    }
+
+    public boolean isCabezaGrupo() {
+        return cabezaGrupo;
+    }
+
+    public void setCabezaGrupo(boolean cabezaGrupo) {
+        this.cabezaGrupo = cabezaGrupo;
+    }
+
+    public int getRankingFIFA() {
+        return rankingFIFA;
+    }
+
+    public void setRankingFIFA(int rankingFIFA) {
+        this.rankingFIFA = rankingFIFA;
+    }
     
 }
