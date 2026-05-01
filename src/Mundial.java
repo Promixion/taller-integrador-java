@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+
 public class Mundial {
     private int anio;
     private String mascota;
     private int fechaDesde;
     private int fechaHasta;
+    private ArrayList<Sede> sedes;
 
     public Mundial(){
 
@@ -14,6 +17,15 @@ public class Mundial {
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
     }
+
+    public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta, ArrayList<Sede> sedes) {
+        this.anio = anio;
+        this.mascota = mascota;
+        this.fechaDesde = fechaDesde;
+        this.fechaHasta = fechaHasta;
+        this.sedes = sedes;
+    }
+
     public int getAnio() {
         return anio;
     }
@@ -39,6 +51,12 @@ public class Mundial {
         this.fechaHasta = fechaHasta;
     }
 
-    
+    public ArrayList<Sede> getSedes() {
+        return sedes;
+    }
+
+    public void setSede(Sede sede) {
+        this.sedes.add(sede);
+    }
 
 }

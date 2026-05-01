@@ -1,6 +1,11 @@
+import java.util.ArrayList;
+
 public class Pais {
     private String nombre;
     private String bandera;
+    private ArrayList<Sede> sedes;
+    private ArrayList<Arbitro> arbitros;
+    private Seleccion seleccion;
 
     public Pais(){
 
@@ -9,6 +14,14 @@ public class Pais {
     public Pais(String nombre, String bandera) {
         this.nombre = nombre;
         this.bandera = bandera;
+    }
+
+    public Pais(String nombre, String bandera, ArrayList<Sede> sedes, ArrayList<Arbitro> arbitros, Seleccion seleccion) {
+        this.nombre = nombre;
+        this.bandera = bandera;
+        this.sedes = sedes;
+        this.arbitros = arbitros;
+        this.seleccion = seleccion;
     }
 
     public String getNombre() {
@@ -26,6 +39,31 @@ public class Pais {
     public void setBandera(String bandera) {
         this.bandera = bandera;
     }
+
+    public ArrayList<Sede> getSedes() {
+        return sedes;
+    }
+
+    public void setSedes(Sede sede) {
+        this.sedes.add(sede);
+    }
+
+    public ArrayList<Arbitro> getArbitros() {
+        return arbitros;
+    }
+
+    public void setArbitros (Arbitro arbitro) {
+        this.arbitros.add(arbitro);
+    }
+
+    public Seleccion getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
+    }
+    
     
     
 }
