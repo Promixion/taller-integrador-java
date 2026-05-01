@@ -27,7 +27,4 @@ public class Persona {
         this.fecNacimiento = fecNacimiento;
     }
 
-    
-
-
 }
