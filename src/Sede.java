@@ -6,7 +6,6 @@ public class Sede {
     private String clima;
     private String zonaHoraria;
     private Pais pais;
-    private Mundial mundial;
     private ArrayList<Estadio> estadios;
 
     public Sede(){
@@ -26,15 +25,6 @@ public class Sede {
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
         this.pais = pais;
-    }
-
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais, Mundial mundial) {
-        this.ciudad = ciudad;
-        this.alturaNivelMar = alturaNivelMar;
-        this.clima = clima;
-        this.zonaHoraria = zonaHoraria;
-        this.pais = pais;
-        this.mundial = mundial;
     }
 
     public String getCiudad() {
@@ -77,13 +67,6 @@ public class Sede {
         return pais;
     }
 
-    public Mundial getMundial() {
-        return mundial;
-    }
-
-    public void setMundial(Mundial mundial) {
-        this.mundial = mundial;
-    }
 
     public void addEstadio(Estadio estadio) {
         this.estadios.add(estadio);
