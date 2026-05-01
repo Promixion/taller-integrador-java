@@ -1,4 +1,4 @@
-public class Jugador {
+public class Jugador extends Persona {
     private int dorsal;
     private Posicion posicion;
     private float peso;
@@ -8,7 +8,8 @@ public class Jugador {
 
     }
 
-    public Jugador(int dorsal, Posicion posicion, float peso, float altura) {
+    public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion, float peso, float altura) {
+        super(nombre, fecNacimiento);
         this.dorsal = dorsal;
         this.posicion = posicion;
         this.peso = peso;
