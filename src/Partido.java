@@ -1,11 +1,17 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Partido {
     private LocalDate fecha;
     private LocalTime horario;
     private int duracion;
     private int tiempoAdicional;
+    private Estadio estadio;
+    private Fase fase;
+    private Participacion participacion;
+    private Arbitraje arbitraje;
+    private ArrayList<Evento> eventos;
 
     public Partido(){
 
@@ -16,6 +22,35 @@ public class Partido {
         this.horario = horario;
         this.duracion = duracion;
         this.tiempoAdicional = tiempoAdicional;
+    }
+
+    public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional, Estadio estadio) {
+        this.fecha = fecha;
+        this.horario = horario;
+        this.duracion = duracion;
+        this.tiempoAdicional = tiempoAdicional;
+        this.estadio = estadio;
+    }
+
+    public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional, Estadio estadio, Fase fase) {
+        this.fecha = fecha;
+        this.horario = horario;
+        this.duracion = duracion;
+        this.tiempoAdicional = tiempoAdicional;
+        this.estadio = estadio;
+        this.fase = fase;
+    }
+    
+
+    public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional, Estadio estadio, Fase fase,
+            Participacion participacion) {
+        this.fecha = fecha;
+        this.horario = horario;
+        this.duracion = duracion;
+        this.tiempoAdicional = tiempoAdicional;
+        this.estadio = estadio;
+        this.fase = fase;
+        this.participacion = participacion;
     }
 
     public LocalDate getFecha() {
@@ -50,7 +85,25 @@ public class Partido {
         this.tiempoAdicional = tiempoAdicional;
     }
 
-    
+    public void setEstadio(Estadio estadio) {
+        this.estadio = estadio;
+    }
+
+    public void setFase(Fase fase) {
+        this.fase = fase;
+    }
+
+    public void setParticipacion(Participacion participacion) {
+        this.participacion = participacion;
+    }
+
+    public void setEventos(TipoEvento tipo, int min) {
+        this.eventos.add(new Evento(tipo, min));
+    }
+
+    public void setArbitraje(Arbitraje arbitraje) {
+        this.arbitraje = arbitraje;
+    }
 
     
 

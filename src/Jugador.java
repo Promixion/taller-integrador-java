@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+
 public class Jugador extends Persona {
     private int dorsal;
     private Posicion posicion;
     private float peso;
     private float altura;
+    private ArrayList<Evento> eventos;
 
     public Jugador(){
 
@@ -47,6 +50,11 @@ public class Jugador extends Persona {
     public void setAltura(float altura) {
         this.altura = altura;
     }
+
+    public void setEventos(Evento evento) {
+        this.eventos.add(evento);
+    }
+    
     
     
 }
