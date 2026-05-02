@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+
 public class Estadio {
     private String nombre;
     private int capacidad;
+    private Sede sede;
+    private ArrayList<Partido> partido;
 
     public Estadio(){
 
@@ -10,6 +14,12 @@ public class Estadio {
         this.nombre = nombre;
         this.capacidad = capacidad;
     }
+
+    public Estadio(String nombre, int capacidad, Sede sede) {
+        this.nombre = nombre;
+        this.capacidad = capacidad;
+        this.sede = sede;
+    }    
 
     public String getNombre() {
         return nombre;
@@ -26,5 +36,22 @@ public class Estadio {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
+
+    public Sede getSede(){
+        return sede;
+    }
+
+    public void setSede(Sede sede){
+        this.sede = sede;
+    }
+
+    public void addPartido(Partido partido) {
+        this.partido.add(partido);
+    }
+
+    public ArrayList<Partido> getPartido() {
+        return partido;
+    }    
+
     
 }
