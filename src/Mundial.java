@@ -5,7 +5,7 @@ public class Mundial {
     private String mascota;
     private int fechaDesde;
     private int fechaHasta;
-    private ArrayList<Sede> sedes;
+    private ArrayList<Sede> sedes = new ArrayList<>();
 
     public Mundial(){
 

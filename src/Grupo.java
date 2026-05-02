@@ -4,7 +4,7 @@ public class Grupo {
     private String identificacion;
     private String descripcion;
     private Fase fase;
-    private ArrayList<Seleccion> seleccion;
+    private ArrayList<Seleccion> seleccion = new ArrayList<>();
 
     public Grupo(){
 

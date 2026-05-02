@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Participacion {
     private boolean esLocal;
     private Seleccion [] selecciones = new Seleccion [2];
-    private ArrayList<Partido> partido;
+    private ArrayList<Partido> partido = new ArrayList<>();
 
     public Participacion(){
 

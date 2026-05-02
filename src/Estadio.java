@@ -4,7 +4,7 @@ public class Estadio {
     private String nombre;
     private int capacidad;
     private Sede sede;
-    private ArrayList<Partido> partido;
+    private ArrayList<Partido> partido = new ArrayList<>();
 
     public Estadio(){
 

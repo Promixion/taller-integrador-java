@@ -5,7 +5,7 @@ public class Jugador extends Persona {
     private Posicion posicion;
     private float peso;
     private float altura;
-    private ArrayList<Evento> eventos;
+    private ArrayList<Evento> eventos = new ArrayList<>();
 
     public Jugador(){
 
