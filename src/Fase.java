@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Fase {
     private NombreFase nombre;
-    private ArrayList<Grupo> grupos;
-    private ArrayList<Partido> partidos;
+    private ArrayList<Grupo> grupos = new ArrayList<>();
+    private ArrayList<Partido> partidos = new ArrayList<>();
 
     public Fase(){
 

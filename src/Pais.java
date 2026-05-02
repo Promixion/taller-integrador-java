@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Pais {
     private String nombre;
     private String bandera;
-    private ArrayList<Sede> sedes;
-    private ArrayList<Arbitro> arbitros;
+    private ArrayList<Sede> sedes = new ArrayList<>();
+    private ArrayList<Arbitro> arbitros = new ArrayList<>();
     private Seleccion seleccion;
 
     public Pais(){

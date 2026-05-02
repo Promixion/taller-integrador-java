@@ -11,7 +11,7 @@ public class Partido {
     private Fase fase;
     private Participacion participacion;
     private Arbitraje arbitraje;
-    private ArrayList<Evento> eventos;
+    private ArrayList<Evento> eventos = new ArrayList<>();
 
     public Partido(){
 

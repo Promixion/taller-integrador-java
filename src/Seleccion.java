@@ -9,9 +9,9 @@ public class Seleccion {
     private Participacion participacion;
     private Grupo grupo;
     private Pais pais;
-    private ArrayList<Jugador> jugadores;
-    private ArrayList<DirectorTecnico> directoresTecnicos;
-    private ArrayList<CuerpoTecnico> cuerposTecnicos;
+    private ArrayList<Jugador> jugadores = new ArrayList<>();
+    private ArrayList<DirectorTecnico> directoresTecnicos = new ArrayList<>();
+    private ArrayList<CuerpoTecnico> cuerposTecnicos = new ArrayList<>();
 
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,
             int rankingFIFA) {

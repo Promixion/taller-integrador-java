@@ -6,7 +6,7 @@ public class Sede {
     private String clima;
     private String zonaHoraria;
     private Pais pais;
-    private ArrayList<Estadio> estadios;
+    private ArrayList<Estadio> estadios = new ArrayList<>();
 
     public Sede(){
 

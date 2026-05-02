@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Arbitraje {
     private CategoriaArbitro rol;
-    private ArrayList<Partido> partido;
-    private ArrayList<Arbitro> arbitro;
+    private ArrayList<Partido> partido = new ArrayList<>();
+    private ArrayList<Arbitro> arbitro = new ArrayList<>();
 
     public Arbitraje(){
 
