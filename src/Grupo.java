@@ -1,14 +1,19 @@
+import java.util.ArrayList;
+
 public class Grupo {
     private String identificacion;
     private String descripcion;
+    private Fase fase;
+    private ArrayList<Seleccion> seleccion;
 
     public Grupo(){
 
     }
 
-    public Grupo(String identificacion, String descripcion) {
+    public Grupo(String identificacion, String descripcion, Fase fase) {
         this.identificacion = identificacion;
         this.descripcion = descripcion;
+        this.fase = fase;
     }
 
     public String getIdentificacion() {
@@ -30,5 +35,22 @@ public class Grupo {
     public int obtenerPuntos(Seleccion s){
         return 1; // Ver mas adelante
     }
+
+    public Fase getFase() {
+        return fase;
+    }
+
+    public void setFase(Fase fase) {
+        this.fase = fase;
+    }
+
+    public void addSeleccion(Seleccion seleccion) {
+        this.seleccion.add(seleccion);
+    }
+
+    public ArrayList<Seleccion> getSeleccion() {
+        return seleccion;
+    }     
+    
     
 }
