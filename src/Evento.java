@@ -1,6 +1,7 @@
 public class Evento {
     private TipoEvento tipo;
     private int minuto;
+    private Jugador jugador;
 
     public Evento(){
         
@@ -9,6 +10,13 @@ public class Evento {
     public Evento(TipoEvento tipo, int minuto) {
         this.tipo = tipo;
         this.minuto = minuto;
+    }
+
+
+    public Evento(TipoEvento tipo, int minuto, Jugador jugador) {
+        this.tipo = tipo;
+        this.minuto = minuto;
+        this.jugador = jugador;
     }
 
     public TipoEvento getTipo() {
@@ -25,6 +33,14 @@ public class Evento {
 
     public void setMinuto(int minuto) {
         this.minuto = minuto;
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
     }
 
     
