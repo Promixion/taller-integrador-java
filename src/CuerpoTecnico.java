@@ -1,11 +1,12 @@
-public class CuerpoTecnico {
+public class CuerpoTecnico extends Persona{
     private Rol rol;
 
     public CuerpoTecnico(){
 
     }
 
-    public CuerpoTecnico(Rol rol) {
+    public CuerpoTecnico(String nombre, int fecNacimiento, Rol rol) {
+        super(nombre, fecNacimiento);
         this.rol = rol;
     }
 
