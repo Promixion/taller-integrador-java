@@ -55,8 +55,8 @@ public class Mundial {
         return sedes;
     }
 
-    public void setSede(Sede sede) {
-        this.sedes.add(sede);
+    public void setSede(ArrayList<Sede> sedes) {
+        this.sedes.addAll(sedes);
     }
 
 }

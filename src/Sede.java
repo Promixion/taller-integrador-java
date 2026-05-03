@@ -27,6 +27,16 @@ public class Sede {
         this.pais = pais;
     }
 
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais,
+            ArrayList<Estadio> estadios) {
+        this.ciudad = ciudad;
+        this.alturaNivelMar = alturaNivelMar;
+        this.clima = clima;
+        this.zonaHoraria = zonaHoraria;
+        this.pais = pais;
+        this.estadios = estadios;
+    }
+
     public String getCiudad() {
         return ciudad;
     }
