@@ -85,6 +85,12 @@ public class Sede {
     public ArrayList<Estadio> getEstadios() {
         return estadios;
     }
+
+    @Override
+    public String toString() {
+        return "Sede [ciudad=" + ciudad + ", alturaNivelMar=" + alturaNivelMar + ", clima=" + clima + ", zonaHoraria="
+                + zonaHoraria + ", pais=" + pais + ", estadios=" + estadios + "]";
+    }
     
     
 }

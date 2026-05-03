@@ -44,8 +44,8 @@ public class Pais {
         return sedes;
     }
 
-    public void setSedes(Sede sede) {
-        this.sedes.add(sede);
+    public void setSedes(ArrayList<Sede> sede) {
+        this.sedes.addAll(sede);
     }
 
     public ArrayList<Arbitro> getArbitros() {
