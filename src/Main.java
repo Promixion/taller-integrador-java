@@ -12,17 +12,14 @@ public class Main {
         }
     }
 
-    public static Mundial crearMundial(){
+    public static Mundial crearMundial(Scanner sc){
         Mundial mundial;
         int anio;
         String mascota;
         int fechaComienzo;
         int fechaFinalizacion;
-        ArrayList<Sede> sede;
 
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("\n[+] Cree el mundial: ");
+        System.out.println("\n[+] Cree el mundial. ");
         System.out.print("\n\tIngrese el año del mundial: ");
         anio = sc.nextInt();
         sc.nextLine();
@@ -33,42 +30,40 @@ public class Main {
         System.out.print("\tIngrese la fecha de finalizacion del mundial: ");
         fechaFinalizacion = sc.nextInt();
         limpiarPantalla();
-        System.out.println("\n[+] Registre las sedes del mundial.");
-        sede = registSede();
 
-        mundial = new Mundial(anio, mascota, fechaComienzo, fechaFinalizacion, sede);
+        mundial = new Mundial(anio, mascota, fechaComienzo, fechaFinalizacion);
 
         return mundial;
 
     }
 
-    public static ArrayList<Sede> registSede(){
-        Scanner sc = new Scanner(System.in);
+    public static ArrayList<Sede> registSede(Scanner sc){
         String ciudad;
         float alturaNivelMar;
         String clima;
         String zonaHoraria;
         String resp;
-        Pais pais;
-        ArrayList<Sede> sedes = new ArrayList<>();
-        ArrayList<Estadio> estadios = new ArrayList<>();
+        ArrayList<Sede> sedes = new ArrayList<>();;
         boolean registrar = true;
+        int count = 0;
         do{
             System.out.print("\n[+] Ingrese la ciudad de la sede: ");
             ciudad = sc.nextLine();
+            if (count == 0){
+                sc.nextLine();
+                count++;
+            }
             System.out.print("\n[+] Ingrese la altura al nivel del mar: ");
             alturaNivelMar = sc.nextFloat();
-            alturaNivelMar = (float)alturaNivelMar;
             sc.nextLine();
             System.out.print("\n[+] Ingrese el clima: ");
             clima = sc.nextLine();
             System.out.print("\n[+] Ingrese la zona horaria: ");
             zonaHoraria = sc.nextLine();
-            pais = agregarPais();
-            estadios = agregarEstadio();
-            sedes.add(new Sede(ciudad, alturaNivelMar, clima, zonaHoraria, pais , estadios));
-            System.out.println("[?] Desea registrar otra sede (si/no): ");
+            sedes.add(new Sede(ciudad, alturaNivelMar, clima, zonaHoraria));
+            System.out.print("\n\n[?] Desea registrar otra sede (si/no): ");
             resp = sc.nextLine();
+            resp.toLowerCase();
             if( ! resp.equals("si")){
                 registrar = false;
             }else {
@@ -80,22 +75,27 @@ public class Main {
 
     }
 
-    public static ArrayList<Estadio> agregarEstadio(){
-        Scanner sc = new Scanner(System.in);
+    public static ArrayList<Estadio> agregarEstadio(Scanner sc){
         boolean crear = true;
         String deseo;
         String nombre;
         int capacidad;
+        int count = 0;
         ArrayList<Estadio> estadios = new ArrayList<>();
         do {
             System.out.print("\n[+] Ingrese el nombre del estadio: ");
             nombre = sc.nextLine();
+            if (count == 0){
+                sc.nextLine();
+                count++;
+            }
             System.out.print("\n[+] Ingrese la capacidad del estadio: ");
             capacidad = sc.nextInt();
             sc.nextLine();
             estadios.add(new Estadio(nombre, capacidad));
-            System.out.print("\n[+] Desea crear otro estadio para la sede (si/no): ");
+            System.out.print("\n[+] Desea crear otro estadio (si/no): ");
             deseo = sc.nextLine();
+            deseo.toLowerCase();
             if (deseo.equals("si")){
                 crear = true;
             }else{
@@ -118,36 +118,53 @@ public class Main {
         return pais;
     }
 
+    public static void vincularEstadiosSede(ArrayList<Estadio> estadios_mundial, Mundial mundial){
+        System.out.println("\n[+] Listando sedes: \n");
+        for(Sede sede : mundial.getSedes() ){
+            System.out.println(sede);
+        }
+
+
+
+    }
+
     public static void gestInfraestructura(Mundial mundial){
         Scanner sc = new Scanner(System.in);
+        ArrayList<Sede> sedes_mundial = new ArrayList<>();
+        ArrayList<Estadio> estadios_mundial = new ArrayList<>();
         int opcion;
+        String op;
 
-        System.out.println("\n-------- Infraestructura --------\n");
-        System.out.println("\t1. Agregar pais.");
-        System.out.println("\t2. Registrar sede.");
-        System.out.println("\t3. Agregar estadio.");
-        System.out.println("\t4. Volver.");
-        System.out.println("\n----------------------------------\n");
-        System.out.print("[+] Ingrese una opción: ");
-        opcion = sc.nextInt();
+        do{
+            System.out.println("\n-------- Infraestructura --------\n");
+            System.out.println("\t1. Registrar sede.");
+            System.out.println("\t2. Agregar estadio.");
+            System.out.println("\t3. Volver.");
+            System.out.println("\n----------------------------------\n");
+            System.out.print("[+] Ingrese una opción: ");
+            opcion = sc.nextInt();
 
-        switch (opcion) {
-            case 1:
-                agregarPais();
-                break;
-            case 2:
-                registSede();
-                break;
-            case 3:
-                agregarEstadio();
-                break;
-            default:
-                limpiarPantalla();
-                return;
+            switch (opcion) {
+                case 1:
+                    sedes_mundial = registSede(sc);
+                    mundial.setSede(sedes_mundial);
+                    break;
+                case 2:
+                    estadios_mundial = agregarEstadio(sc);
+                    System.out.print("[?] Desea vincular los estadios con su sede? (si/no): ");
+                    op = sc.nextLine();
+                    op.toLowerCase();
+                    if (op.equals("si")){
+                        vincularEstadiosSede(estadios_mundial, mundial);
+                    }else{
+                        System.out.println("\n\n[!] No existen sedes del mundial.");
+                    }
+                }
+            }while (opcion != 3);
         }
 
         
-    }
+    
     public static void adminDelegaciones(Mundial mundial){
 
     }
@@ -176,7 +193,7 @@ public class Main {
 
         int opcion = 0;
 
-        mundial = crearMundial();
+        mundial = crearMundial(sc);
 
 
         while(opcion != 5){
