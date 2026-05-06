@@ -18,14 +18,6 @@ public class Mundial {
         this.fechaHasta = fechaHasta;
     }
 
-    public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta, ArrayList<Sede> sedes) {
-        this.anio = anio;
-        this.mascota = mascota;
-        this.fechaDesde = fechaDesde;
-        this.fechaHasta = fechaHasta;
-        this.sedes = sedes;
-    }
-
     public int getAnio() {
         return anio;
     }
@@ -55,8 +47,9 @@ public class Mundial {
         return sedes;
     }
 
-    public void setSede(ArrayList<Sede> sedes) {
-        this.sedes.addAll(sedes);
+    public void setSede(Sede sede) {
+        this.sedes.add(sede);
     }
+
 
 }
