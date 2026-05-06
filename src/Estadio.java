@@ -51,7 +51,12 @@ public class Estadio {
 
     public ArrayList<Partido> getPartido() {
         return partido;
-    }    
+    }
 
+    @Override
+    public String toString() {
+        return "\nnombre: " + nombre + ", capacidad: " + capacidad + ", sede:" + sede + ", partido: " + partido;
+    }    
+    
     
 }

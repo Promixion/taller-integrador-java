@@ -88,8 +88,8 @@ public class Sede {
 
     @Override
     public String toString() {
-        return "Sede [ciudad=" + ciudad + ", alturaNivelMar=" + alturaNivelMar + ", clima=" + clima + ", zonaHoraria="
-                + zonaHoraria + ", pais=" + pais + ", estadios=" + estadios + "]";
+        return "\nciudad:" + ciudad + ", alturaNivelMar: " + alturaNivelMar + ", clima: " + clima + ", zonaHoraria: "
+                + zonaHoraria + ", pais: " + pais + ", estadios: " + estadios;
     }
     
     
