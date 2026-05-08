@@ -77,16 +77,59 @@ public class Main {
 
     }
 
-    public static Pais agregarPais(Scanner sc){
+    public static Pais agregarPais(Mundial mundial, Scanner sc){
         String nombre;
         String bandera;
+        String opcion;
         Pais pais;
         System.out.print("\n[+] Ingrese el nombre del pais: ");
         nombre = sc.nextLine();
         System.out.print("\n[+] Ingrese la bandera del pais: ");
         bandera = sc.nextLine();
         pais = new Pais(nombre, bandera);
+
+        for (Sede sede : mundial.getSedes()){
+            if (sede.getPais() == null){
+                System.out.print("\n[?] La sede " + sede.getCiudad() + " pertenece al pais " + pais.getNombre() + "? (si/no): ");
+                opcion = sc.nextLine().toLowerCase();
+                if(opcion.equals("si")){
+                    sede.setPais(pais);
+                    pais.setSedes(sede);
+                }
+            }
+        }
+
         return pais;
+    }
+
+    public static Seleccion agregarSeleccion(Mundial mundial, Scanner sc){
+        String nombreFederacion;
+        String camisetaPrincipal;
+        String camisetaSecundaria;
+        boolean cabezaGrupo;
+        String op;
+        int rankingFIFA;
+        Seleccion seleccion;
+
+        System.out.print("\n[+] Ingrese el nombre de la federacion de la seleccion: ");
+        nombreFederacion = sc.nextLine();
+        System.out.print("\n[+] Ingrese la camiseta principal de la seleccion: ");
+        camisetaPrincipal = sc.nextLine();
+        System.out.print("\n[+] Ingrese la camiseta secundaria de la seleccion: ");
+        camisetaSecundaria = sc.nextLine();
+        System.out.print("\n[+] La seleccion es cabeza de grupo? (si/no): ");
+        op = sc.nextLine().toLowerCase();
+        if (op.equals("si")){
+            cabezaGrupo = true;
+        }else {
+            cabezaGrupo = false;
+        }
+        System.out.print("\n[+] Ingrese el ranking de FIFA de la seleccion: ");
+        rankingFIFA = sc.nextInt();
+        sc.nextLine();
+        seleccion = new Seleccion(nombreFederacion, camisetaPrincipal, camisetaSecundaria, cabezaGrupo, rankingFIFA);
+
+        return seleccion;
     }
 
     public static void vincularEstadiosSede(Estadio estadio, Mundial mundial, Scanner sc){
@@ -148,13 +191,41 @@ public class Main {
                     estadio = agregarEstadio(sc);
                     System.out.print("\n[+] Vincule el estadio a su sede:\n\n");
                     vincularEstadiosSede(estadio, mundial, sc);
+                    break;
                 }
             }while (opcion != 3);
         }
 
         
     
-    public static void adminDelegaciones(Mundial mundial){
+    public static void adminDelegaciones(Mundial mundial, Scanner sc){
+        limpiarPantalla();
+        Pais pais;
+        Seleccion seleccion;
+        int opcion;
+        do {
+            System.out.println("\n--------- Administrar delegaciones ---------\n");
+            System.out.println("1. Agregar un pais.");
+            System.out.println("2. Agregar una seleccion.");;
+            System.out.println("3. Volver.");
+            System.out.println("\n--------------------------------------------\n");
+            opcion = sc.nextInt();
+
+            switch (opcion){
+                case 1:
+                    pais = agregarPais(mundial, sc);
+                    System.out.println("\n[+] Se ha agregado con exito el pais " + pais.getNombre());
+                    break;
+                case 2:
+                    seleccion = agregarSeleccion(mundial, sc);
+                    System.out.println("\n[+] Se ha agregado con exito la seleccion.");
+                case 3:
+                    limpiarPantalla();
+                    break;
+
+            }
+
+        } while (opcion != 3);
 
     }
 
@@ -203,7 +274,7 @@ public class Main {
                     break;
                 case 2:
                     limpiarPantalla();
-                    adminDelegaciones(mundial);
+                    adminDelegaciones(mundial, sc);
                     break;
                 case 3:
                     limpiarPantalla();
