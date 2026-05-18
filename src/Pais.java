@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Pais {
     private String nombre;
     private String bandera;
-    private ArrayList<Sede> sedes = new ArrayList<>();
-    private ArrayList<Arbitro> arbitros = new ArrayList<>();
+    private ArrayList<Sede> sedes;
+    private ArrayList<Arbitro> arbitros;
     private Seleccion seleccion;
 
     public Pais(){
@@ -16,11 +16,11 @@ public class Pais {
         this.bandera = bandera;
     }
 
-    public Pais(String nombre, String bandera, ArrayList<Sede> sedes, ArrayList<Arbitro> arbitros, Seleccion seleccion) {
+    public Pais(String nombre, String bandera, Seleccion seleccion) {
         this.nombre = nombre;
         this.bandera = bandera;
-        this.sedes = sedes;
-        this.arbitros = arbitros;
+        this.sedes = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
         this.seleccion = seleccion;
     }
 

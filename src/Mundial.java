@@ -5,7 +5,7 @@ public class Mundial {
     private String mascota;
     private int fechaDesde;
     private int fechaHasta;
-    private ArrayList<Sede> sedes = new ArrayList<>();
+    private ArrayList<Sede> sedes;
 
     public Mundial(){
 
@@ -16,6 +16,7 @@ public class Mundial {
         this.mascota = mascota;
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
+        this.sedes = new ArrayList<>();
     }
 
     public int getAnio() {
