@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Mundial {
     private int anio;
@@ -6,6 +7,7 @@ public class Mundial {
     private int fechaDesde;
     private int fechaHasta;
     private ArrayList<Sede> sedes;
+    static HashSet<Pais> paises = new HashSet<>();
 
     public Mundial(){
 
@@ -50,6 +52,13 @@ public class Mundial {
 
     public void setSede(Sede sede) {
         this.sedes.add(sede);
+    }
+
+    public static void addPaises(Pais pais){
+        paises.add(pais);
+    }
+    public static HashSet<Pais> getPaises(){
+        return paises;
     }
 
 
