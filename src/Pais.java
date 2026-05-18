@@ -14,6 +14,8 @@ public class Pais {
     public Pais(String nombre, String bandera) {
         this.nombre = nombre;
         this.bandera = bandera;
+        this.sedes = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
     }
 
     public Pais(String nombre, String bandera, Seleccion seleccion) {

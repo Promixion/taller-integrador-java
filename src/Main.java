@@ -30,9 +30,10 @@ public class Main {
         System.out.print("\tIngrese la fecha de finalizacion del mundial: ");
         fechaFinalizacion = sc.nextInt();
         while (! (fechaFinalizacion > fechaComienzo)){
-            System.out.println("\n[!] La fecha de finalizacion no puede ser antes que la fecha de comienzo.");
-            System.out.print("\tIngrese la fecha de finalizacion del mundial: ");
+            System.out.println("\n[!] La fecha de finalizacion no puede ser antes que la fecha de comienzo.\n");
+            System.out.print("\t[+] Ingrese la fecha de finalizacion del mundial: ");
             fechaFinalizacion = sc.nextInt();
+            sc.nextLine();
         }
         limpiarPantalla();
 
@@ -94,6 +95,8 @@ public class Main {
                 if(opcion.equals("si")){
                     sede.setPais(pais);
                     pais.setSedes(sede);
+                    Mundial.addPaises(pais);
+                    break;
                 }
             }
         }
@@ -115,8 +118,8 @@ public class Main {
         String nombre;
         int fecNacimiento;
         int opcion;
+        int fecNombramiento;
         boolean agregar = true;
-        HashSet<Pais> paises = new HashSet<>();
 
         System.out.print("\n[+] Ingrese el nombre de la federacion de la seleccion: ");
         nombreFederacion = sc.nextLine();
@@ -187,7 +190,7 @@ public class Main {
         }
         agregar = true;
 
-        System.out.println("\n[+] Ingrese las personas del cuerpo tecnico de la seleccion: ");
+        System.out.println("\n[i] Ingrese las personas del cuerpo tecnico de la seleccion. ");
         while (agregar){
             System.out.print("\n[+] Ingrese el nombre del integrante del cuerpo tecnico: ");
             nombre = sc.nextLine();
@@ -244,18 +247,51 @@ public class Main {
                 agregar = false;
             }
     }
+
+        agregar = true;
+        System.out.println("\n[+] Ingrese los directores tecnicos de la seleccion.\n");
+        while (agregar){
+            System.out.print("[+] Ingrese el nombre del director tecnico: ");
+            nombre = sc.nextLine();
+            System.out.print("\n[+] Ingrese la fecha de nacimiento del director tecnico: ");
+            fecNacimiento = sc.nextInt();
+            sc.nextLine();
+            System.out.print("\n[+] Ingrese la fecha de nombramiento del director tecnico: ");
+            fecNombramiento = sc.nextInt();
+            sc.nextLine();
+            seleccion.setDirectoresTecnicos(new DirectorTecnico(nombre, fecNacimiento, fecNombramiento));
+            System.out.print("[?] Desea agregar otro director tecnico para la seleccion (si/no): ");
+            op = sc.nextLine().toLowerCase();
+            if (op.equals("si")){
+                agregar = true;
+            }else {
+                agregar = false;
+            }
+
+        }
+
         for ( Sede sede : mundial.getSedes() ){
             if (sede.getPais() != null){
-                paises.add(sede.getPais());
+                Mundial.paises.add(sede.getPais());
             }
         }
 
-        for (Pais pais : paises){
+        for (Pais pais : Mundial.paises){
             System.out.print("\n[+] La seleccion es del pais " + pais.getNombre() + "? (si/no): ");
             op = sc.nextLine().toLowerCase();
             if (op.equals("si")){
+                if (pais.getSeleccion() == null){
+                    pais.setSeleccion(seleccion);
+                    seleccion.setPais(pais);
+                    break;
+                }else {
+                    System.out.println("[!] El pais " + pais.getNombre() + " ya posee una seleccion asignada.");
+                }
+            } else {
+                pais = agregarPais(mundial, sc);
                 pais.setSeleccion(seleccion);
                 seleccion.setPais(pais);
+                Mundial.addPaises(pais);
             }
         }
 
@@ -290,11 +326,9 @@ public class Main {
 
     public static void gestInfraestructura(Mundial mundial, Scanner sc){
         int opcion;
-        String op;
         Sede sede;
         Estadio estadio;
         do{
-            limpiarPantalla();
             System.out.println("\n-------- Infraestructura --------\n");
             System.out.println("\t1. Registrar sede.");
             System.out.println("\t2. Agregar estadio.");
@@ -321,9 +355,9 @@ public class Main {
                     System.out.print("\n[+] Vincule el estadio a su sede:\n\n");
                     vincularEstadiosSede(estadio, mundial, sc);
                     break;
-                }
-            }while (opcion != 3);
-        }
+            }
+        } while (opcion != 3);
+    }
 
         
     
@@ -332,6 +366,7 @@ public class Main {
         Pais pais;
         Seleccion seleccion;
         int opcion;
+        boolean paises_disponibles = false;
         do {
             System.out.println("\n--------- Administrar delegaciones ---------\n");
             System.out.println("1. Agregar un pais.");
@@ -344,14 +379,33 @@ public class Main {
 
             switch (opcion){
                 case 1:
-                    pais = agregarPais(mundial, sc);
-                    limpiarPantalla();
-                    System.out.println("\n[+] Se ha agregado con exito el pais " + pais.getNombre());
-                    break;
+                    if (! mundial.getSedes().isEmpty()){
+                        pais = agregarPais(mundial, sc);
+                        limpiarPantalla();
+                        System.out.println("\n[+] Se ha agregado con exito el pais " + pais.getNombre());
+                        break;
+                    } else {
+                        limpiarPantalla();
+                        System.out.println("\n[!] Debe cargar las sedes del mundial al sistema.");
+                        break;
+                    }
                 case 2:
-                    seleccion = agregarSeleccion(mundial, sc);
-                    System.out.println("\n[+] Se ha agregado con exito la seleccion.");
-                    break;
+                    paises_disponibles = false;
+                    for (Sede sede : mundial.getSedes()){
+                        if (sede.getPais() != null){
+                            paises_disponibles = true;
+                            break;
+                        }
+                    }
+                    if (paises_disponibles){
+                        seleccion = agregarSeleccion(mundial, sc);
+                        System.out.println("\n[+] Se ha agregado con exito la seleccion.");
+                        break;
+                    }else{
+                        limpiarPantalla();
+                        System.out.println("\n[!] Para crear una seleccion debe cargar los paises participantes.");
+                        break;
+                    }
                 case 3:
                     limpiarPantalla();
                     break;
@@ -398,6 +452,7 @@ public class Main {
             System.out.println("\n---------------------------------------\n");
             System.out.print("\n[+] Ingrese una opcion: ");
             opcion = sc.nextInt();
+            sc.nextLine();
 
             switch (opcion){
                 case 1:
