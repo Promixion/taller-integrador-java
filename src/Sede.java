@@ -6,7 +6,7 @@ public class Sede {
     private String clima;
     private String zonaHoraria;
     private Pais pais;
-    private ArrayList<Estadio> estadios = new ArrayList<>();
+    private ArrayList<Estadio> estadios;
 
     public Sede(){
 
@@ -17,6 +17,7 @@ public class Sede {
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
+        this.estadios = new ArrayList<>();
     }
 
     public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais) {
@@ -25,6 +26,7 @@ public class Sede {
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
         this.pais = pais;
+        this.estadios = new ArrayList<>();
     }
 
     public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais,
@@ -35,6 +37,7 @@ public class Sede {
         this.zonaHoraria = zonaHoraria;
         this.pais = pais;
         this.estadios = estadios;
+
     }
 
     public String getCiudad() {

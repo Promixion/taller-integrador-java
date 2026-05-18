@@ -9,9 +9,9 @@ public class Seleccion {
     private Participacion participacion;
     private Grupo grupo;
     private Pais pais;
-    private ArrayList<Jugador> jugadores = new ArrayList<>();
-    private ArrayList<DirectorTecnico> directoresTecnicos = new ArrayList<>();
-    private ArrayList<CuerpoTecnico> cuerposTecnicos = new ArrayList<>();
+    private ArrayList<Jugador> jugadores;
+    private ArrayList<DirectorTecnico> directoresTecnicos;
+    private ArrayList<CuerpoTecnico> cuerposTecnicos;
 
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,
             int rankingFIFA) {
@@ -20,6 +20,9 @@ public class Seleccion {
         this.camisetaSecundaria = camisetaSecundaria;
         this.cabezaGrupo = cabezaGrupo;
         this.rankingFIFA = rankingFIFA;
+        this.jugadores = new ArrayList<>();
+        this.directoresTecnicos = new ArrayList<>();
+        this.cuerposTecnicos = new ArrayList<>();
     }
     
 
@@ -31,6 +34,9 @@ public class Seleccion {
         this.cabezaGrupo = cabezaGrupo;
         this.rankingFIFA = rankingFIFA;
         this.grupo = grupo;
+        this.jugadores = new ArrayList<>();
+        this.directoresTecnicos = new ArrayList<>();
+        this.cuerposTecnicos = new ArrayList<>();        
     }
 
 
@@ -44,6 +50,9 @@ public class Seleccion {
         this.participacion = participacion;
         this.grupo = grupo;
         this.pais = pais;
+        this.jugadores = new ArrayList<>();
+        this.directoresTecnicos = new ArrayList<>();
+        this.cuerposTecnicos = new ArrayList<>();
     }
 
 

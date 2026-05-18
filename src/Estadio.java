@@ -4,7 +4,7 @@ public class Estadio {
     private String nombre;
     private int capacidad;
     private Sede sede;
-    private ArrayList<Partido> partido = new ArrayList<>();
+    private ArrayList<Partido> partido;
 
     public Estadio(){
 
@@ -13,12 +13,14 @@ public class Estadio {
     public Estadio(String nombre, int capacidad) {
         this.nombre = nombre;
         this.capacidad = capacidad;
+        this.partido = new ArrayList<>();
     }
 
     public Estadio(String nombre, int capacidad, Sede sede) {
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.sede = sede;
+        this.partido = new ArrayList<>();
     }    
 
     public String getNombre() {

@@ -5,7 +5,7 @@ public class Jugador extends Persona {
     private Posicion posicion;
     private float peso;
     private float altura;
-    private ArrayList<Evento> eventos = new ArrayList<>();
+    private ArrayList<Evento> eventos;
 
     public Jugador(){
 
@@ -17,6 +17,7 @@ public class Jugador extends Persona {
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
+        this.eventos = new ArrayList<>();
     }
 
     public int getDorsal() {
