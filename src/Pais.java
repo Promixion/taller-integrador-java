@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Pais {
     private String nombre;
@@ -66,6 +67,32 @@ public class Pais {
         this.seleccion = seleccion;
     }
     
+    public static Pais agregarPais(Mundial mundial, Scanner sc){
+        String nombre;
+        String bandera;
+        String opcion;
+        Pais pais;
+        System.out.print("\n[+] Ingrese el nombre del pais: ");
+        nombre = sc.nextLine();
+        System.out.print("\n[+] Ingrese la bandera del pais: ");
+        bandera = sc.nextLine();
+        pais = new Pais(nombre, bandera);
+
+        for (Sede sede : mundial.getSedes()){
+            if (sede.getPais() == null){
+                System.out.print("\n[?] La sede " + sede.getCiudad() + " pertenece al pais " + pais.getNombre() + "? (si/no): ");
+                opcion = sc.nextLine().toLowerCase();
+                if(opcion.equals("si")){
+                    sede.setPais(pais);
+                    pais.setSedes(sede);
+                    Mundial.addPaises(pais);
+                    break;
+                }
+            }
+        }
+
+        return pais;
+    }
     
     
 }

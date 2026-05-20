@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class Mundial {
     private int anio;
@@ -61,5 +62,36 @@ public class Mundial {
         return paises;
     }
 
+    public static Mundial crearMundial(Scanner sc){
+
+        Mundial mundial;
+        int anio;
+        String mascota;
+        int fechaComienzo;
+        int fechaFinalizacion;
+
+        System.out.println("\n[+] Cree el mundial. ");
+        System.out.print("\n\tIngrese el año del mundial: ");
+        anio = sc.nextInt();
+        sc.nextLine();
+        System.out.print("\tIngrese la mascota: ");
+        mascota = sc.nextLine();
+        System.out.print("\tIngrese la fecha de comienzo del mundial: ");
+        fechaComienzo = sc.nextInt();
+        System.out.print("\tIngrese la fecha de finalizacion del mundial: ");
+        fechaFinalizacion = sc.nextInt();
+        while (! (fechaFinalizacion > fechaComienzo)){
+            System.out.println("\n[!] La fecha de finalizacion no puede ser antes que la fecha de comienzo.\n");
+            System.out.print("\t[+] Ingrese la fecha de finalizacion del mundial: ");
+            fechaFinalizacion = sc.nextInt();
+            sc.nextLine();
+        }
+        Main.limpiarPantalla();
+
+        mundial = new Mundial(anio, mascota, fechaComienzo, fechaFinalizacion);
+
+        return mundial;
+
+    }
 
 }
