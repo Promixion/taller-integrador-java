@@ -127,13 +127,16 @@ public class Sede {
             System.out.println(String.format("ID %d:", id+1) + "\n\t" + sede.getCiudad());
             id++;
         }
-        System.out.print("\n[+] Indique el ID de la sede: ");
-        id = sc.nextInt();
-        sc.nextLine();
-        if (id < 1 || id > mundial.getSedes().size()){
-            System.out.println("[!] ID inválido.");
-            return;
-        }   
+        while (true){
+            System.out.print("\n[+] Indique el ID de la sede: ");
+            id = sc.nextInt();
+            sc.nextLine();
+            if (id < 1 || id > mundial.getSedes().size()){
+                System.out.println("[!] ID inválido.");
+            }else{
+                break;
+            }
+        }
         sede_asignar = mundial.getSedes().get(id-1);
         sede_asignar.addEstadio(estadio);
         estadio.setSede(sede_asignar);

@@ -111,6 +111,16 @@ public class Seleccion {
     }
 
 
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+
+    public Pais getPais() {
+        return pais;
+    }
+
+
     public void setPais(Pais pais) {
         this.pais = pais;
     }
@@ -129,6 +139,7 @@ public class Seleccion {
     public void setCuerposTecnicos(CuerpoTecnico cuerposTecnico) {
         this.cuerposTecnicos.add(cuerposTecnico);
     }
+    
     public static Seleccion agregarSeleccion(Mundial mundial, Scanner sc){
         String nombreFederacion;
         String camisetaPrincipal;
@@ -301,25 +312,29 @@ public class Seleccion {
             }
         }
 
-        for (Pais pais : Mundial.paises){
+        boolean encontrado = false;
+
+        for (Pais pais : Mundial.paises) {
             System.out.print("\n[+] La seleccion es del pais " + pais.getNombre() + "? (si/no): ");
             op = sc.nextLine().toLowerCase();
-            if (op.equals("si")){
-                if (pais.getSeleccion() == null){
+            if (op.equals("si")) {
+                if (pais.getSeleccion() == null) {
                     pais.setSeleccion(seleccion);
                     seleccion.setPais(pais);
+                    encontrado = true;
                     break;
-                }else {
+                } else {
                     System.out.println("[!] El pais " + pais.getNombre() + " ya posee una seleccion asignada.");
                 }
-            } else {
-                pais = Pais.agregarPais(mundial, sc);
-                pais.setSeleccion(seleccion);
-                seleccion.setPais(pais);
-                Mundial.addPaises(pais);
             }
         }
-
+        if (!encontrado) {
+            Pais nuevoPais = Pais.agregarPais(mundial, sc);
+            nuevoPais.setSeleccion(seleccion);
+            seleccion.setPais(nuevoPais);
+            Mundial.addPaises(nuevoPais);
+        }
+        Mundial.selecciones.add(seleccion);
         return seleccion;
     }
     

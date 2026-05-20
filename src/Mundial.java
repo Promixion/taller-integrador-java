@@ -8,7 +8,9 @@ public class Mundial {
     private int fechaDesde;
     private int fechaHasta;
     private ArrayList<Sede> sedes;
-    static HashSet<Pais> paises = new HashSet<>();
+    public static HashSet<Pais> paises = new HashSet<>();
+    public static ArrayList<Seleccion> selecciones = new ArrayList<>();
+    public static HashSet<Grupo> grupos = new HashSet<>();
 
     public Mundial(){
 
