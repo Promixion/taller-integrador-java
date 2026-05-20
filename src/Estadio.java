@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Estadio {
     private String nombre;
@@ -58,7 +59,20 @@ public class Estadio {
     @Override
     public String toString() {
         return "\nnombre: " + nombre + ", capacidad: " + capacidad + ", sede:" + sede + ", partido: " + partido;
-    }    
-    
+    } 
+       
+    public static Estadio agregarEstadio(Scanner sc){
+        String nombre;
+        int capacidad;
+
+        System.out.print("\n[+] Ingrese el nombre del estadio: ");
+        nombre = sc.nextLine();
+        System.out.print("\n[+] Ingrese la capacidad del estadio: ");
+        capacidad = sc.nextInt();
+        sc.nextLine();
+
+        return new Estadio(nombre, capacidad);
+
+    }
     
 }
