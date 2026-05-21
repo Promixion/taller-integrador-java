@@ -95,6 +95,14 @@ public class Sede {
         return "\nciudad:" + ciudad + ", alturaNivelMar: " + alturaNivelMar + ", clima: " + clima + ", zonaHoraria: "
                 + zonaHoraria + ", pais: " + pais + ", estadios: " + estadios;
     }
+
+
+    @Override
+    public boolean equals(Object nueva_sede) {
+        if (this == nueva_sede) return true;                    // misma referencia
+        if (nueva_sede == null || !(nueva_sede instanceof Sede)) return false;  // null o clase distinta
+        return this.ciudad.toLowerCase().equals(((Sede) nueva_sede).getCiudad().toLowerCase());
+    }
     
     public static Sede registSede(Scanner sc){
         String ciudad;
@@ -127,13 +135,16 @@ public class Sede {
             System.out.println(String.format("ID %d:", id+1) + "\n\t" + sede.getCiudad());
             id++;
         }
-        System.out.print("\n[+] Indique el ID de la sede: ");
-        id = sc.nextInt();
-        sc.nextLine();
-        if (id < 1 || id > mundial.getSedes().size()){
-            System.out.println("[!] ID inválido.");
-            return;
-        }   
+        while (true){
+            System.out.print("\n[+] Indique el ID de la sede: ");
+            id = sc.nextInt();
+            sc.nextLine();
+            if (id < 1 || id > mundial.getSedes().size()){
+                System.out.println("[!] ID inválido.");
+            }else{
+                break;
+            }
+        }
         sede_asignar = mundial.getSedes().get(id-1);
         sede_asignar.addEstadio(estadio);
         estadio.setSede(sede_asignar);

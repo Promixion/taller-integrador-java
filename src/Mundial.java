@@ -8,7 +8,10 @@ public class Mundial {
     private int fechaDesde;
     private int fechaHasta;
     private ArrayList<Sede> sedes;
-    static HashSet<Pais> paises = new HashSet<>();
+    public static ArrayList<Pais> paises = new ArrayList<>();
+    public static ArrayList<Seleccion> selecciones = new ArrayList<>();
+    public static ArrayList<Fase> fases = new ArrayList<>();
+    public static ArrayList<Grupo> grupos = new ArrayList<>();
 
     public Mundial(){
 
@@ -58,7 +61,7 @@ public class Mundial {
     public static void addPaises(Pais pais){
         paises.add(pais);
     }
-    public static HashSet<Pais> getPaises(){
+    public static ArrayList<Pais> getPaises(){
         return paises;
     }
 
