@@ -326,6 +326,8 @@ public class Seleccion {
                 } else {
                     System.out.println("[!] El pais " + pais.getNombre() + " ya posee una seleccion asignada.");
                 }
+            }else {
+                break;
             }
         }
         if (!encontrado) {

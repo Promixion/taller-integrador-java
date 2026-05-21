@@ -95,6 +95,14 @@ public class Sede {
         return "\nciudad:" + ciudad + ", alturaNivelMar: " + alturaNivelMar + ", clima: " + clima + ", zonaHoraria: "
                 + zonaHoraria + ", pais: " + pais + ", estadios: " + estadios;
     }
+
+
+    @Override
+    public boolean equals(Object nueva_sede) {
+        if (this == nueva_sede) return true;                    // misma referencia
+        if (nueva_sede == null || !(nueva_sede instanceof Sede)) return false;  // null o clase distinta
+        return this.ciudad.toLowerCase().equals(((Sede) nueva_sede).getCiudad().toLowerCase());
+    }
     
     public static Sede registSede(Scanner sc){
         String ciudad;

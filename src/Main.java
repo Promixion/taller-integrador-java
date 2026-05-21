@@ -13,8 +13,9 @@ public class Main {
 
     public static void gestInfraestructura(Mundial mundial, Scanner sc){
         int opcion;
-        Sede sede;
+        Sede sede_nueva;
         Estadio estadio;
+        boolean comprobacion = false;
         do{
             System.out.println("\n-------- Infraestructura --------\n");
             System.out.println("\t1. Registrar sede.");
@@ -27,10 +28,26 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    sede = Sede.registSede(sc);
-                    mundial.setSede(sede);
-                    limpiarPantalla();
-                    System.out.println("\n[+] Sede creada exitosamente.");
+                    sede_nueva = Sede.registSede(sc);
+
+                    if (! mundial.getSedes().isEmpty()){
+                        for (Sede sede : mundial.getSedes()){
+                            if(sede.equals(sede_nueva)){
+                                comprobacion = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (comprobacion == false){
+                        mundial.setSede(sede_nueva);
+                        limpiarPantalla();
+                        System.out.println("\n[+] Sede creada exitosamente.");
+                        comprobacion = false;
+                    } else {
+                        limpiarPantalla();
+                        System.out.println("[!] La sede ya se encuentra en el sistema.");
+                        comprobacion = false;
+                    }
                     break;
                 case 2:
                     if (mundial.getSedes().isEmpty()){
@@ -137,6 +154,19 @@ public class Main {
                     }
                     break;
                 case 2:
+                    limpiarPantalla();
+                    if (Mundial.grupos.isEmpty()){
+                        System.out.println("\n[!] Debe configurar primero los grupos");
+                        break;
+                    }else {
+                        Fase.crearFase(sc);
+                    }
+                    System.out.print("\n[+] Desea vincular grupos a las fases? (si/no): ");
+                    String resp = sc.nextLine().toLowerCase();
+                    if (resp.equals("si")){
+                        Fase.vincularGrupos(sc);
+                    }
+
                     break;
                 case 3:
                     break;

@@ -86,9 +86,9 @@ public class Grupo {
                 System.out.println("\n[!] Identificador invalido.");
                 continue;
             }else {
-                if (Mundial.selecciones.get(id-1).getGrupo() == null){
+                if (Mundial.selecciones.get(op-1).getGrupo() == null){
                     grupo.addSeleccion(Mundial.selecciones.get(op-1));
-                    Mundial.selecciones.get(id-1).setGrupo(grupo);
+                    Mundial.selecciones.get(op-1).setGrupo(grupo);
                 }else {
                     System.out.println("[!] La seleccion ya posee un grupo.");
                     continue;
@@ -96,15 +96,15 @@ public class Grupo {
             }
             System.out.print("\n[+] Desea agregar otra seleccion al grupo? (si/no): ");
             String resp = sc.nextLine().toLowerCase();
-            if (resp.equals("si")){
-                for (Seleccion seleccion :  Mundial.selecciones){
-                    if (seleccion.getGrupo() == null){
-                        break;
-                    }
+            boolean hayDisponibles = false;
+            for (Seleccion seleccion : Mundial.selecciones){
+                if (seleccion.getGrupo() == null){
+                    hayDisponibles = true;
+                    break;
                 }
+            }
+            if (!hayDisponibles){
                 System.out.println("[i] No hay selecciones disponibles para asignar grupo.");
-                break;
-            }else{
                 break;
             }
         }
