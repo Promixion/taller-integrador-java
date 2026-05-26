@@ -8,7 +8,8 @@ public class Estadio {
     private ArrayList<Partido> partido;
 
     public Estadio(){
-
+        this("", 0);
+        this.partido = new ArrayList<>();
     }
 
     public Estadio(String nombre, int capacidad) {

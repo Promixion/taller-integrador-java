@@ -7,7 +7,8 @@ public class Fase {
     private ArrayList<Partido> partidos;
 
     public Fase(){
-
+        this.grupos = new ArrayList<>();
+        this.partidos = new ArrayList<>();
     }
 
     public Fase(NombreFase nombre) {
@@ -21,7 +22,7 @@ public class Fase {
         return partidos;
     }
 
-    public void setPartidos(Partido partido) {
+    public void addPartidos(Partido partido) {
         this.partidos.add(partido);
     }
 
@@ -41,7 +42,7 @@ public class Fase {
         this.grupos.add(grupo);
     }
     
-    public static void crearFase(Scanner sc){
+    public static void crearFase(Mundial mundial, Scanner sc){
         int opcion;
         Fase fase_creada = new Fase();
         System.out.println("\n[+] Ingrese la fase a configurar en el mundial.\n");
@@ -56,77 +57,80 @@ public class Fase {
         sc.nextLine();
         switch (opcion){
             case 1:
-                fase_creada = new Fase(NombreFase.Grupos);
+                fase_creada.setNombre(NombreFase.Grupos);
                 break;
             case 2:
-                fase_creada = new Fase(NombreFase.Dieciseisavos);
+                fase_creada.setNombre(NombreFase.Dieciseisavos);
                 break;
             case 3:
-                fase_creada = new Fase(NombreFase.Octavos);
+                fase_creada.setNombre(NombreFase.Octavos);
                 break;
             case 4:
-                fase_creada = new Fase(NombreFase.Cuartos);
+                fase_creada.setNombre(NombreFase.Cuartos);
                 break;
             case 5:
-                fase_creada = new Fase(NombreFase.Semifinal);
+                fase_creada.setNombre(NombreFase.Semifinal);
                 break;
             case 6:
-                fase_creada = new Fase(NombreFase.Final);
+                fase_creada.setNombre(NombreFase.Final);
                 break;
         }
         boolean yaExiste = false;
-        if (Mundial.fases.isEmpty()){
-            Mundial.fases.add(fase_creada);
+        if (mundial.getFases().isEmpty()){
+            mundial.addFases(fase_creada);
         } else {
-            for (Fase fase : Mundial.fases){
+            for (Fase fase : mundial.getFases()){
                 if (fase.getNombre() == fase_creada.getNombre()){
                     yaExiste = true;
                 }
             }
             if (yaExiste == false){
-                Mundial.fases.add(fase_creada);
+                mundial.addFases(fase_creada);
             }else {
                 System.out.println("\n[!] La fase ya se encuentra configurada en el mundial");
             }
         }
     }
 
-    public static void vincularGrupos(Scanner sc){
+    public static void vincularGrupos(Mundial mundial, Scanner sc){
         System.out.println("[+] Seleccione la fase a vincular los grupos: ");
         int id = 0;
-        int op;
-        for (Fase fase : Mundial.fases){
+        int opFase;
+        int opGrupo;
+        for (Fase fase : mundial.getFases()){
             id++;
             System.out.println(id + ". " + fase.getNombre());
         }
         System.out.print("\n\n[+] Seleccione la fase: ");
-        op = sc.nextInt();
+        opFase = sc.nextInt();
         sc.nextLine();
 
-        if (op >= 1 && op <= Mundial.fases.size()){
+        if (opFase >= 1 && opFase <= mundial.getFases().size()){
             boolean elegir = true;
             while (elegir){
-                Fase fase_vincular = Mundial.fases.get(op-1);
+                Fase fase_vincular = mundial.getFases().get(opFase-1);
                 System.out.println("[+] Indique los grupos a vincular a la fase.");
                 id = 0;
-                for (Grupo grupo : Mundial.grupos){
+                for (Grupo grupo : mundial.getGrupos()){
                     id++;
                     System.out.println(id + ". " + grupo.getIdentificacion());
                 }
 
                 System.out.print("[+] Seleccione el grupo a vincular: ");
-                op = sc.nextInt();
+                opGrupo = sc.nextInt();
                 sc.nextLine();
+                if (opGrupo >= 1 && opGrupo <= mundial.getGrupos().size()){
+                    Grupo grupo_vincular = mundial.getGrupos().get(opGrupo-1);
 
-                Grupo grupo_vincular = Mundial.grupos.get(op-1);
-
-                if (grupo_vincular.getFase() == null){
-                    fase_vincular.addGrupos(grupo_vincular);
-                    grupo_vincular.setFase(fase_vincular);
+                    if (grupo_vincular.getFase() == null){
+                        fase_vincular.addGrupos(grupo_vincular);
+                        grupo_vincular.setFase(fase_vincular);
+                    } else {
+                        System.out.println("[!] El grupo ya posee una fase asignada.");
+                    }
                 } else {
-                    System.out.println("[!] El grupo ya posee una fase asignada.");
+                    System.out.println("\n[!] Identificador invalido.");
                 }
-
                 System.out.print("[+] Desea vincular otro grupo a la fase? (si/no): ");
                 String resp = sc.nextLine().toLowerCase();
                 if (resp.equals("si")){

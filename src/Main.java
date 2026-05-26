@@ -28,7 +28,7 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    sede_nueva = Sede.registSede(sc);
+                    sede_nueva = Sede.registSede(mundial, sc);
 
                     if (! mundial.getSedes().isEmpty()){
                         for (Sede sede : mundial.getSedes()){
@@ -39,7 +39,7 @@ public class Main {
                         }
                     }
                     if (comprobacion == false){
-                        mundial.setSede(sede_nueva);
+                        mundial.addSede(sede_nueva);
                         limpiarPantalla();
                         System.out.println("\n[+] Sede creada exitosamente.");
                         comprobacion = false;
@@ -71,8 +71,9 @@ public class Main {
         do {
             System.out.println("\n--------- Administrar delegaciones ---------\n");
             System.out.println("1. Agregar un pais.");
-            System.out.println("2. Agregar una seleccion.");;
-            System.out.println("3. Volver.");
+            System.out.println("2. Agregar una seleccion.");
+            System.out.println("3. Registrar un arbitro.");
+            System.out.println("4. Volver.");
             System.out.println("\n--------------------------------------------\n");
             System.out.print("\n[+] Ingrese una opcion: ");
             opcion = sc.nextInt();
@@ -99,7 +100,7 @@ public class Main {
                         }
                     }
                     if (paises_disponibles){
-                        Seleccion seleccion = Seleccion.agregarSeleccion(mundial, sc);
+                        Seleccion.agregarSeleccion(mundial, sc);
                         System.out.println("\n[+] Se ha agregado con exito la seleccion.");
                         break;
                     }else{
@@ -107,13 +108,18 @@ public class Main {
                         System.out.println("\n[!] Para crear una seleccion debe cargar los paises participantes.");
                         break;
                     }
+                    
                 case 3:
+                    Arbitro.registrarArbitro(mundial, sc);
+                    limpiarPantalla();
+                    break;
+                case 4:
                     limpiarPantalla();
                     break;
 
             }
 
-        } while (opcion != 3);
+        } while (opcion != 4);
 
     }
 
@@ -135,18 +141,19 @@ public class Main {
             switch (opcion){
                 case 1:
                     limpiarPantalla();
-                    if (! Mundial.selecciones.isEmpty()){
-                        Grupo grupo_nuevo = Grupo.agregarGrupo(sc);
+                    if (! mundial.getSelecciones().isEmpty()){
+                        Grupo grupo_nuevo = Grupo.agregarGrupo(mundial, sc);
                         System.out.println("\n[+] Se ha agregado el grupo.");
-                        
-                        for (Seleccion seleccion : Mundial.selecciones){
+                        boolean validation = false;
+                        for (Seleccion seleccion : mundial.getSelecciones()){
                             if (seleccion.getGrupo() == null){
-                                Grupo.vincularSelecciones(sc, grupo_nuevo);
-                                break;
-                            } else {
-                                System.out.println("[!] Todas las selecciones ya pertenecen a un grupo.");
+                                validation = true;
+                                Grupo.vincularSelecciones(mundial, sc, grupo_nuevo);
                                 break;
                             }
+                        }
+                        if (!validation){
+                            System.out.println("[!] Todas las selecciones ya pertenecen a un grupo.");
                         }
                     } else {
                         System.out.println("[!] Deben haber selecciones registradas.");
@@ -155,20 +162,20 @@ public class Main {
                     break;
                 case 2:
                     limpiarPantalla();
-                    if (Mundial.grupos.isEmpty()){
+                    if (mundial.getGrupos().isEmpty()){
                         System.out.println("\n[!] Debe configurar primero los grupos");
                         break;
                     }else {
-                        Fase.crearFase(sc);
+                        Fase.crearFase(mundial, sc);
                     }
                     System.out.print("\n[+] Desea vincular grupos a las fases? (si/no): ");
                     String resp = sc.nextLine().toLowerCase();
                     if (resp.equals("si")){
-                        Fase.vincularGrupos(sc);
+                        Fase.vincularGrupos(mundial, sc);
                     }
-
                     break;
                 case 3:
+                    Partido.planificarPartido(mundial, sc);
                     break;
                 case 4:
                     limpiarPantalla();
@@ -180,7 +187,7 @@ public class Main {
     }
 
     public static void registEvento(Mundial mundial){
-
+        
     }
 
     public static void main(String[] args) {

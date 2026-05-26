@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class Mundial {
@@ -8,13 +7,22 @@ public class Mundial {
     private int fechaDesde;
     private int fechaHasta;
     private ArrayList<Sede> sedes;
-    public static ArrayList<Pais> paises = new ArrayList<>();
-    public static ArrayList<Seleccion> selecciones = new ArrayList<>();
-    public static ArrayList<Fase> fases = new ArrayList<>();
-    public static ArrayList<Grupo> grupos = new ArrayList<>();
+    private ArrayList<Pais> paises;
+    private ArrayList<Arbitro> arbitros;
+    private ArrayList<Seleccion> selecciones;
+    private ArrayList<Grupo> grupos;
+    private ArrayList<Fase> fases;
+    private ArrayList<Partido> partidos;
 
     public Mundial(){
-
+        this(0, "", 0, 1);
+        this.sedes = new ArrayList<>();
+        this.paises = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
+        this.selecciones = new ArrayList<>();
+        this.grupos = new ArrayList<>();
+        this.fases = new ArrayList<>();
+        this.partidos = new ArrayList<>();
     }
     
     public Mundial(int anio, String mascota, int fechaDesde, int fechaHasta) {
@@ -23,6 +31,12 @@ public class Mundial {
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
         this.sedes = new ArrayList<>();
+        this.paises = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
+        this.selecciones = new ArrayList<>();
+        this.grupos = new ArrayList<>();
+        this.fases = new ArrayList<>();
+        this.partidos = new ArrayList<>();
     }
 
     public int getAnio() {
@@ -54,15 +68,60 @@ public class Mundial {
         return sedes;
     }
 
-    public void setSede(Sede sede) {
+    public void addSede(Sede sede) {
         this.sedes.add(sede);
     }
-
-    public static void addPaises(Pais pais){
-        paises.add(pais);
+    
+    public void setSedes(ArrayList<Sede> sedes) {
+        this.sedes = sedes;
     }
-    public static ArrayList<Pais> getPaises(){
+
+    public ArrayList<Pais> getPaises() {
         return paises;
+    }
+
+    public void addPaises(Pais pais) {
+        this.paises.add(pais);
+    }
+    
+    public ArrayList<Arbitro> getArbitros() {
+        return arbitros;
+    }
+
+    public void setArbitros(Arbitro arbitro) {
+        this.arbitros.add(arbitro);
+    }
+
+    public ArrayList<Seleccion> getSelecciones() {
+        return selecciones;
+    }
+
+    public void addSelecciones(Seleccion seleccion) {
+        this.selecciones.add(seleccion);
+    }
+
+    public ArrayList<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void addGrupos(Grupo grupo) {
+        this.grupos.add(grupo);
+    }
+
+    public ArrayList<Fase> getFases() {
+        return fases;
+    }
+
+    public void addFases(Fase fase) {
+        this.fases.add(fase);
+    }
+
+    public ArrayList<Partido> getPartidos() {
+        return partidos;
+    }
+
+    public void addPartidos(Partido partido) {
+        this.partidos.add(partido);
     }
 
     public static Mundial crearMundial(Scanner sc){

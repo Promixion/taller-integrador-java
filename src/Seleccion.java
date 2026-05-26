@@ -7,7 +7,7 @@ public class Seleccion {
     private String camisetaSecundaria;
     private boolean cabezaGrupo;
     private int rankingFIFA;
-    private Participacion participacion;
+    private ArrayList<Participacion> participaciones;
     private Grupo grupo;
     private Pais pais;
     private ArrayList<Jugador> jugadores;
@@ -24,6 +24,7 @@ public class Seleccion {
         this.jugadores = new ArrayList<>();
         this.directoresTecnicos = new ArrayList<>();
         this.cuerposTecnicos = new ArrayList<>();
+        this.participaciones = new ArrayList<>();
     }
     
 
@@ -37,18 +38,19 @@ public class Seleccion {
         this.grupo = grupo;
         this.jugadores = new ArrayList<>();
         this.directoresTecnicos = new ArrayList<>();
-        this.cuerposTecnicos = new ArrayList<>();        
+        this.cuerposTecnicos = new ArrayList<>();   
+        this.participaciones = new ArrayList<>();     
     }
 
 
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo,
-            int rankingFIFA, Participacion participacion, Grupo grupo, Pais pais) {
+            int rankingFIFA, ArrayList<Participacion> participacion, Grupo grupo, Pais pais) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
         this.cabezaGrupo = cabezaGrupo;
         this.rankingFIFA = rankingFIFA;
-        this.participacion = participacion;
+        this.participaciones = participacion;
         this.grupo = grupo;
         this.pais = pais;
         this.jugadores = new ArrayList<>();
@@ -101,8 +103,12 @@ public class Seleccion {
         this.rankingFIFA = rankingFIFA;
     }
 
-    public void setParticipacion(Participacion participacion) {
-        this.participacion = participacion;
+    public void addParticipacion(Participacion participacion) {
+        this.participaciones.add(participacion);
+    }
+
+    public ArrayList<Participacion> getParticipaciones() {
+        return participaciones;
     }
 
 
@@ -140,7 +146,7 @@ public class Seleccion {
         this.cuerposTecnicos.add(cuerposTecnico);
     }
     
-    public static Seleccion agregarSeleccion(Mundial mundial, Scanner sc){
+    public static void agregarSeleccion(Mundial mundial, Scanner sc){
         String nombreFederacion;
         String camisetaPrincipal;
         String camisetaSecundaria;
@@ -283,7 +289,7 @@ public class Seleccion {
                     agregar = false;
                 }
         }
-
+        Main.limpiarPantalla();
         agregar = true;
         System.out.println("\n[+] Ingrese los directores tecnicos de la seleccion.\n");
         while (agregar){
@@ -306,15 +312,9 @@ public class Seleccion {
 
         }
 
-        for ( Sede sede : mundial.getSedes() ){
-            if (sede.getPais() != null){
-                Mundial.addPaises(sede.getPais());
-            }
-        }
-
         boolean encontrado = false;
-
-        for (Pais pais : Mundial.paises) {
+        Main.limpiarPantalla();
+        for (Pais pais : mundial.getPaises()) {
             System.out.print("\n[+] La seleccion es del pais " + pais.getNombre() + "? (si/no): ");
             op = sc.nextLine().toLowerCase();
             if (op.equals("si")) {
@@ -334,10 +334,11 @@ public class Seleccion {
             Pais nuevoPais = Pais.agregarPais(mundial, sc);
             nuevoPais.setSeleccion(seleccion);
             seleccion.setPais(nuevoPais);
-            Mundial.addPaises(nuevoPais);
+            if (!mundial.getPaises().contains(nuevoPais)){
+                mundial.addPaises(nuevoPais);
+            }
         }
-        Mundial.selecciones.add(seleccion);
-        return seleccion;
+        mundial.addSelecciones(seleccion);
     }
     
 }

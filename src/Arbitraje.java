@@ -1,9 +1,7 @@
-import java.util.ArrayList;
-
 public class Arbitraje {
     private CategoriaArbitro rol;
-    private ArrayList<Partido> partido;
-    private ArrayList<Arbitro> arbitro;
+    private Partido partido;
+    private Arbitro arbitro;
 
     public Arbitraje(){
 
@@ -11,8 +9,7 @@ public class Arbitraje {
 
     public Arbitraje(CategoriaArbitro rol) {
         this.rol = rol;
-        this.partido = new ArrayList<>();
-        this.arbitro = new ArrayList<>();
+
     }
 
     public CategoriaArbitro getRol() {
@@ -23,21 +20,20 @@ public class Arbitraje {
         this.rol = rol;
     }
 
-    public void addPartido(Partido partido) {
-        this.partido.add(partido);
-    }
-
-    public ArrayList<Partido> getPartido() {
+    public Partido getPartido() {
         return partido;
-    } 
-    
-    public void addArbitro(Arbitro arbitro) {
-        this.arbitro.add(arbitro);
     }
 
-    public ArrayList<Arbitro> getArbitro() {
+    public void setPartido(Partido partido) {
+        this.partido = partido;
+    }
+
+    public Arbitro getArbitro() {
         return arbitro;
-    }     
-    
+    }
+
+    public void setArbitro(Arbitro arbitro) {
+        this.arbitro = arbitro;
+    }
 
 }

@@ -1,17 +1,16 @@
-import java.util.ArrayList;
-
 public class Participacion {
     private boolean esLocal;
-    private Seleccion [] selecciones = new Seleccion [2];
-    private ArrayList<Partido> partido;
+    private Seleccion seleccion;
+    private Partido partido;
 
     public Participacion(){
 
     }
 
-    public Participacion(boolean esLocal) {
+    public Participacion(boolean esLocal, Partido partido, Seleccion seleccion) {
         this.esLocal = esLocal;
-        this.partido = new ArrayList<>();
+        this.partido = partido;
+        this.seleccion =  seleccion;
     }
 
     public boolean isEsLocal() {
@@ -32,20 +31,18 @@ public class Participacion {
         return 1;
     }
 
-    public void setSeleccion(Seleccion seleccion1, Seleccion seleccion2){
-        selecciones[0] = seleccion1;
-        selecciones[1] = seleccion2;
-
+    public void setSeleccion(Seleccion seleccion){
+        this.seleccion = seleccion;
     }
-    public Seleccion[] getSeleccion(){
-        return selecciones;
+    public Seleccion getSeleccion(){
+        return seleccion;
     }
 
-    public void addPartido(Partido partido) {
-        this.partido.add(partido);
+    public void setPartido(Partido partido) {
+        this.partido = partido;
     }
 
-    public ArrayList<Partido> getPartido() {
+    public Partido getPartido() {
         return partido;
     }    
 
