@@ -47,7 +47,7 @@ public class Pais {
         return sedes;
     }
 
-    public void setSedes(Sede sede) {
+    public void addSedes(Sede sede) {
         this.sedes.add(sede);
     }
 
@@ -67,6 +67,17 @@ public class Pais {
         this.seleccion = seleccion;
     }
     
+
+    @Override
+    public boolean equals(Object obj){
+        Pais pais_verificar = (Pais) obj;
+        if (this.getNombre() == pais_verificar.getNombre()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public static Pais agregarPais(Mundial mundial, Scanner sc){
         String nombre;
         String bandera;
@@ -84,8 +95,9 @@ public class Pais {
                 opcion = sc.nextLine().toLowerCase();
                 if(opcion.equals("si")){
                     sede.setPais(pais);
-                    pais.setSedes(sede);
-                    Mundial.addPaises(pais);
+                    pais.addSedes(sede);
+                    if (!mundial.getPaises().contains(pais))
+                        mundial.addPaises(pais);
                     break;
                 }
             }

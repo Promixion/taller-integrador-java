@@ -10,7 +10,8 @@ public class Sede {
     private ArrayList<Estadio> estadios;
 
     public Sede(){
-
+        this("", 0.0f, "", "");
+        this.estadios = new ArrayList<>();
     }
 
     public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria) {
@@ -99,12 +100,12 @@ public class Sede {
 
     @Override
     public boolean equals(Object nueva_sede) {
-        if (this == nueva_sede) return true;                    // misma referencia
-        if (nueva_sede == null || !(nueva_sede instanceof Sede)) return false;  // null o clase distinta
+        if (this == nueva_sede) return true;                    
+        if (nueva_sede == null || !(nueva_sede instanceof Sede)) return false; 
         return this.ciudad.toLowerCase().equals(((Sede) nueva_sede).getCiudad().toLowerCase());
     }
     
-    public static Sede registSede(Scanner sc){
+    public static Sede registSede(Mundial mundial, Scanner sc){
         String ciudad;
         float alturaNivelMar;
         String clima;
@@ -145,11 +146,12 @@ public class Sede {
                 break;
             }
         }
-        sede_asignar = mundial.getSedes().get(id-1);
-        sede_asignar.addEstadio(estadio);
-        estadio.setSede(sede_asignar);
-        Main.limpiarPantalla();
-        System.out.println(String.format("\n[+] Se ha asignado el estadio %s a la sede en %s", estadio.getNombre(), sede_asignar.getCiudad()));
-
+        if (estadio.getSede() == null){
+            sede_asignar = mundial.getSedes().get(id-1);
+            sede_asignar.addEstadio(estadio);
+            estadio.setSede(sede_asignar);
+            Main.limpiarPantalla();
+            System.out.println(String.format("\n[+] Se ha asignado el estadio %s a la sede en %s", estadio.getNombre(), sede_asignar.getCiudad()));
+        }
     }
 }
