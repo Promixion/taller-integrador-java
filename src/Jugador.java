@@ -52,7 +52,7 @@ public class Jugador extends Persona {
         this.altura = altura;
     }
 
-    public void setEventos(Evento evento) {
+    public void addEventos(Evento evento) {
         this.eventos.add(evento);
     }
     

@@ -127,8 +127,8 @@ public class Partido {
         this.participacionVisitante = participacionVisitante;
     }
 
-    public void setEventos(TipoEvento tipo, int min) {
-        this.eventos.add(new Evento(tipo, min));
+    public void addEventos(Evento evento) {
+        this.eventos.add(evento);
     }
 
     public ArrayList<Arbitraje> getArbitraje() {
@@ -137,6 +137,93 @@ public class Partido {
 
     public void addArbitraje(Arbitraje arbitraje) {
         this.arbitraje.add(arbitraje);
+    }
+
+    public void generarEvento(Mundial mundial, Scanner sc){
+
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        for (Jugador jugador : this.participacionLocal.getSeleccion().getJugadores()){
+            jugadores.add(jugador);
+        }
+
+        for (Jugador jugador : this.participacionVisitante.getSeleccion().getJugadores()){
+            jugadores.add(jugador);
+        }
+        
+        System.out.println("\n[+] Seleccione el jugador al cual desea asignarle un evento.");
+        int op = 0;
+        for (Jugador jugador : jugadores){
+            op++;
+            System.out.println(op + ". " + jugador.getNombre());
+        }
+        System.out.print("[+] Ingrese una opcion: ");
+        op = sc.nextInt();
+        sc.nextLine();
+        Jugador jugador_asignar_evento = jugadores.get(op-1);
+
+        op = 0;
+        System.out.println("\n[+] Indique el tipo de evento para el jugador: " + jugador_asignar_evento.getNombre());
+        System.out.println("1. Gol");
+        System.out.println("2. Tarjeta amarilla");
+        System.out.println("3. Tarjeta roja");
+        System.out.println("4. Penal cometido");
+        System.out.println("5. Penal convertido");
+        System.out.println("6. Penal errado");
+        System.out.println("7. Doble amarilla");
+        System.out.println("8. Sustitucion");
+        System.out.println("9. Lesion");
+
+        System.out.print("\n[+] Ingrese una opcion: ");
+        op = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("[+] Ingrese el minuto del evento: ");
+        int minuto = sc.nextInt();
+        sc.nextLine();
+        TipoEvento tipo_evento;
+        switch (op){
+            case 1:
+                tipo_evento = TipoEvento.Gol;
+                break;
+            case 2:
+                tipo_evento = TipoEvento.TarjetaAmarilla;
+                break;
+            case 3:
+                tipo_evento = TipoEvento.TarjetaRoja;
+                break;
+            case 4:
+                tipo_evento = TipoEvento.PenalCometido;
+                break;
+            case 5:
+                tipo_evento = TipoEvento.PenalConvertido;
+                break;
+            case 6:
+                tipo_evento = TipoEvento.PenalErrado;
+                break;
+            case 7:
+                tipo_evento = TipoEvento.DobleAmarilla;
+                break;
+            case 8:
+                tipo_evento = TipoEvento.Sustitucion;
+                break;
+            case 9:
+                tipo_evento = TipoEvento.Lesion;
+                break;
+            default:
+                tipo_evento = TipoEvento.Gol;
+        }
+
+        Evento evento = new Evento(tipo_evento, minuto);
+        jugador_asignar_evento.addEventos(evento);
+        evento.setJugador(jugador_asignar_evento);
+        this.addEventos(evento);
+
+    }
+
+    @Override
+    public String toString() {
+        return "Partido -> fecha: " + fecha + " horario: " + horario + " fase:" + fase.getNombre() + " participacionLocal: "
+                + participacionLocal.getSeleccion().getPais().getNombre() + " participacionVisitante: " + participacionVisitante.getSeleccion().getPais().getNombre();
     }
 
     public static void configurarArbitraje(Mundial mundial, Scanner sc, Partido partido){

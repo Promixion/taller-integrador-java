@@ -186,8 +186,29 @@ public class Main {
 
     }
 
-    public static void registEvento(Mundial mundial){
+    public static void registEvento(Mundial mundial, Scanner sc){
         
+        if (mundial.getPartidos().isEmpty()){
+            System.out.println("[!] No hay partidos registrados.");
+            return;
+        }
+
+        int op = 0;
+        System.out.println("\n[+] Seleccione el partido a registrar un evento.\n");
+        for (Partido partido : mundial.getPartidos()){
+            op++;
+            System.out.println(op + ". " + partido);
+        }
+
+        System.out.print("\n[+] Ingrese una opcion: ");
+        op = sc.nextInt();
+        sc.nextLine();
+
+        Partido partido_evento = mundial.getPartidos().get(op-1);
+
+        partido_evento.generarEvento(mundial, sc);
+
+        System.out.println("\n[+] Se ha registrado el evento exitosamente.");
     }
 
     public static void main(String[] args) {
@@ -238,7 +259,7 @@ public class Main {
                     break;
                 case 4:
                     limpiarPantalla();
-                    registEvento(mundial);
+                    registEvento(mundial, sc);
                     break;
                 case 5:
                     break;

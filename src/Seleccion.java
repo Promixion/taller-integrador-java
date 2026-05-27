@@ -136,6 +136,10 @@ public class Seleccion {
         this.jugadores.add(jugador);
     }
 
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
+
 
     public void setDirectoresTecnicos(DirectorTecnico directorTecnico) {
         this.directoresTecnicos.add(directorTecnico);
