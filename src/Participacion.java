@@ -22,13 +22,37 @@ public class Participacion {
     }
 
     public int cantidadGoles(){
-        return 1;
+        int goles = 0;
+        for (Evento evento : this.partido.getEventos()) {
+            if (evento.getTipo() == TipoEvento.Gol) {
+                if (this.seleccion.getJugadores().contains(evento.getJugador())) {
+                    goles++;
+                }
+            }
+        }
+        return goles;
     }
     public int cantidadTarjAmarillas(){
-        return 1;
+        int amarillas = 0;
+        for (Evento evento : this.partido.getEventos()) {
+            if (evento.getTipo() == TipoEvento.TarjetaAmarilla || evento.getTipo() == TipoEvento.DobleAmarilla) {
+                if (this.seleccion.getJugadores().contains(evento.getJugador())) {
+                    amarillas++;
+                }
+            }
+        }
+        return amarillas;
     }
-        public int cantidadTarjRojas(){
-        return 1;
+    public int cantidadTarjRojas(){
+        int rojas = 0;
+        for (Evento evento : this.partido.getEventos()) {
+            if (evento.getTipo() == TipoEvento.TarjetaRoja || evento.getTipo() == TipoEvento.DobleAmarilla) {
+                if (this.seleccion.getJugadores().contains(evento.getJugador())) {
+                    rojas++;
+                }
+            }
+        }
+        return rojas;
     }
 
     public void setSeleccion(Seleccion seleccion){
