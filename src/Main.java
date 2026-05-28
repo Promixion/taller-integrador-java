@@ -211,6 +211,30 @@ public class Main {
         System.out.println("\n[+] Se ha registrado el evento exitosamente.");
     }
 
+    public static void accederInformes(Mundial mundial, Scanner sc){
+        System.out.println("\n\n============= INFORMES ===============\n");
+        System.out.println("1. Tabla de posiciones por grupo");
+        System.out.println("2. Tabla de resultados por seleccion");
+        System.out.println("3. Ranking de goleadores");
+        System.out.println("4. Informe disciplinario");
+        System.out.println("5. Ficha tecnica de partido");
+        System.out.println("6. Estadisticas de sedes");
+        System.out.println("7. Volver");
+
+        System.out.print("\n[+] Ingrese una opcion: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        switch (op) {
+            case 1:
+                Grupo.tablaPosicionesGrupo(mundial, sc);
+                break;
+            case 7:
+                break;
+        }
+
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Mundial mundial;
@@ -231,13 +255,14 @@ public class Main {
 
         mundial = Mundial.crearMundial(sc);
 
-        while(opcion != 5){
+        while(opcion != 6){
             System.out.println("\n---------------- MENU ----------------\n");
             System.out.println("1. Gestionar infraestructura");
             System.out.println("2. Administrar delegaciones");
             System.out.println("3. Organización deportiva");
             System.out.println("4. Registrar eventos de campo");
-            System.out.println("5. Salir del sistema");
+            System.out.println("5. Informes");
+            System.out.println("6. Salir del sistema");
             System.out.println("\n---------------------------------------\n");
             System.out.print("\n[+] Ingrese una opcion: ");
             opcion = sc.nextInt();
@@ -262,6 +287,9 @@ public class Main {
                     registEvento(mundial, sc);
                     break;
                 case 5:
+                    accederInformes(mundial, sc);
+                    break;
+                case 6:
                     break;
                 default:
                     System.out.println("\n[!] Opción invalida.");

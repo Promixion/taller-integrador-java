@@ -111,11 +111,9 @@ public class Seleccion {
         return participaciones;
     }
 
-
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
-
 
     public Grupo getGrupo() {
         return grupo;
@@ -131,7 +129,6 @@ public class Seleccion {
         this.pais = pais;
     }
 
-
     public void setJugadores(Jugador jugador) {
         this.jugadores.add(jugador);
     }
@@ -140,16 +137,26 @@ public class Seleccion {
         return jugadores;
     }
 
-
     public void setDirectoresTecnicos(DirectorTecnico directorTecnico) {
         this.directoresTecnicos.add(directorTecnico);
     }
-
 
     public void setCuerposTecnicos(CuerpoTecnico cuerposTecnico) {
         this.cuerposTecnicos.add(cuerposTecnico);
     }
     
+    @Override
+    public boolean equals(Object obj){
+        Seleccion seleccion_verificar = (Seleccion) obj;
+        if (this == obj) return true;                    
+        if (obj == null || !(obj instanceof Seleccion)) return false;
+        if (this.getNombreFederacion().equalsIgnoreCase(seleccion_verificar.getNombreFederacion())){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public static void agregarSeleccion(Mundial mundial, Scanner sc){
         String nombreFederacion;
         String camisetaPrincipal;

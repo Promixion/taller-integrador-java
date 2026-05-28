@@ -130,6 +130,10 @@ public class Partido {
     public void addEventos(Evento evento) {
         this.eventos.add(evento);
     }
+    
+    public ArrayList<Evento> getEventos() {
+        return eventos;
+    }
 
     public ArrayList<Arbitraje> getArbitraje() {
         return arbitraje;
@@ -391,5 +395,6 @@ public class Partido {
         System.out.println("\n[+] El partido se ha planificado exitosamente.");
 
     }
+
 
 }
