@@ -154,4 +154,63 @@ public class Sede {
             System.out.println(String.format("\n[+] Se ha asignado el estadio %s a la sede en %s", estadio.getNombre(), sede_asignar.getCiudad()));
         }
     }
+
+    public static void estadisticasPorCiudad(Mundial mundial, Scanner sc) {
+
+        int id = 0;
+        System.out.println("\n[+] Seleccione la ciudad:\n");
+        for (Sede sede : mundial.getSedes()) {
+            System.out.println((++id) + ". " + sede.getCiudad());
+        }
+        System.out.print("\n[+] Ingrese una opcion: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        if (op < 1 || op > mundial.getSedes().size()) {
+            System.out.println("[!] Identificador invalido.");
+            return;
+        }
+
+        Sede sede = mundial.getSedes().get(op - 1);
+
+        int totalPartidos = 0;
+        int totalGoles = 0;
+
+        System.out.println("\n================================================================");
+        System.out.println("          ESTADISTICAS - " + sede.getCiudad().toUpperCase());
+        System.out.println("================================================================");
+        System.out.println("  Pais     : " + (sede.getPais() != null ? sede.getPais().getNombre() : "Sin asignar"));
+        System.out.println("  Clima    : " + sede.getClima());
+        System.out.println("  Estadios : " + sede.getEstadios().size());
+        System.out.println("----------------------------------------------------------------\n");
+
+        for (Estadio estadio : sede.getEstadios()) {
+            int partidosEstadio = estadio.getPartido().size();
+            totalPartidos += partidosEstadio;
+
+            System.out.println("  Estadio: " + estadio.getNombre() + " (cap. " + estadio.getCapacidad() + ")");
+            System.out.println("  Partidos jugados: " + partidosEstadio);
+
+            for (Partido partido : estadio.getPartido()) {
+                Participacion local = partido.getParticipacionLocal();
+                Participacion visitante = partido.getParticipacionVisitante();
+                int gl = local.cantidadGoles();
+                int gv = visitante.cantidadGoles();
+                totalGoles += gl + gv;
+
+                System.out.printf("    - [%s] %-18s %d - %d %-18s%n",
+                        partido.getFase().getNombre(),
+                        local.getSeleccion().getPais().getNombre(),
+                        gl, gv,
+                        visitante.getSeleccion().getPais().getNombre());
+            }
+            System.out.println();
+        }
+
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("  Total partidos en la ciudad : " + totalPartidos);
+        System.out.println("  Total goles en la ciudad    : " + totalGoles);
+        System.out.println("================================================================\n");
+    }
+
 }

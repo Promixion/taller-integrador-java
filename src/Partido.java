@@ -1,6 +1,8 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Partido {
@@ -395,6 +397,113 @@ public class Partido {
         System.out.println("\n[+] El partido se ha planificado exitosamente.");
 
     }
+    public static void fichaTecnicaPartido(Mundial mundial, Scanner sc) {
 
+        if (mundial.getPartidos().isEmpty()) {
+            System.out.println("[!] No hay partidos registrados.");
+            return;
+        }
+
+        int id = 0;
+        System.out.println("\n[+] Seleccione el partido:\n");
+        for (Partido partido : mundial.getPartidos()) {
+            System.out.println((++id) + ". " + partido);
+        }
+        System.out.print("\n[+] Ingrese una opcion: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        if (op < 1 || op > mundial.getPartidos().size()) {
+            System.out.println("[!] Identificador invalido.");
+            return;
+        }
+
+        Partido partido = mundial.getPartidos().get(op - 1);
+        Participacion local = partido.getParticipacionLocal();
+        Participacion visitante = partido.getParticipacionVisitante();
+
+        System.out.println("\n================================================================");
+        System.out.println("                    FICHA TECNICA DE PARTIDO");
+        System.out.println("================================================================");
+        System.out.println("  Fase     : " + partido.getFase().getNombre());
+        System.out.println("  Fecha    : " + partido.getFecha());
+        System.out.println("  Horario  : " + partido.getHorario());
+        System.out.println("  Estadio  : " + partido.getEstadio().getNombre());
+        System.out.println("  Duracion : " + partido.getDuracion() + " min  |  T. Adicional: " + partido.getTiempoAdicional() + " min");
+        System.out.println("----------------------------------------------------------------");
+
+        int golesLocal = local.cantidadGoles();
+        int golesVisitante = visitante.cantidadGoles();
+        System.out.println("\n  " + local.getSeleccion().getPais().getNombre()
+                + "  " + golesLocal + " - " + golesVisitante
+                + "  " + visitante.getSeleccion().getPais().getNombre());
+        System.out.println("\n----------------------------------------------------------------");
+
+        System.out.println("\n  ALINEACION LOCAL - " + local.getSeleccion().getPais().getNombre().toUpperCase());
+        System.out.printf("  %-5s %-20s %-15s%n", "N°", "Jugador", "Posicion");
+        System.out.println("  ----------------------------------------");
+        for (Jugador jugador : local.getSeleccion().getJugadores()) {
+            System.out.printf("  %-5d %-20s %-15s%n",
+                    jugador.getDorsal(),
+                    jugador.getNombre(),
+                    jugador.getPosicion());
+        }
+
+        System.out.println("\n  ALINEACION VISITANTE - " + visitante.getSeleccion().getPais().getNombre().toUpperCase());
+        System.out.printf("  %-5s %-20s %-15s%n", "N°", "Jugador", "Posicion");
+        System.out.println("  ----------------------------------------");
+        for (Jugador jugador : visitante.getSeleccion().getJugadores()) {
+            System.out.printf("  %-5d %-20s %-15s%n",
+                    jugador.getDorsal(),
+                    jugador.getNombre(),
+                    jugador.getPosicion());
+        }
+
+        System.out.println("\n----------------------------------------------------------------");
+        System.out.println("\n  EVENTOS DEL PARTIDO\n");
+        System.out.printf("  %-8s %-20s %-20s %-15s%n", "Minuto", "Jugador", "Seleccion", "Evento");
+        System.out.println("  ----------------------------------------------------------------");
+
+        if (partido.getEventos().isEmpty()) {
+            System.out.println("  [i] No hay eventos registrados para este partido.");
+        } else {
+            ArrayList<Evento> eventosOrdenados = new ArrayList<>(partido.getEventos());
+            Collections.sort(eventosOrdenados, new Comparator<Evento>() {
+                @Override
+                public int compare(Evento a, Evento b) {
+                    return a.getMinuto() - b.getMinuto();
+                }
+            });
+
+            for (Evento evento : eventosOrdenados) {
+                String nombreSeleccion = "";
+                for (Seleccion seleccion : mundial.getSelecciones()) {
+                    if (seleccion.getJugadores().contains(evento.getJugador())) {
+                        nombreSeleccion = seleccion.getPais().getNombre();
+                        break;
+                    }
+                }
+                System.out.printf("  %-8d %-20s %-20s %-15s%n",
+                        evento.getMinuto(),
+                        evento.getJugador().getNombre(),
+                        nombreSeleccion,
+                        evento.getTipo());
+            }
+        }
+
+        System.out.println("\n----------------------------------------------------------------");
+        System.out.println("\n  EQUIPO DE ARBITRAJE\n");
+        System.out.printf("  %-20s %-20s %-15s%n", "Arbitro", "Pais", "Categoria");
+        System.out.println("  --------------------------------------------------------");
+
+        for (Arbitraje arbitraje : partido.getArbitraje()) {
+            System.out.printf("  %-20s %-20s %-15s%n",
+                    arbitraje.getArbitro().getNombre(),
+                    arbitraje.getArbitro().getPais().getNombre(),
+                    arbitraje.getRol());
+        }
+
+        System.out.println("\n================================================================\n");
+    }
 
 }

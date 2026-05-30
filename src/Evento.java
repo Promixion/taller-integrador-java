@@ -42,6 +42,12 @@ public class Evento {
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof Evento)) return false;
+        Evento e = (Evento) obj;
+        return this.minuto == e.getMinuto() && this.tipo == e.getTipo();
+    }
     
 }

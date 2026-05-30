@@ -211,6 +211,29 @@ public class Main {
         System.out.println("\n[+] Se ha registrado el evento exitosamente.");
     }
 
+    public static void estadisticasSedes(Mundial mundial, Scanner sc) {
+
+        if (mundial.getSedes().isEmpty()) {
+            System.out.println("[!] No hay sedes registradas.");
+            return;
+        }
+
+        System.out.println("\n[+] Ver estadisticas por:\n");
+        System.out.println("1. Estadio");
+        System.out.println("2. Ciudad (sede)");
+        System.out.print("\n[+] Ingrese una opcion: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        if (op == 1) {
+            Estadio.estadisticasPorEstadio(mundial, sc);
+        } else if (op == 2) {
+            Sede.estadisticasPorCiudad(mundial, sc);
+        } else {
+            System.out.println("[!] Opcion invalida.");
+        }
+    }
+
     public static void accederInformes(Mundial mundial, Scanner sc){
         System.out.println("\n\n============= INFORMES ===============\n");
         System.out.println("1. Tabla de posiciones por grupo");
@@ -220,6 +243,7 @@ public class Main {
         System.out.println("5. Ficha tecnica de partido");
         System.out.println("6. Estadisticas de sedes");
         System.out.println("7. Volver");
+        System.out.println("========================================");
 
         System.out.print("\n[+] Ingrese una opcion: ");
         int op = sc.nextInt();
@@ -229,10 +253,47 @@ public class Main {
             case 1:
                 Grupo.tablaPosicionesGrupo(mundial, sc);
                 break;
+            case 2:
+                Seleccion.tablaResultadosSeleccion(mundial, sc);
+                break;
+            case 3:
+                Jugador.rankingGoleadores(mundial);
+                break;
+            case 4:
+                informeDisciplinario(mundial, sc);
+                break;
+            case 5:
+                Partido.fichaTecnicaPartido(mundial, sc);
+                break;
+            case 6:
+                estadisticasSedes(mundial, sc);
+                break;
             case 7:
                 break;
         }
 
+    }
+    public static void informeDisciplinario(Mundial mundial, Scanner sc) {
+
+        if (mundial.getSelecciones().isEmpty()) {
+            System.out.println("[!] No hay selecciones registradas.");
+            return;
+        }
+
+        System.out.println("\n[+] Ver informe disciplinario por:\n");
+        System.out.println("1. Seleccion");
+        System.out.println("2. Jugador");
+        System.out.print("\n[+] Ingrese una opcion: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        if (op == 1) {
+            Seleccion.informeDisciplinarioSeleccion(mundial, sc);
+        } else if (op == 2) {
+            Jugador.informeDisciplinarioJugador(mundial, sc);
+        } else {
+            System.out.println("[!] Opcion invalida.");
+        }
     }
 
     public static void main(String[] args) {

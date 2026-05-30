@@ -351,5 +351,142 @@ public class Seleccion {
         }
         mundial.addSelecciones(seleccion);
     }
-    
+
+    public static void tablaResultadosSeleccion(Mundial mundial, Scanner sc){
+        if (mundial.getSelecciones().isEmpty()) {
+            System.out.println("[!] No hay selecciones registradas.");
+            return;
+        }
+
+        int id = 0;
+        System.out.println("\n[+] Seleccione la seleccion:\n");
+        for (Seleccion seleccion : mundial.getSelecciones()) {
+            System.out.println((++id) + ". " + seleccion.getPais().getNombre());
+        }
+        System.out.print("\n[+] Ingrese una opcion: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        if (op < 1 || op > mundial.getSelecciones().size()) {
+            System.out.println("[!] Identificador invalido.");
+            return;
+        }
+
+        Seleccion seleccion = mundial.getSelecciones().get(op - 1);
+
+        System.out.println("\n========== RESULTADOS - " + seleccion.getPais().getNombre().toUpperCase() + " ==========\n");
+        System.out.printf("%-12s %-20s %-20s %6s %6s %6s%n",
+                "Fase", "Local", "Visitante", "GL", "GV", "Resultado");
+        System.out.println("------------------------------------------------------------------------");
+
+        int totalPuntos = 0;
+        int partidosJugados = 0;
+        String ultimaFase = "";
+
+        for (Participacion part : seleccion.getParticipaciones()) {
+            Partido partido = part.getPartido();
+            Participacion partLocal = partido.getParticipacionLocal();
+            Participacion partVisitante = partido.getParticipacionVisitante();
+
+            int golesLocal = partLocal.cantidadGoles();
+            int golesVisitante = partVisitante.cantidadGoles();
+
+            boolean esLocal = partLocal.getSeleccion().equals(seleccion);
+
+            String resultado;
+            int puntos = 0;
+
+            if (golesLocal == golesVisitante) {
+                resultado = "EMPATE";
+                puntos = 1;
+            } else if (esLocal && golesLocal > golesVisitante) {
+                resultado = "VICTORIA";
+                puntos = 3;
+            } else if (!esLocal && golesVisitante > golesLocal) {
+                resultado = "VICTORIA";
+                puntos = 3;
+            } else {
+                resultado = "DERROTA";
+                puntos = 0;
+            }
+
+            totalPuntos += puntos;
+            partidosJugados++;
+            ultimaFase = partido.getFase().getNombre().toString();
+
+            System.out.printf("%-12s %-20s %-20s %6d %6d %6s%n",
+                    partido.getFase().getNombre(),
+                    partLocal.getSeleccion().getPais().getNombre(),
+                    partVisitante.getSeleccion().getPais().getNombre(),
+                    golesLocal,
+                    golesVisitante,
+                    resultado);
+        }
+
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("\nResumen:");
+        System.out.println("  Partidos jugados : " + partidosJugados);
+        System.out.println("  Puntos totales   : " + totalPuntos);
+        System.out.println("  Ultima instancia : " + (ultimaFase.isEmpty() ? "Sin partidos" : ultimaFase));
+        }
+
+    public static void informeDisciplinarioSeleccion(Mundial mundial, Scanner sc) {
+
+        int id = 0;
+        System.out.println("\n[+] Seleccione la seleccion:\n");
+        for (Seleccion seleccion : mundial.getSelecciones()) {
+            System.out.println((++id) + ". " + seleccion.getPais().getNombre());
+        }
+        System.out.print("\n[+] Ingrese una opcion: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        if (op < 1 || op > mundial.getSelecciones().size()) {
+            System.out.println("[!] Identificador invalido.");
+            return;
+        }
+
+        Seleccion seleccion = mundial.getSelecciones().get(op - 1);
+
+        System.out.println("\n========== INFORME DISCIPLINARIO - " + seleccion.getPais().getNombre().toUpperCase() + " ==========\n");
+        System.out.printf("%-20s %10s %10s %10s%n", "Jugador", "Amarillas", "Rojas", "D.Amarilla");
+        System.out.println("------------------------------------------------------------");
+
+        int totalAmarillas = 0;
+        int totalRojas = 0;
+        int totalDobles = 0;
+
+        for (Jugador jugador : seleccion.getJugadores()) {
+            int amarillas = 0;
+            int rojas = 0;
+            int dobles = 0;
+
+            for (Evento evento : jugador.getEventos()) {
+                switch (evento.getTipo()) {
+                    case TarjetaAmarilla:
+                        amarillas++;
+                        break;
+                    case TarjetaRoja:
+                        rojas++;
+                        break;
+                    case DobleAmarilla:
+                        dobles++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (amarillas > 0 || rojas > 0 || dobles > 0) {
+                System.out.printf("%-20s %10d %10d %10d%n",
+                        jugador.getNombre(), amarillas, rojas, dobles);
+                totalAmarillas += amarillas;
+                totalRojas += rojas;
+                totalDobles += dobles;
+            }
+        }
+
+        System.out.println("------------------------------------------------------------");
+        System.out.printf("%-20s %10d %10d %10d%n", "TOTAL", totalAmarillas, totalRojas, totalDobles);
+    }
 }
