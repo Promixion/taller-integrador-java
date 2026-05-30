@@ -147,9 +147,9 @@ public class Seleccion {
     
     @Override
     public boolean equals(Object obj){
-        Seleccion seleccion_verificar = (Seleccion) obj;
         if (this == obj) return true;                    
         if (obj == null || !(obj instanceof Seleccion)) return false;
+        Seleccion seleccion_verificar = (Seleccion) obj;
         if (this.getNombreFederacion().equalsIgnoreCase(seleccion_verificar.getNombreFederacion())){
             return true;
         }else {

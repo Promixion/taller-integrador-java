@@ -235,42 +235,45 @@ public class Main {
     }
 
     public static void accederInformes(Mundial mundial, Scanner sc){
-        System.out.println("\n\n============= INFORMES ===============\n");
-        System.out.println("1. Tabla de posiciones por grupo");
-        System.out.println("2. Tabla de resultados por seleccion");
-        System.out.println("3. Ranking de goleadores");
-        System.out.println("4. Informe disciplinario");
-        System.out.println("5. Ficha tecnica de partido");
-        System.out.println("6. Estadisticas de sedes");
-        System.out.println("7. Volver");
-        System.out.println("========================================");
+        int op;
+        do{
+            System.out.println("\n\n============= INFORMES ===============\n");
+            System.out.println("1. Tabla de posiciones por grupo");
+            System.out.println("2. Tabla de resultados por seleccion");
+            System.out.println("3. Ranking de goleadores");
+            System.out.println("4. Informe disciplinario");
+            System.out.println("5. Ficha tecnica de partido");
+            System.out.println("6. Estadisticas de sedes");
+            System.out.println("7. Volver");
+            System.out.println("========================================");
 
-        System.out.print("\n[+] Ingrese una opcion: ");
-        int op = sc.nextInt();
-        sc.nextLine();
+            System.out.print("\n[+] Ingrese una opcion: ");
+            op = sc.nextInt();
+            sc.nextLine();
 
-        switch (op) {
-            case 1:
-                Grupo.tablaPosicionesGrupo(mundial, sc);
-                break;
-            case 2:
-                Seleccion.tablaResultadosSeleccion(mundial, sc);
-                break;
-            case 3:
-                Jugador.rankingGoleadores(mundial);
-                break;
-            case 4:
-                informeDisciplinario(mundial, sc);
-                break;
-            case 5:
-                Partido.fichaTecnicaPartido(mundial, sc);
-                break;
-            case 6:
-                estadisticasSedes(mundial, sc);
-                break;
-            case 7:
-                break;
-        }
+            switch (op) {
+                case 1:
+                    Grupo.tablaPosicionesGrupo(mundial, sc);
+                    break;
+                case 2:
+                    Seleccion.tablaResultadosSeleccion(mundial, sc);
+                    break;
+                case 3:
+                    Jugador.rankingGoleadores(mundial);
+                    break;
+                case 4:
+                    informeDisciplinario(mundial, sc);
+                    break;
+                case 5:
+                    Partido.fichaTecnicaPartido(mundial, sc);
+                    break;
+                case 6:
+                    estadisticasSedes(mundial, sc);
+                    break;
+                case 7:
+                    break;
+            }
+        } while (op != 7);
 
     }
     public static void informeDisciplinario(Mundial mundial, Scanner sc) {
