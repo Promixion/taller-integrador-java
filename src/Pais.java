@@ -70,9 +70,9 @@ public class Pais {
 
     @Override
     public boolean equals(Object obj){
-        Pais pais_verificar = (Pais) obj;
         if (this == obj) return true;                    
         if (obj == null || !(obj instanceof Pais)) return false;
+        Pais pais_verificar = (Pais) obj;
         if (this.getNombre().equalsIgnoreCase(pais_verificar.getNombre())){
             return true;
         }else {
