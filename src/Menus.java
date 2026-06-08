@@ -1,6 +1,24 @@
 import java.util.Scanner;
-
+/**
+ * Proporciona los distintos menús del sistema y gestiona la
+ * navegación entre las funcionalidades disponibles para la
+ * administración del mundial.
+ *
+ * Incluye las opciones relacionadas con infraestructura,
+ * delegaciones, organización deportiva, registro de eventos
+ * e informes.
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Menus {
+    /**
+     * Presenta el menú de gestión de infraestructura, permitiendo
+     * registrar sedes y asociar estadios a las mismas.
+     *
+     * @param mundial mundial sobre el cual se realizan las operaciones
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void gestInfraestructura(Mundial mundial, Scanner sc){
         int opcion;
         Sede sede_nueva;
@@ -52,6 +70,14 @@ public class Menus {
             }
         } while (opcion != 3);
     }
+    /**
+     * Presenta el menú de administración de delegaciones,
+     * permitiendo registrar países, selecciones y árbitros
+     * participantes del mundial.
+     *
+     * @param mundial mundial sobre el cual se realizan las operaciones
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void adminDelegaciones(Mundial mundial, Scanner sc){
         Main.limpiarPantalla();
         Pais pais;
@@ -108,6 +134,14 @@ public class Menus {
         } while (opcion != 4);
 
     }
+    /**
+     * Presenta el menú de organización deportiva, permitiendo
+     * configurar grupos, fases eliminatorias y planificar
+     * partidos del torneo.
+     *
+     * @param mundial mundial sobre el cual se realizan las operaciones
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void orgDeportiva(Mundial mundial, Scanner sc){
         
         int opcion;
@@ -170,6 +204,13 @@ public class Menus {
         } while (opcion != 4);
 
     }
+    /**
+     * Permite seleccionar un partido registrado y asociarle
+     * eventos de campo ocurridos durante su desarrollo.
+     *
+     * @param mundial mundial que contiene los partidos registrados
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void registEvento(Mundial mundial, Scanner sc){
         
         if (mundial.getPartidos().isEmpty()){
@@ -194,6 +235,14 @@ public class Menus {
 
         System.out.println("\n[+] Se ha registrado el evento exitosamente.");
     }
+    /**
+     * Presenta el menú de informes del sistema, permitiendo
+     * acceder a estadísticas, tablas de posiciones, resultados,
+     * rankings, informes disciplinarios y fichas técnicas.
+     *
+     * @param mundial mundial sobre el cual se generan los informes
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void accederInformes(Mundial mundial, Scanner sc){
         int op;
         do{

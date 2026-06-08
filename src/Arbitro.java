@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Representa a un árbitro participante del mundial.
+ * Almacena sus datos personales, país de procedencia,
+ * años de experiencia y los arbitrajes en los que participó.
+ *
+ * @author Juan
+ * @author Liset
+ */
+
 public class Arbitro extends Persona{
     private int aniosExperiencia;
     private Pais pais;
@@ -8,7 +17,7 @@ public class Arbitro extends Persona{
     
 
     public Arbitro(){
-
+        this.arbitraje = new ArrayList<>();
     }
 
     public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia) {
@@ -36,7 +45,17 @@ public class Arbitro extends Persona{
     public void addArbitraje(Arbitraje arbitraje) {
         this.arbitraje.add(arbitraje);
     }
-
+    /**
+     * Registra un árbitro en el mundial solicitando sus datos
+     * por consola y asociándolo a un país participante.
+     *
+     * El árbitro creado se almacena tanto en la colección
+     * general de árbitros del mundial como en la del país
+     * seleccionado.
+     *
+     * @param mundial mundial donde se registrará el árbitro
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void registrarArbitro(Mundial mundial, Scanner sc){
         String nombre;
         int fecNacimiento;

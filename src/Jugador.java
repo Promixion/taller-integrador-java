@@ -1,5 +1,13 @@
 import java.util.ArrayList;
-
+/**
+ * Representa a un jugador perteneciente a una selección.
+ * Almacena sus datos personales, características físicas,
+ * posición dentro del campo de juego y los eventos en los
+ * que participó durante el torneo.
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Jugador extends Persona {
     private int dorsal;
     private Posicion posicion;
@@ -8,7 +16,7 @@ public class Jugador extends Persona {
     private ArrayList<Evento> eventos;
 
     public Jugador(){
-
+        this.eventos = new ArrayList<>();
     }
 
     public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion, float peso, float altura) {
@@ -60,6 +68,4 @@ public class Jugador extends Persona {
         return eventos;
     }
     
-    
-
 }

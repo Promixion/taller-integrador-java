@@ -1,6 +1,18 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Representa un país participante del mundial.
+ * <p>
+ * Un país posee un nombre, una bandera, una selección nacional,
+ * una lista de sedes asociadas y una lista de árbitros pertenecientes
+ * al mismo. Además, permite gestionar la relación entre estas entidades
+ * y registrar nuevos países dentro de un mundial.
+ * </p>
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Pais {
     private String nombre;
     private String bandera;
@@ -66,7 +78,14 @@ public class Pais {
     public void setSeleccion(Seleccion seleccion) {
         this.seleccion = seleccion;
     }
-    
+    /**
+     * Compara dos países considerando únicamente su nombre,
+     * ignorando diferencias entre mayúsculas y minúsculas.
+     *
+     * @param obj Objeto a comparar.
+     * @return {@code true} si ambos países tienen el mismo nombre,
+     *         {@code false} en caso contrario.
+     */    
 
     @Override
     public boolean equals(Object obj){
@@ -79,7 +98,19 @@ public class Pais {
             return false;
         }
     }
-
+    /**
+     * Solicita al usuario los datos de un nuevo país y lo asocia
+     * opcionalmente a una sede disponible dentro del mundial.
+     * <p>
+     * Si el usuario indica que una sede pertenece al país creado,
+     * la sede se vincula al país y este se agrega a la lista de
+     * países del mundial si aún no existe.
+     * </p>
+     *
+     * @param mundial Mundial donde se registrará el país.
+     * @param sc Scanner utilizado para la entrada de datos.
+     * @return El país creado.
+     */
     public static Pais agregarPais(Mundial mundial, Scanner sc){
         String nombre;
         String bandera;

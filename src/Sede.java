@@ -1,6 +1,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Representa una sede del mundial.
+ * <p>
+ * Una sede corresponde a una ciudad anfitriona donde pueden disputarse
+ * partidos del torneo. Cada sede posee información geográfica y climática,
+ * está asociada a un país y puede contener uno o más estadios.
+ * </p>
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Sede {
     private String ciudad;
     private float alturaNivelMar;
@@ -104,7 +115,13 @@ public class Sede {
         if (nueva_sede == null || !(nueva_sede instanceof Sede)) return false; 
         return this.ciudad.toLowerCase().equals(((Sede) nueva_sede).getCiudad().toLowerCase());
     }
-    
+    /**
+     * Solicita los datos de una nueva sede y la crea.
+     *
+     * @param mundial Mundial donde se registrará la sede.
+     * @param sc Scanner utilizado para la entrada de datos.
+     * @return Nueva sede creada.
+     */
     public static Sede registSede(Mundial mundial, Scanner sc){
         String ciudad;
         float alturaNivelMar;
@@ -124,7 +141,13 @@ public class Sede {
         return new Sede(ciudad, alturaNivelMar, clima, zonaHoraria);
 
     }
-
+    /**
+     * Vincula un estadio existente a una sede registrada en el mundial.
+     *
+     * @param estadio Estadio a vincular.
+     * @param mundial Mundial que contiene las sedes disponibles.
+     * @param sc Scanner utilizado para la entrada de datos.
+     */
     public static void vincularEstadiosSede(Estadio estadio, Mundial mundial, Scanner sc){
         int id = 0;
         Sede sede_asignar;
