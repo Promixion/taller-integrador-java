@@ -2,7 +2,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Representa un partido de fútbol dentro de un mundial.
+ * <p>
+ * Un partido posee una fecha, horario, duración, tiempo adicional,
+ * estadio, fase del torneo, equipos participantes, cuerpo arbitral
+ * y eventos ocurridos durante su desarrollo.
+ * </p>
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Partido {
     private LocalDate fecha;
     private LocalTime horario;
@@ -143,6 +153,13 @@ public class Partido {
         this.arbitraje.add(arbitraje);
     }
 
+    /**
+     * Genera y registra un evento para un jugador participante
+     * en el partido.
+     *
+     * @param mundial Mundial al que pertenece el partido.
+     * @param sc Scanner utilizado para la entrada de datos.
+     */
     public void generarEvento(Mundial mundial, Scanner sc){
 
         ArrayList<Jugador> jugadores = new ArrayList<>();
@@ -230,6 +247,18 @@ public class Partido {
                 + participacionLocal.getSeleccion().getPais().getNombre() + " Visitante: " + participacionVisitante.getSeleccion().getPais().getNombre();
     }
 
+    /**
+     * Configura el equipo arbitral de un partido.
+     * <p>
+     * Permite seleccionar árbitros y asignarles una categoría
+     * específica dentro del cuerpo arbitral. El método valida
+     * que exista al menos un árbitro principal.
+     * </p>
+     *
+     * @param mundial Mundial que contiene los árbitros disponibles.
+     * @param sc Scanner utilizado para la entrada de datos.
+     * @param partido Partido al que se asignará el arbitraje.
+     */
     public static void configurarArbitraje(Mundial mundial, Scanner sc, Partido partido){
 
         boolean agregar;
@@ -308,6 +337,17 @@ public class Partido {
 
     }
 
+    /**
+     * Planifica un nuevo partido dentro del mundial.
+     * <p>
+     * Solicita la información necesaria, asigna estadio,
+     * fase, selecciones participantes y cuerpo arbitral,
+     * registrando finalmente el partido en el mundial.
+     * </p>
+     *
+     * @param mundial Mundial donde se registrará el partido.
+     * @param sc Scanner utilizado para la entrada de datos.
+     */
     public static void planificarPartido(Mundial mundial, Scanner sc){
 
         ArrayList<Estadio> estadios_disponibles = new ArrayList<>();

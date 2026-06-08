@@ -1,8 +1,21 @@
+/**
+ * Representa la participación de una selección en un partido.
+ * <p>
+ * Esta clase permite determinar si la selección juega como local o visitante
+ * y obtener estadísticas relacionadas con su desempeño durante el partido,
+ * como la cantidad de goles, tarjetas amarillas y tarjetas rojas recibidas.
+ * </p>
+ *
+ * @author Juan
+ * @author Liset
+ */
+
+
 public class Participacion {
     private boolean esLocal;
     private Seleccion seleccion;
     private Partido partido;
-
+    
     public Participacion(){
 
     }
@@ -20,7 +33,12 @@ public class Participacion {
     public void setEsLocal(boolean esLocal) {
         this.esLocal = esLocal;
     }
-
+    /**
+     * Calcula la cantidad de goles convertidos por la selección
+     * durante el partido.
+     *
+     * @return Cantidad de goles anotados por la selección.
+     */
     public int cantidadGoles(){
         int goles = 0;
         for (Evento evento : this.partido.getEventos()) {
@@ -32,6 +50,15 @@ public class Participacion {
         }
         return goles;
     }
+    /**
+     * Calcula la cantidad de tarjetas amarillas recibidas por los
+     * jugadores de la selección durante el partido.
+     * <p>
+     * Las dobles amarillas también son contabilizadas como amarillas.
+     * </p>
+     *
+     * @return Cantidad de tarjetas amarillas.
+     */
     public int cantidadTarjAmarillas(){
         int amarillas = 0;
         for (Evento evento : this.partido.getEventos()) {
@@ -43,6 +70,15 @@ public class Participacion {
         }
         return amarillas;
     }
+    /**
+     * Calcula la cantidad de tarjetas rojas recibidas por los
+     * jugadores de la selección durante el partido.
+     * <p>
+     * Las dobles amarillas también son contabilizadas como expulsiones.
+     * </p>
+     *
+     * @return Cantidad de tarjetas rojas.
+     */
     public int cantidadTarjRojas(){
         int rojas = 0;
         for (Evento evento : this.partido.getEventos()) {

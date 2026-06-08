@@ -1,3 +1,12 @@
+/**
+ * Representa un evento de campo ocurrido durante un partido,
+ * como un gol, una tarjeta o una sustitución.
+ * Cada evento registra el minuto en que ocurrió y el
+ * jugador involucrado.
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Evento {
     private TipoEvento tipo;
     private int minuto;

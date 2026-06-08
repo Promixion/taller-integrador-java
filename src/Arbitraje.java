@@ -1,3 +1,11 @@
+/**
+ * Representa la participación de un árbitro en un partido determinado,
+ * indicando el rol que desempeña dentro del equipo arbitral.
+ * Actúa como clase asociativa entre Partido y Arbitro.
+ * @author Juan
+ * @author Liset
+ */
+
 public class Arbitraje {
     private CategoriaArbitro rol;
     private Partido partido;

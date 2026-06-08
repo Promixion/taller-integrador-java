@@ -1,6 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Representa un mundial de fútbol.
+ * Almacena la información general del torneo, incluyendo
+ * sus sedes, países participantes, selecciones, árbitros,
+ * grupos, fases y partidos disputados.
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Mundial {
     private int anio;
     private String mascota;
@@ -123,7 +131,14 @@ public class Mundial {
     public void addPartidos(Partido partido) {
         this.partidos.add(partido);
     }
-
+    /**
+     * Solicita por consola los datos necesarios para crear
+     * un mundial y valida que la fecha de finalización sea
+     * posterior a la fecha de inicio.
+     *
+     * @param sc scanner utilizado para la entrada de datos
+     * @return instancia del mundial creada con los datos ingresados
+     */
     public static Mundial crearMundial(Scanner sc){
 
         Mundial mundial;

@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Representa un grupo del mundial.
+ * Un grupo agrupa selecciones participantes y puede estar
+ * asociado a una fase determinada del torneo.
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Grupo {
     private String identificacion;
     private String descripcion;
@@ -39,7 +46,18 @@ public class Grupo {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    /**
+     * Calcula la cantidad de puntos obtenidos por una selección
+     * en los partidos correspondientes a la fase del grupo.
+     *
+     * Se asignan:
+     * - 3 puntos por victoria.
+     * - 1 punto por empate.
+     * - 0 puntos por derrota.
+     *
+     * @param s selección a evaluar
+     * @return cantidad total de puntos obtenidos
+     */
     public int obtenerPuntos(Seleccion s){
         int puntos = 0;
 
@@ -83,7 +101,12 @@ public class Grupo {
     public ArrayList<Seleccion> getSeleccion() {
         return seleccion;
     }     
-    
+    /**
+     * Este metodo crea nuevos grupos pertenecientes al mundial que estara en una fase especifica, agrupando selecciones.
+     * @param mundial
+     * @param sc
+     * @return
+     */
     public static Grupo agregarGrupo(Mundial mundial, Scanner sc){
         System.out.print("\n[+] Ingrese la identificacion del grupo: ");
         String identificacion = sc.nextLine();
@@ -93,7 +116,13 @@ public class Grupo {
         mundial.addGrupos(grupo);
         return grupo;
     }
-
+    /**
+     * Asocia selecciones que aún no poseen grupo a un grupo existente.
+     *
+     * @param mundial mundial que contiene las selecciones
+     * @param sc scanner utilizado para la entrada de datos
+     * @param grupo grupo al que se vincularán las selecciones
+     */
     public static void vincularSelecciones(Mundial mundial, Scanner sc, Grupo grupo){
         int id = 0;
         int op;

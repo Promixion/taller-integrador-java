@@ -1,6 +1,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Representa una selección nacional participante del mundial.
+ * <p>
+ * Una selección está asociada a un país y posee información sobre
+ * su federación, indumentaria, ranking FIFA, grupo asignado,
+ * jugadores, directores técnicos, cuerpo técnico y participaciones
+ * en partidos.
+ * </p>
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Seleccion {
     private String nombreFederacion;
     private String camisetaPrincipal;
@@ -156,7 +167,18 @@ public class Seleccion {
             return false;
         }
     }
-
+    /**
+     * Registra una nueva selección en el mundial.
+     * <p>
+     * Permite cargar toda la información relacionada con la selección,
+     * incluyendo jugadores, cuerpo técnico, directores técnicos y el
+     * país que representa. Finalmente, la selección queda registrada
+     * dentro del mundial.
+     * </p>
+     *
+     * @param mundial Mundial donde se registrará la selección.
+     * @param sc Scanner utilizado para la entrada de datos.
+     */
     public static void agregarSeleccion(Mundial mundial, Scanner sc){
         String nombreFederacion;
         String camisetaPrincipal;

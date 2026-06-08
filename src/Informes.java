@@ -2,97 +2,122 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
-
+/**
+ * Proporciona métodos para generar y mostrar informes
+ * estadísticos y de consulta sobre el mundial, incluyendo
+ * tablas de posiciones, resultados, rankings, fichas técnicas
+ * y estadísticas de sedes.
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Informes {
+    /**
+     * Muestra la tabla de posiciones de un grupo seleccionado,
+     * incluyendo partidos jugados, victorias, empates, derrotas,
+     * goles a favor, goles en contra y puntos obtenidos por cada
+     * selección.
+     *
+     * @param mundial mundial que contiene los grupos registrados
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void tablaPosicionesGrupo(Mundial mundial, Scanner sc) {
 
-    if (mundial.getGrupos().isEmpty()) {
-        System.out.println("[!] No hay grupos configurados.");
-        return;
-    }
+        if (mundial.getGrupos().isEmpty()) {
+            System.out.println("[!] No hay grupos configurados.");
+            return;
+        }
 
-    int id = 0;
-    System.out.println("\n[+] Seleccione el grupo:\n");
-    for (Grupo grupo : mundial.getGrupos()) {
-        System.out.println((++id) + ". Grupo " + grupo.getIdentificacion());
-    }
-    System.out.print("\n[+] Ingrese una opcion: ");
-    int op = sc.nextInt();
-    sc.nextLine();
+        int id = 0;
+        System.out.println("\n[+] Seleccione el grupo:\n");
+        for (Grupo grupo : mundial.getGrupos()) {
+            System.out.println((++id) + ". Grupo " + grupo.getIdentificacion());
+        }
+        System.out.print("\n[+] Ingrese una opcion: ");
+        int op = sc.nextInt();
+        sc.nextLine();
 
-    if (op < 1 || op > mundial.getGrupos().size()) {
-        System.out.println("[!] Identificador invalido.");
-        return;
-    }
+        if (op < 1 || op > mundial.getGrupos().size()) {
+            System.out.println("[!] Identificador invalido.");
+            return;
+        }
 
-    Grupo grupoElegido = mundial.getGrupos().get(op - 1);
+        Grupo grupoElegido = mundial.getGrupos().get(op - 1);
 
-    if (grupoElegido.getFase() == null) {
-        System.out.println("[!] El grupo no tiene una fase asignada.");
-        return;
-    }
+        if (grupoElegido.getFase() == null) {
+            System.out.println("[!] El grupo no tiene una fase asignada.");
+            return;
+        }
 
-    System.out.println("\n========== TABLA DE POSICIONES - GRUPO " + grupoElegido.getIdentificacion() + " ==========\n");
-    System.out.printf("%-20s %4s %4s %4s %4s %4s %4s %4s%n","Seleccion", "PJ", "G", "E", "P", "GF", "GC", "PTS");
-    System.out.println("--------------------------------------------------------------");
+        System.out.println("\n========== TABLA DE POSICIONES - GRUPO " + grupoElegido.getIdentificacion() + " ==========\n");
+        System.out.printf("%-20s %4s %4s %4s %4s %4s %4s %4s%n","Seleccion", "PJ", "G", "E", "P", "GF", "GC", "PTS");
+        System.out.println("--------------------------------------------------------------");
 
-    ArrayList<int[]> stats = new ArrayList<>();
-    ArrayList<Seleccion> selecciones = grupoElegido.getSeleccion();
+        ArrayList<int[]> stats = new ArrayList<>();
+        ArrayList<Seleccion> selecciones = grupoElegido.getSeleccion();
 
-    for (int i = 0; i < selecciones.size(); i++) {
-        Seleccion seleccion = selecciones.get(i);
-        int pj = 0, g = 0, e = 0, p = 0, gf = 0, gc = 0;
+        for (int i = 0; i < selecciones.size(); i++) {
+            Seleccion seleccion = selecciones.get(i);
+            int pj = 0, g = 0, e = 0, p = 0, gf = 0, gc = 0;
 
-        for (Partido partido : grupoElegido.getFase().getPartidos()) {
-            Participacion partLocal = partido.getParticipacionLocal();
-            Participacion partVisitante = partido.getParticipacionVisitante();
+            for (Partido partido : grupoElegido.getFase().getPartidos()) {
+                Participacion partLocal = partido.getParticipacionLocal();
+                Participacion partVisitante = partido.getParticipacionVisitante();
 
-            boolean esLocal = partLocal.getSeleccion().equals(seleccion);
-            boolean esVisitante = partVisitante.getSeleccion().equals(seleccion);
+                boolean esLocal = partLocal.getSeleccion().equals(seleccion);
+                boolean esVisitante = partVisitante.getSeleccion().equals(seleccion);
 
-            if (!esLocal && !esVisitante) continue;
+                if (!esLocal && !esVisitante) continue;
 
-            pj++;
-            int golesLocal = partLocal.cantidadGoles();
-            int golesVisitante = partVisitante.cantidadGoles();
-            gf += esLocal ? golesLocal : golesVisitante;
-            gc += esLocal ? golesVisitante : golesLocal;
+                pj++;
+                int golesLocal = partLocal.cantidadGoles();
+                int golesVisitante = partVisitante.cantidadGoles();
+                gf += esLocal ? golesLocal : golesVisitante;
+                gc += esLocal ? golesVisitante : golesLocal;
 
-            if (golesLocal == golesVisitante) {
-                e++;
-            } else if (esLocal && golesLocal > golesVisitante) {
-                g++;
-            } else if (esVisitante && golesVisitante > golesLocal) {
-                g++;
-            } else {
-                p++;
+                if (golesLocal == golesVisitante) {
+                    e++;
+                } else if (esLocal && golesLocal > golesVisitante) {
+                    g++;
+                } else if (esVisitante && golesVisitante > golesLocal) {
+                    g++;
+                } else {
+                    p++;
+                }
+            }
+
+            int pts = grupoElegido.obtenerPuntos(seleccion);
+            stats.add(new int[]{i, pj, g, e, p, gf, gc, pts});
+        }
+
+        for (int i = 0; i < stats.size() - 1; i++) {
+            for (int j = 0; j < stats.size() - 1 - i; j++) {
+                if (stats.get(j)[7] < stats.get(j + 1)[7]) {
+                    int[] temp = stats.get(j);
+                    stats.set(j, stats.get(j + 1));
+                    stats.set(j + 1, temp);
+                }
             }
         }
 
-        int pts = grupoElegido.obtenerPuntos(seleccion);
-        stats.add(new int[]{i, pj, g, e, p, gf, gc, pts});
-    }
-
-    for (int i = 0; i < stats.size() - 1; i++) {
-        for (int j = 0; j < stats.size() - 1 - i; j++) {
-            if (stats.get(j)[7] < stats.get(j + 1)[7]) {
-                int[] temp = stats.get(j);
-                stats.set(j, stats.get(j + 1));
-                stats.set(j + 1, temp);
-            }
+        for (int[] row : stats) {
+            Seleccion s = selecciones.get(row[0]);
+            System.out.printf("%-20s %4d %4d %4d %4d %4d %4d %4d%n",
+                    s.getPais().getNombre(),
+                    row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
         }
-    }
-
-    for (int[] row : stats) {
-        Seleccion s = selecciones.get(row[0]);
-        System.out.printf("%-20s %4d %4d %4d %4d %4d %4d %4d%n",
-                s.getPais().getNombre(),
-                row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
-    }
 
         System.out.println("--------------------------------------------------------------");
     }
 
+    /**
+     * Este metodo presenta un informe de los resultados de una seleccion especifica que participa en el mundial, para la seleccion se muestran datos 
+     * en base a los partidos jugados como la fase en la que se jugo el partido, la seleccion local, visitante, los goles de la seleccion local y visitante
+     * asi como tambien el resultado del partido. Luego se presenta un resumen con el total de partidos jugados, puntos y ultima fase que la seleccion consiguio alcanzar.
+     * 
+     * @param mundial
+     * @param sc
+     */
 
     public static void tablaResultadosSeleccion(Mundial mundial, Scanner sc){
         if (mundial.getSelecciones().isEmpty()) {
@@ -171,7 +196,15 @@ public class Informes {
         System.out.println("  Puntos totales   : " + totalPuntos);
         System.out.println("  Ultima instancia : " + (ultimaFase.isEmpty() ? "Sin partidos" : ultimaFase));
         }
-
+    
+    /**
+     * Muestra el informe disciplinario de una selección,
+     * detallando las tarjetas recibidas por cada jugador
+     * y los totales acumulados por el equipo.
+     *
+     * @param mundial mundial que contiene las selecciones registradas
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void informeDisciplinarioSeleccion(Mundial mundial, Scanner sc) {
 
         int id = 0;
@@ -232,6 +265,14 @@ public class Informes {
         System.out.printf("%-20s %10d %10d %10d%n", "TOTAL", totalAmarillas, totalRojas, totalDobles);
     }
 
+    /**
+     * Permite seleccionar el tipo de informe disciplinario que se
+     * desea consultar, ya sea para una selección completa o para
+     * un jugador en particular.
+     *
+     * @param mundial mundial que contiene las selecciones registradas
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void informeDisciplinario(Mundial mundial, Scanner sc) {
 
         if (mundial.getSelecciones().isEmpty()) {
@@ -255,7 +296,14 @@ public class Informes {
         }
     }
 
-public static void rankingGoleadores(Mundial mundial) {
+    /**
+     * Genera un ranking de goleadores del mundial ordenado de
+     * mayor a menor cantidad de goles convertidos, considerando
+     * goles de jugada y penales convertidos.
+     *
+     * @param mundial mundial sobre el cual se realiza el informe
+     */
+    public static void rankingGoleadores(Mundial mundial) {
 
         if (mundial.getSelecciones().isEmpty()) {
             System.out.println("[!] No hay selecciones registradas.");
@@ -318,6 +366,14 @@ public static void rankingGoleadores(Mundial mundial) {
 
         System.out.println("--------------------------------------------------");
     }
+    /**
+     * Genera un informe disciplinario de un jugador seleccionado,
+     * mostrando todas las tarjetas recibidas durante el mundial,
+     * junto con el partido y el minuto en que fueron registradas.
+     *
+     * @param mundial mundial que contiene los datos del torneo
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void informeDisciplinarioJugador(Mundial mundial, Scanner sc) {
 
         int id = 0;
@@ -387,6 +443,15 @@ public static void rankingGoleadores(Mundial mundial) {
 
         System.out.println("--------------------------------------------------");
     }
+    /**
+     * Muestra la ficha técnica completa de un partido seleccionado,
+     * incluyendo información general del encuentro, alineaciones,
+     * eventos ocurridos durante el partido y el equipo arbitral
+     * asignado.
+     *
+     * @param mundial mundial que contiene los partidos registrados
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void fichaTecnicaPartido(Mundial mundial, Scanner sc) {
 
         if (mundial.getPartidos().isEmpty()) {
@@ -495,6 +560,13 @@ public static void rankingGoleadores(Mundial mundial) {
 
         System.out.println("\n================================================================\n");
     }
+    /**
+     * Permite seleccionar el tipo de estadísticas de sedes que
+     * se desea consultar, ya sea por estadio o por ciudad.
+     *
+     * @param mundial mundial que contiene las sedes registradas
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void estadisticasSedes(Mundial mundial, Scanner sc) {
 
         if (mundial.getSedes().isEmpty()) {
@@ -517,7 +589,14 @@ public static void rankingGoleadores(Mundial mundial) {
             System.out.println("[!] Opcion invalida.");
         }
     }
-
+    /**
+     * Muestra estadísticas de un estadio seleccionado, incluyendo
+     * cantidad de partidos disputados, resultados obtenidos y
+     * total de goles convertidos en dicho estadio.
+     *
+     * @param mundial mundial que contiene las sedes y estadios
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void estadisticasPorEstadio(Mundial mundial, Scanner sc) {
 
         ArrayList<Estadio> estadios = new ArrayList<>();
@@ -584,7 +663,14 @@ public static void rankingGoleadores(Mundial mundial) {
         System.out.println("  Total de goles en el estadio: " + totalGoles);
         System.out.println("================================================================\n");
     }
-
+    /**
+     * Presenta estadísticas de una ciudad sede seleccionada,
+     * mostrando los estadios que posee, los partidos disputados
+     * en cada uno de ellos y el total de goles convertidos.
+     *
+     * @param mundial mundial que contiene las sedes registradas
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void estadisticasPorCiudad(Mundial mundial, Scanner sc) {
 
         int id = 0;

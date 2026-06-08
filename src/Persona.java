@@ -1,3 +1,14 @@
+/**
+ * Representa una persona dentro del sistema.
+ * <p>
+ * Una persona posee un nombre y un año de nacimiento.
+ * Esta clase sirve como base para otras entidades que
+ * requieran información personal básica.
+ * </p>
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Persona {
     private String nombre;
     private int fecNacimiento;

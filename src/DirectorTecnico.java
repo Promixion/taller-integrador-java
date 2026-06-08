@@ -1,3 +1,11 @@
+/**
+ * Representa al director técnico de una selección nacional.
+ * Almacena sus datos personales y la fecha en la que fue
+ * nombrado para ocupar dicho cargo.
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class DirectorTecnico extends Persona{
     private int fechaNombramiento;
 

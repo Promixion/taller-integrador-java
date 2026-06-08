@@ -1,6 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Representa una fase del mundial.
+ * Una fase agrupa los partidos que se disputan en una determinada
+ * instancia del torneo y, cuando corresponde, los grupos que forman
+ * parte de ella.
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class Fase {
     private NombreFase nombre;
     private ArrayList<Grupo> grupos;
@@ -41,7 +49,13 @@ public class Fase {
     public void addGrupos(Grupo grupo) {
         this.grupos.add(grupo);
     }
-    
+    /**
+     * Permite crear una fase del mundial seleccionando su nombre
+     * y verificando que no exista previamente en el torneo.
+     *
+     * @param mundial mundial donde se registrará la fase
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void crearFase(Mundial mundial, Scanner sc){
         int opcion;
         Fase fase_creada = new Fase();
@@ -91,7 +105,14 @@ public class Fase {
             }
         }
     }
-
+    /**
+     * Permite asociar uno o más grupos a una fase determinada,
+     * verificando que cada grupo no se encuentre previamente
+     * vinculado a otra fase.
+     *
+     * @param mundial mundial que contiene las fases y grupos
+     * @param sc scanner utilizado para la entrada de datos
+     */
     public static void vincularGrupos(Mundial mundial, Scanner sc){
         System.out.println("[+] Seleccione la fase a vincular los grupos: ");
         int id = 0;
