@@ -98,8 +98,10 @@ public class Menus {
                 case 1:
                     if (! mundial.getSedes().isEmpty()){
                         pais = Pais.agregarPais(mundial, sc);
-                        Main.limpiarPantalla();
-                        System.out.println("\n[+] Se ha agregado con exito el pais " + pais.getNombre());
+                        if (pais != null){
+                            Main.limpiarPantalla();
+                            System.out.println("\n[+] Se ha agregado con exito el pais " + pais.getNombre());
+                        }
                         break;
                     } else {
                         Main.limpiarPantalla();
@@ -228,7 +230,10 @@ public class Menus {
         System.out.print("\n[+] Ingrese una opcion: ");
         op = sc.nextInt();
         sc.nextLine();
-
+        if (op < 1 || op > mundial.getPartidos().size()){
+            System.out.println("\n[!] Opcion invalida.");
+            return;
+        }
         Partido partido_evento = mundial.getPartidos().get(op-1);
 
         partido_evento.generarEvento(mundial, sc);

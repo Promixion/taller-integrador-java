@@ -372,5 +372,15 @@ public class Seleccion {
         mundial.addSelecciones(seleccion);
     }
 
+
+    public ArrayList<DirectorTecnico> getDirectoresTecnicos() {
+        return directoresTecnicos;
+    }
+
+
+    public ArrayList<CuerpoTecnico> getCuerposTecnicos() {
+        return cuerposTecnicos;
+    }
+
     
 }

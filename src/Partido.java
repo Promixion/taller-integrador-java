@@ -180,6 +180,10 @@ public class Partido {
         System.out.print("[+] Ingrese una opcion: ");
         op = sc.nextInt();
         sc.nextLine();
+        if (op < 1 || op > jugadores.size()){
+            System.out.println("\n[!] Opcion invalida.");
+            return;
+        }
         Jugador jugador_asignar_evento = jugadores.get(op-1);
 
         op = 0;
@@ -197,7 +201,10 @@ public class Partido {
         System.out.print("\n[+] Ingrese una opcion: ");
         op = sc.nextInt();
         sc.nextLine();
-
+        if (op < 1 || op > 9){
+            System.out.println("\n[!] Opcion invalida.");
+            return;
+        }
         System.out.print("[+] Ingrese el minuto del evento: ");
         int minuto = sc.nextInt();
         sc.nextLine();

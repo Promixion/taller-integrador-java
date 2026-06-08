@@ -121,22 +121,26 @@ public class Pais {
         System.out.print("\n[+] Ingrese la bandera del pais: ");
         bandera = sc.nextLine();
         pais = new Pais(nombre, bandera);
-
-        for (Sede sede : mundial.getSedes()){
-            if (sede.getPais() == null){
-                System.out.print("\n[?] La sede " + sede.getCiudad() + " pertenece al pais " + pais.getNombre() + "? (si/no): ");
-                opcion = sc.nextLine().toLowerCase();
-                if(opcion.equals("si")){
-                    sede.setPais(pais);
-                    pais.addSedes(sede);
-                    if (!mundial.getPaises().contains(pais))
-                        mundial.addPaises(pais);
-                    break;
+        if (!mundial.getPaises().contains(pais)){
+            mundial.addPaises(pais);
+            for (Sede sede : mundial.getSedes()){
+                if (sede.getPais() == null){
+                    System.out.print("\n[?] La sede " + sede.getCiudad() + " pertenece al pais " + pais.getNombre() + "? (si/no): ");
+                    opcion = sc.nextLine().toLowerCase();
+                    if(opcion.equals("si")){
+                        sede.setPais(pais);
+                        pais.addSedes(sede);
+                        break;
+                    }
                 }
             }
+            return pais;
+        } else {
+            Main.limpiarPantalla();
+            System.out.println("\n[!] El pais ya se encuentra registrado.");
+            return null;
         }
 
-        return pais;
     }
     
     
