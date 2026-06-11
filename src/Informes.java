@@ -52,29 +52,49 @@ public class Informes {
         System.out.println("\n========== TABLA DE POSICIONES - GRUPO " + grupoElegido.getIdentificacion() + " ==========\n");
         System.out.printf("%-20s %4s %4s %4s %4s %4s %4s %4s%n","Seleccion", "PJ", "G", "E", "P", "GF", "GC", "PTS");
         System.out.println("--------------------------------------------------------------");
-
+        /*
+        * Cada elemento del arreglo almacena:
+        * [0] Índice de la selección en la lista del grupo
+        * [1] Partidos jugados (PJ)
+        * [2] Partidos ganados (G)
+        * [3] Partidos empatados (E)
+        * [4] Partidos perdidos (P)
+        * [5] Goles a favor (GF)
+        * [6] Goles en contra (GC)
+        * [7] Puntos (PTS)
+        */
         ArrayList<int[]> stats = new ArrayList<>();
         ArrayList<Seleccion> selecciones = grupoElegido.getSeleccion();
 
+        // Calcula las estadísticas de cada selección del grupo.
         for (int i = 0; i < selecciones.size(); i++) {
             Seleccion seleccion = selecciones.get(i);
             int pj = 0, g = 0, e = 0, p = 0, gf = 0, gc = 0;
 
+            // Recorre todos los partidos de la fase para determinar
+            // el desempeño de la selección actual.
             for (Partido partido : grupoElegido.getFase().getPartidos()) {
                 Participacion partLocal = partido.getParticipacionLocal();
                 Participacion partVisitante = partido.getParticipacionVisitante();
 
+                // Determina si la selección participó como local o visitante.
                 boolean esLocal = partLocal.getSeleccion().equals(seleccion);
                 boolean esVisitante = partVisitante.getSeleccion().equals(seleccion);
 
+                // Si la selección no participó en el partido,
+                // se continúa con el siguiente.
                 if (!esLocal && !esVisitante) continue;
 
                 pj++;
                 int golesLocal = partLocal.cantidadGoles();
                 int golesVisitante = partVisitante.cantidadGoles();
+
+                // Calcula goles a favor y en contra según la condición
+                // de local o visitante de la selección.
                 gf += esLocal ? golesLocal : golesVisitante;
                 gc += esLocal ? golesVisitante : golesLocal;
 
+                // Actualiza victorias, empates o derrotas.
                 if (golesLocal == golesVisitante) {
                     e++;
                 } else if (esLocal && golesLocal > golesVisitante) {
@@ -87,9 +107,12 @@ public class Informes {
             }
 
             int pts = grupoElegido.obtenerPuntos(seleccion);
+
+            // Se almacena toda la información estadística de la selección.
             stats.add(new int[]{i, pj, g, e, p, gf, gc, pts});
         }
-
+        // Ordena la tabla de posiciones de mayor a menor cantidad de puntos
+        // utilizando el algoritmo burbuja.
         for (int i = 0; i < stats.size() - 1; i++) {
             for (int j = 0; j < stats.size() - 1 - i; j++) {
                 if (stats.get(j)[7] < stats.get(j + 1)[7]) {
@@ -100,6 +123,7 @@ public class Informes {
             }
         }
 
+        // Muestra la tabla ya ordenada.
         for (int[] row : stats) {
             Seleccion s = selecciones.get(row[0]);
             System.out.printf("%-20s %4d %4d %4d %4d %4d %4d %4d%n",
@@ -190,11 +214,11 @@ public class Informes {
                     resultado);
         }
 
-        System.out.println("------------------------------------------------------------------------");
-        System.out.println("\nResumen:");
-        System.out.println("  Partidos jugados : " + partidosJugados);
-        System.out.println("  Puntos totales   : " + totalPuntos);
-        System.out.println("  Ultima instancia : " + (ultimaFase.isEmpty() ? "Sin partidos" : ultimaFase));
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("\nResumen:");
+            System.out.println("  Partidos jugados : " + partidosJugados);
+            System.out.println("  Puntos totales   : " + totalPuntos);
+            System.out.println("  Ultima instancia : " + (ultimaFase.isEmpty() ? "Sin partidos" : ultimaFase));
         }
     
     /**
