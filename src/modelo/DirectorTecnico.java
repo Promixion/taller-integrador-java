@@ -1,3 +1,4 @@
+package modelo;
 /**
  * Representa al director técnico de una selección nacional.
  * Almacena sus datos personales y la fecha en la que fue

@@ -1,7 +1,19 @@
+package gestion;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+
+import modelo.Arbitraje;
+import modelo.Estadio;
+import modelo.Evento;
+import modelo.Grupo;
+import modelo.Jugador;
+import modelo.Participacion;
+import modelo.Partido;
+import modelo.Sede;
+import modelo.Seleccion;
+import modelo.enums.TipoEvento;
 /**
  * Proporciona métodos para generar y mostrar informes
  * estadísticos y de consulta sobre el mundial, incluyendo
@@ -12,6 +24,10 @@ import java.util.Scanner;
  * @author Liset
  */
 public class Informes {
+
+    public Informes() {
+    }
+
     /**
      * Muestra la tabla de posiciones de un grupo seleccionado,
      * incluyendo partidos jugados, victorias, empates, derrotas,
@@ -21,28 +37,28 @@ public class Informes {
      * @param mundial mundial que contiene los grupos registrados
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void tablaPosicionesGrupo(Mundial mundial, Scanner sc) {
+    public void tablaPosicionesGrupo(GestionMundial gestion, Scanner sc) {
 
-        if (mundial.getGrupos().isEmpty()) {
+        if (gestion.getGrupos().isEmpty()) {
             System.out.println("[!] No hay grupos configurados.");
             return;
         }
 
         int id = 0;
         System.out.println("\n[+] Seleccione el grupo:\n");
-        for (Grupo grupo : mundial.getGrupos()) {
+        for (Grupo grupo : gestion.getGrupos()) {
             System.out.println((++id) + ". Grupo " + grupo.getIdentificacion());
         }
         System.out.print("\n[+] Ingrese una opcion: ");
         int op = sc.nextInt();
         sc.nextLine();
 
-        if (op < 1 || op > mundial.getGrupos().size()) {
+        if (op < 1 || op > gestion.getGrupos().size()) {
             System.out.println("[!] Identificador invalido.");
             return;
         }
 
-        Grupo grupoElegido = mundial.getGrupos().get(op - 1);
+        Grupo grupoElegido = gestion.getGrupos().get(op - 1);
 
         if (grupoElegido.getFase() == null) {
             System.out.println("[!] El grupo no tiene una fase asignada.");
@@ -143,27 +159,27 @@ public class Informes {
      * @param sc
      */
 
-    public static void tablaResultadosSeleccion(Mundial mundial, Scanner sc){
-        if (mundial.getSelecciones().isEmpty()) {
+    public void tablaResultadosSeleccion(GestionMundial gestion, Scanner sc){
+        if (gestion.getSelecciones().isEmpty()) {
             System.out.println("[!] No hay selecciones registradas.");
             return;
         }
 
         int id = 0;
         System.out.println("\n[+] Seleccione la seleccion:\n");
-        for (Seleccion seleccion : mundial.getSelecciones()) {
+        for (Seleccion seleccion : gestion.getSelecciones()) {
             System.out.println((++id) + ". " + seleccion.getPais().getNombre());
         }
         System.out.print("\n[+] Ingrese una opcion: ");
         int op = sc.nextInt();
         sc.nextLine();
 
-        if (op < 1 || op > mundial.getSelecciones().size()) {
+        if (op < 1 || op > gestion.getSelecciones().size()) {
             System.out.println("[!] Identificador invalido.");
             return;
         }
 
-        Seleccion seleccion = mundial.getSelecciones().get(op - 1);
+        Seleccion seleccion = gestion.getSelecciones().get(op - 1);
 
         System.out.println("\n========== RESULTADOS - " + seleccion.getPais().getNombre().toUpperCase() + " ==========\n");
         System.out.printf("%-12s %-20s %-20s %6s %6s %6s%n",
@@ -229,23 +245,23 @@ public class Informes {
      * @param mundial mundial que contiene las selecciones registradas
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void informeDisciplinarioSeleccion(Mundial mundial, Scanner sc) {
+    public void informeDisciplinarioSeleccion(GestionMundial gestion, Scanner sc) {
 
         int id = 0;
         System.out.println("\n[+] Seleccione la seleccion:\n");
-        for (Seleccion seleccion : mundial.getSelecciones()) {
+        for (Seleccion seleccion : gestion.getSelecciones()) {
             System.out.println((++id) + ". " + seleccion.getPais().getNombre());
         }
         System.out.print("\n[+] Ingrese una opcion: ");
         int op = sc.nextInt();
         sc.nextLine();
 
-        if (op < 1 || op > mundial.getSelecciones().size()) {
+        if (op < 1 || op > gestion.getSelecciones().size()) {
             System.out.println("[!] Identificador invalido.");
             return;
         }
 
-        Seleccion seleccion = mundial.getSelecciones().get(op - 1);
+        Seleccion seleccion = gestion.getSelecciones().get(op - 1);
 
         System.out.println("\n========== INFORME DISCIPLINARIO - " + seleccion.getPais().getNombre().toUpperCase() + " ==========\n");
         System.out.printf("%-20s %10s %10s %10s%n", "Jugador", "Amarillas", "Rojas", "D.Amarilla");
@@ -297,9 +313,9 @@ public class Informes {
      * @param mundial mundial que contiene las selecciones registradas
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void informeDisciplinario(Mundial mundial, Scanner sc) {
+    public void informeDisciplinario(GestionMundial gestion, Scanner sc) {
 
-        if (mundial.getSelecciones().isEmpty()) {
+        if (gestion.getSelecciones().isEmpty()) {
             System.out.println("[!] No hay selecciones registradas.");
             return;
         }
@@ -312,9 +328,9 @@ public class Informes {
         sc.nextLine();
 
         if (op == 1) {
-            informeDisciplinarioSeleccion(mundial, sc);
+            informeDisciplinarioSeleccion(gestion, sc);
         } else if (op == 2) {
-            informeDisciplinarioJugador(mundial, sc);
+            informeDisciplinarioJugador(gestion, sc);
         } else {
             System.out.println("[!] Opcion invalida.");
         }
@@ -327,9 +343,9 @@ public class Informes {
      *
      * @param mundial mundial sobre el cual se realiza el informe
      */
-    public static void rankingGoleadores(Mundial mundial) {
+    public void rankingGoleadores(GestionMundial gestion) {
 
-        if (mundial.getSelecciones().isEmpty()) {
+        if (gestion.getSelecciones().isEmpty()) {
             System.out.println("[!] No hay selecciones registradas.");
             return;
         }
@@ -338,7 +354,7 @@ public class Informes {
         ArrayList<Integer> goles = new ArrayList<>();
         ArrayList<String> paises = new ArrayList<>();
 
-        for (Seleccion seleccion : mundial.getSelecciones()) {
+        for (Seleccion seleccion : gestion.getSelecciones()) {
             for (Jugador jugador : seleccion.getJugadores()) {
                 int cantGoles = 0;
                 for (Evento evento : jugador.getEventos()) {
@@ -398,23 +414,23 @@ public class Informes {
      * @param mundial mundial que contiene los datos del torneo
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void informeDisciplinarioJugador(Mundial mundial, Scanner sc) {
+    public void informeDisciplinarioJugador(GestionMundial gestion, Scanner sc) {
 
         int id = 0;
         System.out.println("\n[+] Seleccione la seleccion del jugador:\n");
-        for (Seleccion seleccion : mundial.getSelecciones()) {
+        for (Seleccion seleccion : gestion.getSelecciones()) {
             System.out.println((++id) + ". " + seleccion.getPais().getNombre());
         }
         System.out.print("\n[+] Ingrese una opcion: ");
         int op = sc.nextInt();
         sc.nextLine();
 
-        if (op < 1 || op > mundial.getSelecciones().size()) {
+        if (op < 1 || op > gestion.getSelecciones().size()) {
             System.out.println("[!] Identificador invalido.");
             return;
         }
 
-        Seleccion seleccion = mundial.getSelecciones().get(op - 1);
+        Seleccion seleccion = gestion.getSelecciones().get(op - 1);
 
         id = 0;
         System.out.println("\n[+] Seleccione el jugador:\n");
@@ -444,7 +460,7 @@ public class Informes {
                 evento.getTipo() == TipoEvento.DobleAmarilla) {
 
                 String nombrePartido = "Desconocido";
-                for (Partido partido : mundial.getPartidos()) {
+                for (Partido partido : gestion.getPartidos()) {
                     if (partido.getEventos().contains(evento)) {
                         nombrePartido = partido.getParticipacionLocal().getSeleccion().getPais().getNombre()
                                 + " vs "
@@ -476,28 +492,28 @@ public class Informes {
      * @param mundial mundial que contiene los partidos registrados
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void fichaTecnicaPartido(Mundial mundial, Scanner sc) {
+    public void fichaTecnicaPartido(GestionMundial gestion, Scanner sc) {
 
-        if (mundial.getPartidos().isEmpty()) {
+        if (gestion.getPartidos().isEmpty()) {
             System.out.println("[!] No hay partidos registrados.");
             return;
         }
 
         int id = 0;
         System.out.println("\n[+] Seleccione el partido:\n");
-        for (Partido partido : mundial.getPartidos()) {
+        for (Partido partido : gestion.getPartidos()) {
             System.out.println((++id) + ". " + partido);
         }
         System.out.print("\n[+] Ingrese una opcion: ");
         int op = sc.nextInt();
         sc.nextLine();
 
-        if (op < 1 || op > mundial.getPartidos().size()) {
+        if (op < 1 || op > gestion.getPartidos().size()) {
             System.out.println("[!] Identificador invalido.");
             return;
         }
 
-        Partido partido = mundial.getPartidos().get(op - 1);
+        Partido partido = gestion.getPartidos().get(op - 1);
         Participacion local = partido.getParticipacionLocal();
         Participacion visitante = partido.getParticipacionVisitante();
 
@@ -556,7 +572,7 @@ public class Informes {
 
             for (Evento evento : eventosOrdenados) {
                 String nombreSeleccion = "";
-                for (Seleccion seleccion : mundial.getSelecciones()) {
+                for (Seleccion seleccion : gestion.getSelecciones()) {
                     if (seleccion.getJugadores().contains(evento.getJugador())) {
                         nombreSeleccion = seleccion.getPais().getNombre();
                         break;
@@ -591,9 +607,9 @@ public class Informes {
      * @param mundial mundial que contiene las sedes registradas
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void estadisticasSedes(Mundial mundial, Scanner sc) {
+    public void estadisticasSedes(GestionMundial gestion, Scanner sc) {
 
-        if (mundial.getSedes().isEmpty()) {
+        if (gestion.getMundial().getSedes().isEmpty()) {
             System.out.println("[!] No hay sedes registradas.");
             return;
         }
@@ -606,9 +622,9 @@ public class Informes {
         sc.nextLine();
 
         if (op == 1) {
-            estadisticasPorEstadio(mundial, sc);
+            estadisticasPorEstadio(gestion, sc);
         } else if (op == 2) {
-            estadisticasPorCiudad(mundial, sc);
+            estadisticasPorCiudad(gestion, sc);
         } else {
             System.out.println("[!] Opcion invalida.");
         }
@@ -621,10 +637,10 @@ public class Informes {
      * @param mundial mundial que contiene las sedes y estadios
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void estadisticasPorEstadio(Mundial mundial, Scanner sc) {
+    public void estadisticasPorEstadio(GestionMundial gestion, Scanner sc) {
 
         ArrayList<Estadio> estadios = new ArrayList<>();
-        for (Sede sede : mundial.getSedes()) {
+        for (Sede sede : gestion.getMundial().getSedes()) {
             for (Estadio estadio : sede.getEstadios()) {
                 estadios.add(estadio);
             }
@@ -695,23 +711,23 @@ public class Informes {
      * @param mundial mundial que contiene las sedes registradas
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void estadisticasPorCiudad(Mundial mundial, Scanner sc) {
+    public void estadisticasPorCiudad(GestionMundial gestion, Scanner sc) {
 
         int id = 0;
         System.out.println("\n[+] Seleccione la ciudad:\n");
-        for (Sede sede : mundial.getSedes()) {
+        for (Sede sede : gestion.getMundial().getSedes()) {
             System.out.println((++id) + ". " + sede.getCiudad());
         }
         System.out.print("\n[+] Ingrese una opcion: ");
         int op = sc.nextInt();
         sc.nextLine();
 
-        if (op < 1 || op > mundial.getSedes().size()) {
+        if (op < 1 || op > gestion.getMundial().getSedes().size()) {
             System.out.println("[!] Identificador invalido.");
             return;
         }
 
-        Sede sede = mundial.getSedes().get(op - 1);
+        Sede sede = gestion.getMundial().getSedes().get(op - 1);
 
         int totalPartidos = 0;
         int totalGoles = 0;

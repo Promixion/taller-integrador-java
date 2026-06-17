@@ -1,3 +1,6 @@
+package modelo;
+import modelo.enums.Rol;
+
 /**
  * Representa a un integrante del cuerpo técnico de una selección,
  * almacenando sus datos personales y el rol que desempeña.

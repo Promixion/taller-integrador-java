@@ -1,3 +1,6 @@
+package modelo;
+import modelo.enums.TipoEvento;
+
 /**
  * Representa la participación de una selección en un partido.
  * <p>

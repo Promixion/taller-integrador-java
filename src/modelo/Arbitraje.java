@@ -1,3 +1,6 @@
+package modelo;
+import modelo.enums.CategoriaArbitro;
+
 /**
  * Representa la participación de un árbitro en un partido determinado,
  * indicando el rol que desempeña dentro del equipo arbitral.

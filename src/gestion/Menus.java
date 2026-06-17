@@ -1,4 +1,12 @@
+package gestion;
 import java.util.Scanner;
+
+import modelo.Estadio;
+import modelo.Grupo;
+import modelo.Pais;
+import modelo.Partido;
+import modelo.Sede;
+import modelo.Seleccion;
 /**
  * Proporciona los distintos menús del sistema y gestiona la
  * navegación entre las funcionalidades disponibles para la
@@ -12,6 +20,63 @@ import java.util.Scanner;
  * @author Liset
  */
 public class Menus {
+
+    GestionMundial gestion;
+    Scanner sc;
+    Informes informe;
+
+    public Menus(GestionMundial gestion, Scanner sc, Informes informe) {
+        this.gestion = gestion;
+        this.sc = sc;
+        this.informe = informe;
+    }
+
+    public void menuPrincipal(){
+        int opcion = 0;
+        while(opcion != 6){
+            System.out.println("\n---------------- MENU ----------------\n");
+            System.out.println("1. Gestionar infraestructura");
+            System.out.println("2. Administrar delegaciones");
+            System.out.println("3. Organización deportiva");
+            System.out.println("4. Registrar eventos de campo");
+            System.out.println("5. Informes");
+            System.out.println("6. Salir del sistema");
+            System.out.println("\n---------------------------------------\n");
+            System.out.print("\n[+] Ingrese una opcion: ");
+            opcion = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcion){
+                case 1:
+                    Main.limpiarPantalla();
+                    gestInfraestructura();
+                    Main.limpiarPantalla();
+                    break;
+                case 2:
+                    Main.limpiarPantalla();
+                    adminDelegaciones();
+                    break;
+                case 3:
+                    Main.limpiarPantalla();
+                    orgDeportiva();
+                    break;
+                case 4:
+                    Main.limpiarPantalla();
+                    registEvento();
+                    break;
+                case 5:
+                    accederInformes();
+                    break;
+                case 6:
+                    break;
+                default:
+                    System.out.println("\n[!] Opción invalida.");
+            }
+
+        }
+
+    }
+
     /**
      * Presenta el menú de gestión de infraestructura, permitiendo
      * registrar sedes y asociar estadios a las mismas.
@@ -19,7 +84,7 @@ public class Menus {
      * @param mundial mundial sobre el cual se realizan las operaciones
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void gestInfraestructura(Mundial mundial, Scanner sc){
+    public void gestInfraestructura(){
         int opcion;
         Sede sede_nueva;
         Estadio estadio;
@@ -36,10 +101,10 @@ public class Menus {
 
             switch (opcion) {
                 case 1:
-                    sede_nueva = Sede.registSede(mundial, sc);
+                    sede_nueva = gestion.registSede();
 
-                    if (! mundial.getSedes().isEmpty()){
-                        for (Sede sede : mundial.getSedes()){
+                    if (! gestion.getMundial().getSedes().isEmpty()){
+                        for (Sede sede : gestion.getMundial().getSedes()){
                             if(sede.equals(sede_nueva)){
                                 comprobacion = true;
                                 break;
@@ -47,7 +112,7 @@ public class Menus {
                         }
                     }
                     if (comprobacion == false){
-                        mundial.addSede(sede_nueva);
+                        gestion.getMundial().addSede(sede_nueva);
                         Main.limpiarPantalla();
                         System.out.println("\n[+] Sede creada exitosamente.");
                         comprobacion = false;
@@ -58,14 +123,14 @@ public class Menus {
                     }
                     break;
                 case 2:
-                    if (mundial.getSedes().isEmpty()){
+                    if (gestion.getMundial().getSedes().isEmpty()){
                         Main.limpiarPantalla();
                         System.out.println("[!] Primero debe crear una sede.");
                         break;
                     }
-                    estadio = Estadio.agregarEstadio(sc);
+                    estadio = gestion.agregarEstadio();
                     System.out.print("\n[+] Vincule el estadio a su sede:\n\n");
-                    Sede.vincularEstadiosSede(estadio, mundial, sc);
+                    gestion.vincularEstadiosSede(estadio);
                     break;
             }
         } while (opcion != 3);
@@ -78,7 +143,7 @@ public class Menus {
      * @param mundial mundial sobre el cual se realizan las operaciones
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void adminDelegaciones(Mundial mundial, Scanner sc){
+    public void adminDelegaciones(){
         Main.limpiarPantalla();
         Pais pais;
         int opcion;
@@ -96,8 +161,8 @@ public class Menus {
 
             switch (opcion){
                 case 1:
-                    if (! mundial.getSedes().isEmpty()){
-                        pais = Pais.agregarPais(mundial, sc);
+                    if (! gestion.getMundial().getSedes().isEmpty()){
+                        pais = gestion.agregarPais();
                         if (pais != null){
                             Main.limpiarPantalla();
                             System.out.println("\n[+] Se ha agregado con exito el pais " + pais.getNombre());
@@ -110,11 +175,11 @@ public class Menus {
                     }
                 case 2:
                     paises_disponibles = false;
-                    if (!mundial.getPaises().isEmpty()){
+                    if (!gestion.getPaises().isEmpty()){
                         paises_disponibles = true;
                     }
                     if (paises_disponibles){
-                        Seleccion.agregarSeleccion(mundial, sc);
+                        gestion.agregarSeleccion();
                         System.out.println("\n[+] Se ha agregado con exito la seleccion.");
                         break;
                     }else{
@@ -124,7 +189,7 @@ public class Menus {
                     }
                     
                 case 3:
-                    Arbitro.registrarArbitro(mundial, sc);
+                    gestion.registrarArbitro();
                     Main.limpiarPantalla();
                     break;
                 case 4:
@@ -144,7 +209,7 @@ public class Menus {
      * @param mundial mundial sobre el cual se realizan las operaciones
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void orgDeportiva(Mundial mundial, Scanner sc){
+    public void orgDeportiva(){
         
         int opcion;
 
@@ -162,14 +227,14 @@ public class Menus {
             switch (opcion){
                 case 1:
                     Main.limpiarPantalla();
-                    if (! mundial.getSelecciones().isEmpty()){
-                        Grupo grupo_nuevo = Grupo.agregarGrupo(mundial, sc);
+                    if (! gestion.getSelecciones().isEmpty()){
+                        Grupo grupo_nuevo = gestion.agregarGrupo();
                         System.out.println("\n[+] Se ha agregado el grupo.");
                         boolean validation = false;
-                        for (Seleccion seleccion : mundial.getSelecciones()){
+                        for (Seleccion seleccion : gestion.getSelecciones()){
                             if (seleccion.getGrupo() == null){
                                 validation = true;
-                                Grupo.vincularSelecciones(mundial, sc, grupo_nuevo);
+                                gestion.vincularSelecciones(grupo_nuevo);
                                 break;
                             }
                         }
@@ -183,20 +248,20 @@ public class Menus {
                     break;
                 case 2:
                     Main.limpiarPantalla();;
-                    if (mundial.getGrupos().isEmpty()){
+                    if (gestion.getGrupos().isEmpty()){
                         System.out.println("\n[!] Debe configurar primero los grupos");
                         break;
                     }else {
-                        Fase.crearFase(mundial, sc);
+                        gestion.crearFase();
                     }
                     System.out.print("\n[+] Desea vincular grupos a las fases? (si/no): ");
                     String resp = sc.nextLine().toLowerCase();
                     if (resp.equals("si")){
-                        Fase.vincularGrupos(mundial, sc);
+                        gestion.vincularGrupos();
                     }
                     break;
                 case 3:
-                    Partido.planificarPartido(mundial, sc);
+                    gestion.planificarPartido();
                     break;
                 case 4:
                     Main.limpiarPantalla();
@@ -213,16 +278,16 @@ public class Menus {
      * @param mundial mundial que contiene los partidos registrados
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void registEvento(Mundial mundial, Scanner sc){
+    public void registEvento(){
         
-        if (mundial.getPartidos().isEmpty()){
+        if (gestion.getPartidos().isEmpty()){
             System.out.println("[!] No hay partidos registrados.");
             return;
         }
 
         int op = 0;
         System.out.println("\n[+] Seleccione el partido a registrar un evento.\n");
-        for (Partido partido : mundial.getPartidos()){
+        for (Partido partido : gestion.getPartidos()){
             op++;
             System.out.println(op + ". " + partido);
         }
@@ -230,13 +295,13 @@ public class Menus {
         System.out.print("\n[+] Ingrese una opcion: ");
         op = sc.nextInt();
         sc.nextLine();
-        if (op < 1 || op > mundial.getPartidos().size()){
+        if (op < 1 || op > gestion.getPartidos().size()){
             System.out.println("\n[!] Opcion invalida.");
             return;
         }
-        Partido partido_evento = mundial.getPartidos().get(op-1);
+        Partido partido_evento = gestion.getPartidos().get(op-1);
 
-        partido_evento.generarEvento(mundial, sc);
+        partido_evento.generarEvento(gestion);
 
         System.out.println("\n[+] Se ha registrado el evento exitosamente.");
     }
@@ -248,7 +313,7 @@ public class Menus {
      * @param mundial mundial sobre el cual se generan los informes
      * @param sc scanner utilizado para la entrada de datos
      */
-    public static void accederInformes(Mundial mundial, Scanner sc){
+    public void accederInformes(){
         int op;
         do{
             System.out.println("\n\n============= INFORMES ===============\n");
@@ -267,27 +332,26 @@ public class Menus {
 
             switch (op) {
                 case 1:
-                    Informes.tablaPosicionesGrupo(mundial, sc);
+                    informe.tablaPosicionesGrupo(gestion, sc);
                     break;
                 case 2:
-                    Informes.tablaResultadosSeleccion(mundial, sc);
+                    informe.tablaResultadosSeleccion(gestion, sc);
                     break;
                 case 3:
-                    Informes.rankingGoleadores(mundial);
+                    informe.rankingGoleadores(gestion);
                     break;
                 case 4:
-                    Informes.informeDisciplinario(mundial, sc);
+                    informe.informeDisciplinario(gestion, sc);
                     break;
                 case 5:
-                    Informes.fichaTecnicaPartido(mundial, sc);
+                    informe.fichaTecnicaPartido(gestion, sc);
                     break;
                 case 6:
-                    Informes.estadisticasSedes(mundial, sc);
+                    informe.estadisticasSedes(gestion, sc);
                     break;
                 case 7:
                     break;
             }
         } while (op != 7);
-
     }
 }

@@ -1,5 +1,5 @@
+package modelo;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Representa un país participante del mundial.
@@ -98,50 +98,5 @@ public class Pais {
             return false;
         }
     }
-    /**
-     * Solicita al usuario los datos de un nuevo país y lo asocia
-     * opcionalmente a una sede disponible dentro del mundial.
-     * <p>
-     * Si el usuario indica que una sede pertenece al país creado,
-     * la sede se vincula al país y este se agrega a la lista de
-     * países del mundial si aún no existe.
-     * </p>
-     *
-     * @param mundial Mundial donde se registrará el país.
-     * @param sc Scanner utilizado para la entrada de datos.
-     * @return El país creado.
-     */
-    public static Pais agregarPais(Mundial mundial, Scanner sc){
-        String nombre;
-        String bandera;
-        String opcion;
-        Pais pais;
-        System.out.print("\n[+] Ingrese el nombre del pais: ");
-        nombre = sc.nextLine();
-        System.out.print("\n[+] Ingrese la bandera del pais: ");
-        bandera = sc.nextLine();
-        pais = new Pais(nombre, bandera);
-        if (!mundial.getPaises().contains(pais)){
-            mundial.addPaises(pais);
-            for (Sede sede : mundial.getSedes()){
-                if (sede.getPais() == null){
-                    System.out.print("\n[?] La sede " + sede.getCiudad() + " pertenece al pais " + pais.getNombre() + "? (si/no): ");
-                    opcion = sc.nextLine().toLowerCase();
-                    if(opcion.equals("si")){
-                        sede.setPais(pais);
-                        pais.addSedes(sede);
-                        break;
-                    }
-                }
-            }
-            return pais;
-        } else {
-            Main.limpiarPantalla();
-            System.out.println("\n[!] El pais ya se encuentra registrado.");
-            return null;
-        }
-
-    }
-    
     
 }

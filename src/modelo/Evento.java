@@ -1,3 +1,6 @@
+package modelo;
+import modelo.enums.TipoEvento;
+
 /**
  * Representa un evento de campo ocurrido durante un partido,
  * como un gol, una tarjeta o una sustitución.

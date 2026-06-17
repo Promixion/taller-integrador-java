@@ -1,7 +1,11 @@
+package modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import gestion.GestionMundial;
+import modelo.enums.TipoEvento;
 /**
  * Representa un partido de fútbol dentro de un mundial.
  * <p>
@@ -160,8 +164,8 @@ public class Partido {
      * @param mundial Mundial al que pertenece el partido.
      * @param sc Scanner utilizado para la entrada de datos.
      */
-    public void generarEvento(Mundial mundial, Scanner sc){
-
+    public void generarEvento(GestionMundial gestion){
+        Scanner sc = new Scanner(System.in);
         ArrayList<Jugador> jugadores = new ArrayList<>();
         for (Jugador jugador : this.participacionLocal.getSeleccion().getJugadores()){
             jugadores.add(jugador);
@@ -182,6 +186,7 @@ public class Partido {
         sc.nextLine();
         if (op < 1 || op > jugadores.size()){
             System.out.println("\n[!] Opcion invalida.");
+            sc.close();
             return;
         }
         Jugador jugador_asignar_evento = jugadores.get(op-1);
@@ -203,6 +208,7 @@ public class Partido {
         sc.nextLine();
         if (op < 1 || op > 9){
             System.out.println("\n[!] Opcion invalida.");
+            sc.close();
             return;
         }
         System.out.print("[+] Ingrese el minuto del evento: ");
@@ -245,7 +251,7 @@ public class Partido {
         jugador_asignar_evento.addEventos(evento);
         evento.setJugador(jugador_asignar_evento);
         this.addEventos(evento);
-
+        sc.close();
     }
 
     @Override
@@ -253,195 +259,5 @@ public class Partido {
         return "Partido -> fecha: " + fecha + " horario: " + horario + " fase:" + fase.getNombre() + " Local: "
                 + participacionLocal.getSeleccion().getPais().getNombre() + " Visitante: " + participacionVisitante.getSeleccion().getPais().getNombre();
     }
-
-    /**
-     * Configura el equipo arbitral de un partido.
-     * <p>
-     * Permite seleccionar árbitros y asignarles una categoría
-     * específica dentro del cuerpo arbitral. El método valida
-     * que exista al menos un árbitro principal.
-     * </p>
-     *
-     * @param mundial Mundial que contiene los árbitros disponibles.
-     * @param sc Scanner utilizado para la entrada de datos.
-     * @param partido Partido al que se asignará el arbitraje.
-     */
-    public static void configurarArbitraje(Mundial mundial, Scanner sc, Partido partido){
-
-        boolean agregar;
-        int op = 0;
-        Arbitraje arbitraje = null;
-        do {
-            op = 0;
-            System.out.println("\n[+] Seleccione los arbitros que conformaran el equipo de arbitraje.");
-            for (Arbitro arbitro : mundial.getArbitros()){
-                op++;
-                System.out.println(op + ". " + arbitro.getNombre());
-            }
-            System.out.print("\n[+] Seleccione el arbitro: ");
-            op = sc.nextInt();
-            sc.nextLine();
-
-            Arbitro arbitro = mundial.getArbitros().get(op-1);
-
-            op = 0;
-            System.out.println("\n[+] Indique la categoria del arbitro.");
-            System.out.println("1. Principal");
-            System.out.println("2. Primer asistente");
-            System.out.println("3. Segundo asistente");
-            System.out.println("4. Cuarto arbitro");
-            System.out.println("5. VAR principal");
-            System.out.println("6. VAR asistente");
-            System.out.print("\n[+] Seleccione la categoria: ");
-            op = sc.nextInt();
-            sc.nextLine();
-            switch (op){
-                case 1:
-                    arbitraje = new Arbitraje(CategoriaArbitro.Principal);
-                    break;
-                case 2:
-                    arbitraje = new Arbitraje(CategoriaArbitro.Asistente1);
-                    break;
-                case 3:
-                    arbitraje = new Arbitraje(CategoriaArbitro.Asistente2);
-                    break;
-                case 4:
-                    arbitraje = new Arbitraje(CategoriaArbitro.CuartoArbitro);
-                    break;
-                case 5:
-                    arbitraje = new Arbitraje(CategoriaArbitro.VarPrincipal);
-                    break;
-                case 6:
-                    arbitraje = new Arbitraje(CategoriaArbitro.VarAsistente);
-                    break;
-            }
-
-            arbitraje.setArbitro(arbitro);
-            arbitraje.setPartido(partido);
-
-            arbitro.addArbitraje(arbitraje);
-            partido.addArbitraje(arbitraje);
-
-            System.out.print("[+] Desea agregar alguien mas al equipo de arbitraje? (si/no): ");
-            String resp = sc.nextLine().toLowerCase();
-            boolean arbitraje_valido = false;
-            if (resp.equals("si")){
-                agregar = true;
-            } else {
-                agregar = false;
-                for (Arbitraje arbitraje_check : partido.getArbitraje()){
-                    if (arbitraje_check.getRol() == CategoriaArbitro.Principal){
-                        arbitraje_valido = true;
-                    }
-                }
-                if (!arbitraje_valido){
-                    System.out.println("\n[!] Se requiere un arbitro de rol principal.");
-                    agregar = true;
-                }
-            }
-
-        } while (agregar);
-
-    }
-
-    /**
-     * Planifica un nuevo partido dentro del mundial.
-     * <p>
-     * Solicita la información necesaria, asigna estadio,
-     * fase, selecciones participantes y cuerpo arbitral,
-     * registrando finalmente el partido en el mundial.
-     * </p>
-     *
-     * @param mundial Mundial donde se registrará el partido.
-     * @param sc Scanner utilizado para la entrada de datos.
-     */
-    public static void planificarPartido(Mundial mundial, Scanner sc){
-
-        ArrayList<Estadio> estadios_disponibles = new ArrayList<>();
-
-        System.out.print("\n[+] Ingrese la fecha del partido (AÑO-MES-DIA): ");
-        LocalDate fecha = LocalDate.parse(sc.nextLine());
-        System.out.print("\n[+] Ingrese el horario (HORA:MINUTO): ");
-        LocalTime horario = LocalTime.parse(sc.nextLine());
-        System.out.print("\n[+] Ingrese la duracion del partido: ");
-        int duracion = sc.nextInt();
-        sc.nextLine();
-        System.out.print("\n[+] Indique el tiempo adicional que tendra el partido: ");
-        int tiempoAdicional = sc.nextInt();
-        sc.nextLine();
-
-        Partido partido = new Partido(fecha, horario, duracion, tiempoAdicional);
-
-        for (Sede sede : mundial.getSedes()){
-            for (Estadio estadio : sede.getEstadios()){
-                    estadios_disponibles.add(estadio);
-            }
-        }
-
-        int op = 0;
-        System.out.println("\n[+] Seleccione el estadio donde se jugara el partido");
-        for (Estadio estadio : estadios_disponibles){
-            op++;
-            System.out.println(op + ". " + estadio.getNombre());
-        }
-        System.out.print("\n[+] Ingrese el indentificador del estadio: ");
-        op = sc.nextInt();
-        sc.nextLine();
-        partido.setEstadio(estadios_disponibles.get(op-1));
-        estadios_disponibles.get(op-1).addPartido(partido);
-
-        op = 0;
-        System.out.println("[+] Indique a que fase corresponde el partido.");
-        for (Fase fase : mundial.getFases()){
-            op++;
-            System.out.println(op + ". " + fase.getNombre());
-        }
-        System.out.print("\n[+] Ingrese la fase a la que pertenece el partido: ");
-        op = sc.nextInt();
-        sc.nextLine();
-
-        partido.setFase(mundial.getFases().get(op-1));
-        mundial.getFases().get(op-1).addPartidos(partido);
-
-        op = 0;
-        System.out.println("[+] Indique las selecciones que jugaran el partido.");
-        for (Seleccion seleccion : mundial.getSelecciones()){
-            op++;
-            System.out.println(op + ". " + seleccion.getPais().getNombre());
-        }
-
-        System.out.print("[+] Ingrese la seleccion LOCAL: ");
-        int op1 = sc.nextInt();
-        sc.nextLine();
-        System.out.print("[+] Ingrese la seleccion VISITANTE: ");
-        int op2 = sc.nextInt();
-        sc.nextLine();
-        if (op1 == op2){
-            System.out.println("[!] No puede indicar la misma seleccion.");
-            return;
-        }
-        Seleccion seleccionLocal = mundial.getSelecciones().get(op1-1);
-        Seleccion seleccionVisitante = mundial.getSelecciones().get(op2-1);
-
-        Participacion participacionLocal = new Participacion(true, partido, seleccionLocal);
-        Participacion participacionVisitante = new Participacion(false, partido, seleccionVisitante);
-
-        partido.setParticipacionLocal(participacionLocal);
-        partido.setParticipacionVisitante(participacionVisitante);
-
-        participacionLocal.setPartido(partido);
-        participacionVisitante.setPartido(partido);
-
-        seleccionLocal.addParticipacion(participacionLocal);
-        seleccionVisitante.addParticipacion(participacionVisitante);
-
-        configurarArbitraje(mundial, sc, partido);
-
-        mundial.addPartidos(partido);
-
-        System.out.println("\n[+] El partido se ha planificado exitosamente.");
-
-    }
-
 
 }

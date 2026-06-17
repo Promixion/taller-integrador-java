@@ -1,3 +1,4 @@
+package modelo;
 /**
  * Representa una persona dentro del sistema.
  * <p>

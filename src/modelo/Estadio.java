@@ -1,5 +1,5 @@
+package modelo;
 import java.util.ArrayList;
-import java.util.Scanner;
 /**
  * Representa un estadio perteneciente a una sede del mundial.
  * Cada estadio posee un nombre, una capacidad máxima y los
@@ -68,24 +68,5 @@ public class Estadio {
     public String toString() {
         return "\nnombre: " + nombre + ", capacidad: " + capacidad + ", sede:" + sede + ", partido: " + partido;
     } 
-   /**
-    * Solicita por consola los datos necesarios para crear un estadio.
-    *
-    * @param sc scanner utilizado para la entrada de datos
-    * @return estadio creado con el nombre y capacidad ingresados
-    */
-    public static Estadio agregarEstadio(Scanner sc){
-        String nombre;
-        int capacidad;
-
-        System.out.print("\n[+] Ingrese el nombre del estadio: ");
-        nombre = sc.nextLine();
-        System.out.print("\n[+] Ingrese la capacidad del estadio: ");
-        capacidad = sc.nextInt();
-        sc.nextLine();
-
-        return new Estadio(nombre, capacidad);
-
-    }
 
 }

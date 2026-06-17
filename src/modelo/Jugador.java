@@ -1,4 +1,7 @@
+package modelo;
 import java.util.ArrayList;
+
+import modelo.enums.Posicion;
 /**
  * Representa a un jugador perteneciente a una selección.
  * Almacena sus datos personales, características físicas,
