@@ -164,8 +164,7 @@ public class Partido {
      * @param mundial Mundial al que pertenece el partido.
      * @param sc Scanner utilizado para la entrada de datos.
      */
-    public void generarEvento(GestionMundial gestion){
-        Scanner sc = new Scanner(System.in);
+    public void generarEvento(GestionMundial gestion, Scanner sc){
         ArrayList<Jugador> jugadores = new ArrayList<>();
         for (Jugador jugador : this.participacionLocal.getSeleccion().getJugadores()){
             jugadores.add(jugador);
@@ -186,7 +185,6 @@ public class Partido {
         sc.nextLine();
         if (op < 1 || op > jugadores.size()){
             System.out.println("\n[!] Opcion invalida.");
-            sc.close();
             return;
         }
         Jugador jugador_asignar_evento = jugadores.get(op-1);
@@ -208,7 +206,6 @@ public class Partido {
         sc.nextLine();
         if (op < 1 || op > 9){
             System.out.println("\n[!] Opcion invalida.");
-            sc.close();
             return;
         }
         System.out.print("[+] Ingrese el minuto del evento: ");
@@ -251,7 +248,6 @@ public class Partido {
         jugador_asignar_evento.addEventos(evento);
         evento.setJugador(jugador_asignar_evento);
         this.addEventos(evento);
-        sc.close();
     }
 
     @Override

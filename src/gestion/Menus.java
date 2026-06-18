@@ -301,7 +301,7 @@ public class Menus {
         }
         Partido partido_evento = gestion.getPartidos().get(op-1);
 
-        partido_evento.generarEvento(gestion);
+        partido_evento.generarEvento(gestion, sc);
 
         System.out.println("\n[+] Se ha registrado el evento exitosamente.");
     }
