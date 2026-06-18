@@ -24,13 +24,26 @@ public class Menus {
     GestionMundial gestion;
     Scanner sc;
     Informes informe;
-
+    /**
+     * Crea una instancia del gestor de menús.
+     *
+     * @param gestion componente encargado de la gestión del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
+     * @param informe componente encargado de generar informes.
+     */
     public Menus(GestionMundial gestion, Scanner sc, Informes informe) {
         this.gestion = gestion;
         this.sc = sc;
         this.informe = informe;
     }
-
+    /**
+     * Muestra el menú principal de la aplicación y permite acceder
+     * a los distintos módulos del sistema.
+     * <p>
+     * El menú permanece activo hasta que el usuario selecciona
+     * la opción de salida.
+     * </p>
+     */
     public void menuPrincipal(){
         int opcion = 0;
         while(opcion != 6){
@@ -78,11 +91,12 @@ public class Menus {
     }
 
     /**
-     * Presenta el menú de gestión de infraestructura, permitiendo
-     * registrar sedes y asociar estadios a las mismas.
-     *
-     * @param mundial mundial sobre el cual se realizan las operaciones
-     * @param sc scanner utilizado para la entrada de datos
+     * Presenta el menú de gestión de infraestructura.
+     * <p>
+     * Permite registrar nuevas sedes y agregar estadios,
+     * estableciendo las relaciones correspondientes dentro
+     * de la organización del mundial.
+     * </p>
      */
     public void gestInfraestructura(){
         int opcion;
@@ -136,12 +150,11 @@ public class Menus {
         } while (opcion != 3);
     }
     /**
-     * Presenta el menú de administración de delegaciones,
-     * permitiendo registrar países, selecciones y árbitros
-     * participantes del mundial.
-     *
-     * @param mundial mundial sobre el cual se realizan las operaciones
-     * @param sc scanner utilizado para la entrada de datos
+     * Presenta el menú de administración de delegaciones.
+     * <p>
+     * Permite registrar países participantes, crear selecciones
+     * nacionales y registrar árbitros para el torneo.
+     * </p>
      */
     public void adminDelegaciones(){
         Main.limpiarPantalla();
@@ -202,12 +215,11 @@ public class Menus {
 
     }
     /**
-     * Presenta el menú de organización deportiva, permitiendo
-     * configurar grupos, fases eliminatorias y planificar
-     * partidos del torneo.
-     *
-     * @param mundial mundial sobre el cual se realizan las operaciones
-     * @param sc scanner utilizado para la entrada de datos
+     * Presenta el menú de organización deportiva.
+     * <p>
+     * Permite configurar grupos, crear fases del torneo,
+     * vincular grupos a fases y planificar partidos.
+     * </p>
      */
     public void orgDeportiva(){
         
@@ -272,11 +284,12 @@ public class Menus {
 
     }
     /**
-     * Permite seleccionar un partido registrado y asociarle
-     * eventos de campo ocurridos durante su desarrollo.
-     *
-     * @param mundial mundial que contiene los partidos registrados
-     * @param sc scanner utilizado para la entrada de datos
+     * Permite registrar eventos ocurridos durante un partido.
+     * <p>
+     * El usuario selecciona un partido previamente planificado
+     * y luego registra un evento asociado a uno de los jugadores
+     * participantes.
+     * </p>
      */
     public void registEvento(){
         
@@ -306,12 +319,13 @@ public class Menus {
         System.out.println("\n[+] Se ha registrado el evento exitosamente.");
     }
     /**
-     * Presenta el menú de informes del sistema, permitiendo
-     * acceder a estadísticas, tablas de posiciones, resultados,
-     * rankings, informes disciplinarios y fichas técnicas.
-     *
-     * @param mundial mundial sobre el cual se generan los informes
-     * @param sc scanner utilizado para la entrada de datos
+     * Presenta el menú de informes del sistema.
+     * <p>
+     * Desde este menú es posible consultar tablas de posiciones,
+     * resultados por selección, rankings de goleadores,
+     * informes disciplinarios, fichas técnicas de partidos
+     * y estadísticas de las sedes.
+     * </p>
      */
     public void accederInformes(){
         int op;

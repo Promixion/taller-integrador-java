@@ -15,16 +15,45 @@ import modelo.Sede;
 import modelo.Seleccion;
 import modelo.enums.TipoEvento;
 /**
- * Proporciona métodos para generar y mostrar informes
- * estadísticos y de consulta sobre el mundial, incluyendo
- * tablas de posiciones, resultados, rankings, fichas técnicas
- * y estadísticas de sedes.
+ * Clase encargada de generar y mostrar los distintos informes
+ * estadísticos y de consulta relacionados con el mundial.
+ *
+ * <p>
+ * Proporciona funcionalidades para visualizar tablas de posiciones,
+ * resultados de selecciones, rankings de goleadores, informes
+ * disciplinarios, fichas técnicas de partidos y estadísticas
+ * asociadas a estadios y ciudades sede.
+ * </p>
+ *
+ * <p>
+ * Los informes se construyen a partir de la información registrada
+ * en el sistema mediante la clase {@code GestionMundial}, permitiendo
+ * consultar el desempeño de selecciones, jugadores, árbitros,
+ * partidos y sedes a lo largo del torneo.
+ * </p>
+ *
+ * <h2>Informes disponibles</h2>
+ * <ul>
+ *   <li>Tabla de posiciones por grupo.</li>
+ *   <li>Tabla de resultados por selección.</li>
+ *   <li>Ranking de goleadores.</li>
+ *   <li>Informe disciplinario por selección o jugador.</li>
+ *   <li>Ficha técnica detallada de partidos.</li>
+ *   <li>Estadísticas de estadios y ciudades sede.</li>
+ * </ul>
  *
  * @author Juan
  * @author Liset
  */
 public class Informes {
-
+    /**
+     * Crea una instancia de la clase Informes.
+     * <p>
+     * No requiere parámetros de inicialización ya que los datos
+     * necesarios para generar los informes son proporcionados
+     * mediante los objetos recibidos en cada método.
+     * </p>
+     */
     public Informes() {
     }
 
@@ -151,14 +180,19 @@ public class Informes {
     }
 
     /**
-     * Este metodo presenta un informe de los resultados de una seleccion especifica que participa en el mundial, para la seleccion se muestran datos 
-     * en base a los partidos jugados como la fase en la que se jugo el partido, la seleccion local, visitante, los goles de la seleccion local y visitante
-     * asi como tambien el resultado del partido. Luego se presenta un resumen con el total de partidos jugados, puntos y ultima fase que la seleccion consiguio alcanzar.
-     * 
-     * @param mundial
-     * @param sc
+     * Muestra los resultados obtenidos por una selección durante
+     * el torneo.
+     * <p>
+     * Para cada partido se informa la fase disputada, los equipos
+     * participantes, el resultado final y la condición obtenida
+     * por la selección (victoria, empate o derrota). Además,
+     * se presenta un resumen con los partidos jugados, puntos
+     * acumulados y la última fase alcanzada.
+     * </p>
+     *
+     * @param gestion objeto encargado de administrar los datos del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
      */
-
     public void tablaResultadosSeleccion(GestionMundial gestion, Scanner sc){
         if (gestion.getSelecciones().isEmpty()) {
             System.out.println("[!] No hay selecciones registradas.");
@@ -306,12 +340,14 @@ public class Informes {
     }
 
     /**
-     * Permite seleccionar el tipo de informe disciplinario que se
-     * desea consultar, ya sea para una selección completa o para
-     * un jugador en particular.
+     * Permite seleccionar y generar un informe disciplinario.
+     * <p>
+     * El usuario puede optar por consultar las sanciones acumuladas
+     * de una selección completa o de un jugador en particular.
+     * </p>
      *
-     * @param mundial mundial que contiene las selecciones registradas
-     * @param sc scanner utilizado para la entrada de datos
+     * @param gestion objeto encargado de administrar los datos del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
      */
     public void informeDisciplinario(GestionMundial gestion, Scanner sc) {
 
@@ -337,11 +373,14 @@ public class Informes {
     }
 
     /**
-     * Genera un ranking de goleadores del mundial ordenado de
-     * mayor a menor cantidad de goles convertidos, considerando
-     * goles de jugada y penales convertidos.
+     * Genera y muestra un ranking de goleadores del mundial.
+     * <p>
+     * El informe contabiliza los goles convertidos por cada jugador,
+     * incluyendo los penales convertidos, y los ordena de mayor
+     * a menor cantidad de anotaciones.
+     * </p>
      *
-     * @param mundial mundial sobre el cual se realiza el informe
+     * @param gestion objeto encargado de administrar los datos del mundial.
      */
     public void rankingGoleadores(GestionMundial gestion) {
 
@@ -407,12 +446,15 @@ public class Informes {
         System.out.println("--------------------------------------------------");
     }
     /**
-     * Genera un informe disciplinario de un jugador seleccionado,
-     * mostrando todas las tarjetas recibidas durante el mundial,
-     * junto con el partido y el minuto en que fueron registradas.
+     * Genera un informe disciplinario detallado para un jugador.
+     * <p>
+     * Se muestran todas las tarjetas amarillas, rojas y dobles
+     * amarillas recibidas por el jugador, indicando además el
+     * partido y el minuto en que fueron registradas.
+     * </p>
      *
-     * @param mundial mundial que contiene los datos del torneo
-     * @param sc scanner utilizado para la entrada de datos
+     * @param gestion objeto encargado de administrar los datos del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
      */
     public void informeDisciplinarioJugador(GestionMundial gestion, Scanner sc) {
 
@@ -484,13 +526,15 @@ public class Informes {
         System.out.println("--------------------------------------------------");
     }
     /**
-     * Muestra la ficha técnica completa de un partido seleccionado,
-     * incluyendo información general del encuentro, alineaciones,
-     * eventos ocurridos durante el partido y el equipo arbitral
-     * asignado.
+     * Muestra la ficha técnica completa de un partido.
+     * <p>
+     * Incluye información general del encuentro, resultado,
+     * alineaciones de ambos equipos, eventos registrados y
+     * cuerpo arbitral asignado.
+     * </p>
      *
-     * @param mundial mundial que contiene los partidos registrados
-     * @param sc scanner utilizado para la entrada de datos
+     * @param gestion objeto encargado de administrar los datos del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
      */
     public void fichaTecnicaPartido(GestionMundial gestion, Scanner sc) {
 
@@ -601,11 +645,15 @@ public class Informes {
         System.out.println("\n================================================================\n");
     }
     /**
-     * Permite seleccionar el tipo de estadísticas de sedes que
-     * se desea consultar, ya sea por estadio o por ciudad.
+     * Permite seleccionar el tipo de estadísticas relacionadas
+     * con las sedes del mundial.
+     * <p>
+     * El usuario puede consultar estadísticas agrupadas por
+     * estadio o por ciudad sede.
+     * </p>
      *
-     * @param mundial mundial que contiene las sedes registradas
-     * @param sc scanner utilizado para la entrada de datos
+     * @param gestion objeto encargado de administrar los datos del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
      */
     public void estadisticasSedes(GestionMundial gestion, Scanner sc) {
 
@@ -630,12 +678,15 @@ public class Informes {
         }
     }
     /**
-     * Muestra estadísticas de un estadio seleccionado, incluyendo
-     * cantidad de partidos disputados, resultados obtenidos y
-     * total de goles convertidos en dicho estadio.
+     * Genera estadísticas correspondientes a un estadio.
+     * <p>
+     * Muestra la cantidad de partidos disputados, los resultados
+     * obtenidos en cada encuentro y el total de goles convertidos
+     * dentro del estadio seleccionado.
+     * </p>
      *
-     * @param mundial mundial que contiene las sedes y estadios
-     * @param sc scanner utilizado para la entrada de datos
+     * @param gestion objeto encargado de administrar los datos del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
      */
     public void estadisticasPorEstadio(GestionMundial gestion, Scanner sc) {
 
@@ -704,12 +755,15 @@ public class Informes {
         System.out.println("================================================================\n");
     }
     /**
-     * Presenta estadísticas de una ciudad sede seleccionada,
-     * mostrando los estadios que posee, los partidos disputados
-     * en cada uno de ellos y el total de goles convertidos.
+     * Genera estadísticas correspondientes a una ciudad sede.
+     * <p>
+     * El informe incluye los estadios ubicados en la ciudad,
+     * la cantidad de partidos disputados en cada uno y el
+     * total de goles registrados.
+     * </p>
      *
-     * @param mundial mundial que contiene las sedes registradas
-     * @param sc scanner utilizado para la entrada de datos
+     * @param gestion objeto encargado de administrar los datos del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
      */
     public void estadisticasPorCiudad(GestionMundial gestion, Scanner sc) {
 

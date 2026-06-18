@@ -2,22 +2,24 @@ package gestion;
 import java.util.Scanner;
 
 /**
- * Clase principal del sistema.
- * Contiene el punto de entrada de la aplicación y gestiona
- * el flujo inicial del programa mediante el menú principal.
+ * Clase principal de la aplicación.
+ * Contiene el punto de entrada del sistema y es responsable
+ * de inicializar los componentes necesarios para la ejecución
+ * del programa, así como de mostrar el menú principal.
  *
  * @author Juan
  * @author Liset
  * @see <a href="https://github.com/Promixion/taller-integrador-java">Repositorio del proyecto</a>
  */
 public class Main {
-
     /**
      * Limpia la consola utilizando secuencias de escape ANSI.
-     * Si el entorno no soporta dichas secuencias, imprime
-     * múltiples saltos de línea como mecanismo alternativo.
+     * <p>
+     * Si el entorno de ejecución no soporta dichas secuencias,
+     * se imprime una cantidad considerable de saltos de línea
+     * como mecanismo alternativo.
+     * </p>
      */
-
     public static void limpiarPantalla() {
         try {
             System.out.print("\033[H\033[2J");
@@ -29,13 +31,13 @@ public class Main {
 
     /**
      * Punto de entrada de la aplicación.
-     * Crea la instancia inicial del mundial y presenta el menú
-     * principal desde el cual es posible acceder a las distintas
-     * funcionalidades del sistema, incluyendo la gestión de
-     * infraestructura, delegaciones, organización deportiva,
-     * registro de eventos e informes.
+     * <p>
+     * Inicializa los objetos principales del sistema, muestra
+     * la cabecera del programa y delega la interacción con el
+     * usuario al menú principal.
+     * </p>
      *
-     * @param args argumentos recibidos por línea de comandos
+     * @param args argumentos recibidos por línea de comandos.
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

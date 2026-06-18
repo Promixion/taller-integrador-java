@@ -7,11 +7,12 @@ import java.util.Scanner;
 import gestion.GestionMundial;
 import modelo.enums.TipoEvento;
 /**
- * Representa un partido de fútbol dentro de un mundial.
+ * Representa un partido de fútbol disputado dentro de un mundial.
  * <p>
- * Un partido posee una fecha, horario, duración, tiempo adicional,
- * estadio, fase del torneo, equipos participantes, cuerpo arbitral
- * y eventos ocurridos durante su desarrollo.
+ * Un partido registra la fecha y horario de disputa, la duración
+ * reglamentaria, el tiempo adicional, el estadio donde se juega,
+ * la fase del torneo a la que pertenece, las selecciones participantes,
+ * el cuerpo arbitral asignado y los eventos ocurridos durante su desarrollo.
  * </p>
  *
  * @author Juan
@@ -28,11 +29,21 @@ public class Partido {
     private Participacion participacionVisitante;
     private ArrayList<Arbitraje> arbitraje;
     private ArrayList<Evento> eventos;
-
+    /**
+     * Crea un partido sin inicializar sus atributos.
+     */
     public Partido(){
-
+        this.eventos = new ArrayList<>();
+        this.arbitraje = new ArrayList<>();
     }
-
+    /**
+     * Crea un partido con los datos básicos especificados.
+     *
+     * @param fecha fecha de disputa.
+     * @param horario horario de inicio.
+     * @param duracion duración reglamentaria.
+     * @param tiempoAdicional tiempo adicional.
+     */
     public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional) {
         this.fecha = fecha;
         this.horario = horario;
@@ -41,7 +52,15 @@ public class Partido {
         this.eventos = new ArrayList<>();
         this.arbitraje = new ArrayList<>();
     }
-
+    /**
+     * Crea un partido asociado a un estadio.
+     *
+     * @param fecha fecha de disputa.
+     * @param horario horario de inicio.
+     * @param duracion duración reglamentaria.
+     * @param tiempoAdicional tiempo adicional.
+     * @param estadio estadio donde se disputa el encuentro.
+     */
     public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional, Estadio estadio) {
         this.fecha = fecha;
         this.horario = horario;
@@ -51,7 +70,16 @@ public class Partido {
         this.eventos = new ArrayList<>();
         this.arbitraje = new ArrayList<>();
     }
-
+    /**
+     * Crea un partido asociado a un estadio y una fase.
+     *
+     * @param fecha fecha de disputa.
+     * @param horario horario de inicio.
+     * @param duracion duración reglamentaria.
+     * @param tiempoAdicional tiempo adicional.
+     * @param estadio estadio donde se disputa el encuentro.
+     * @param fase fase del torneo.
+     */
     public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional, Estadio estadio, Fase fase) {
         this.fecha = fecha;
         this.horario = horario;
@@ -63,7 +91,18 @@ public class Partido {
         this.arbitraje = new ArrayList<>();
     }
     
-
+    /**
+     * Crea un partido con todos sus datos principales.
+     *
+     * @param fecha fecha de disputa.
+     * @param horario horario de inicio.
+     * @param duracion duración reglamentaria.
+     * @param tiempoAdicional tiempo adicional.
+     * @param estadio estadio donde se disputa el encuentro.
+     * @param fase fase del torneo.
+     * @param participacionLocal participación de la selección local.
+     * @param participacionVisitante participación de la selección visitante.
+     */
     public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoAdicional, Estadio estadio, Fase fase,
             Participacion participacionLocal, Participacion participacionVisitante) {
         this.fecha = fecha;
@@ -77,92 +116,179 @@ public class Partido {
         this.arbitraje = new ArrayList<>();
     }
 
+    /**
+     * Obtiene la fecha del partido.
+     *
+     * @return fecha de disputa.
+     */
     public LocalDate getFecha() {
         return fecha;
     }
-
+    /**
+     * Establece la fecha del partido.
+     *
+     * @param fecha fecha a asignar.
+     */
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
-
+    /**
+     * Obtiene el horario de inicio del partido.
+     *
+     * @return horario del encuentro.
+     */
     public LocalTime getHorario() {
         return horario;
     }
-
+    /**
+     * Establece el horario de inicio del partido.
+     *
+     * @param horario horario a asignar.
+     */
     public void setHorario(LocalTime horario) {
         this.horario = horario;
     }
-
+    /**
+     * Obtiene la duración reglamentaria del partido.
+     *
+     * @return duración en minutos.
+     */
     public int getDuracion() {
         return duracion;
     }
-
+    /**
+     * Establece la duración reglamentaria del partido.
+     *
+     * @param duracion duración a asignar.
+     */
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
-
+    /**
+     * Obtiene el tiempo adicional del partido.
+     *
+     * @return tiempo adicional en minutos.
+     */
     public int getTiempoAdicional() {
         return tiempoAdicional;
     }
 
+    /**
+     * Establece el tiempo adicional del partido.
+     *
+     * @param tiempoAdicional tiempo adicional a asignar.
+     */
     public void setTiempoAdicional(int tiempoAdicional) {
         this.tiempoAdicional = tiempoAdicional;
     }
-
+    /**
+     * Establece el estadio donde se disputa el partido.
+     *
+     * @param estadio estadio a asociar.
+     */
     public void setEstadio(Estadio estadio) {
         this.estadio = estadio;
     }
-
+    /**
+     * Obtiene el estadio donde se disputa el partido.
+     *
+     * @return estadio asociado.
+     */
     public Estadio getEstadio() {
         return estadio;
     }
-
+    /**
+     * Establece la fase del torneo a la que pertenece el partido.
+     *
+     * @param fase fase a asociar.
+     */
     public void setFase(Fase fase) {
         this.fase = fase;
     }
-
+    /**
+     * Obtiene la fase del torneo a la que pertenece el partido.
+     *
+     * @return fase asociada.
+     */
     public Fase getFase() {
         return fase;
     }
-
+    /**
+     * Obtiene la participación de la selección local.
+     *
+     * @return participación local.
+     */
     public Participacion getParticipacionLocal() {
         return participacionLocal;
     }
-
+    /**
+     * Establece la participación de la selección local.
+     *
+     * @param participacionLocal participación a asignar.
+     */
     public void setParticipacionLocal(Participacion participacionLocal) {
         this.participacionLocal = participacionLocal;
     }
-
+    /**
+     * Obtiene la participación de la selección visitante.
+     *
+     * @return participación visitante.
+     */
     public Participacion getParticipacionVisitante() {
         return participacionVisitante;
     }
-
+    /**
+     * Establece la participación de la selección visitante.
+     *
+     * @param participacionVisitante participación a asignar.
+     */
     public void setParticipacionVisitante(Participacion participacionVisitante) {
         this.participacionVisitante = participacionVisitante;
     }
-
+    /**
+     * Registra un evento ocurrido durante el partido.
+     *
+     * @param evento evento a agregar.
+     */
     public void addEventos(Evento evento) {
         this.eventos.add(evento);
     }
-    
+    /**
+     * Obtiene los eventos registrados durante el partido.
+     *
+     * @return lista de eventos.
+     */
     public ArrayList<Evento> getEventos() {
         return eventos;
     }
-
+    /**
+     * Obtiene el equipo arbitral asignado al partido.
+     *
+     * @return lista de arbitrajes.
+     */
     public ArrayList<Arbitraje> getArbitraje() {
         return arbitraje;
     }
-
+    /**
+     * Agrega una participación arbitral al partido.
+     *
+     * @param arbitraje arbitraje a registrar.
+     */
     public void addArbitraje(Arbitraje arbitraje) {
         this.arbitraje.add(arbitraje);
     }
 
     /**
-     * Genera y registra un evento para un jugador participante
-     * en el partido.
+     * Genera y registra un evento para uno de los jugadores
+     * participantes del partido.
+     * <p>
+     * El método solicita al usuario la selección del jugador,
+     * el tipo de evento y el minuto en que ocurrió. Luego registra
+     * el evento tanto en el jugador como en el partido.
+     * </p>
      *
-     * @param mundial Mundial al que pertenece el partido.
-     * @param sc Scanner utilizado para la entrada de datos.
+     * @param gestion gestor del mundial.
+     * @param sc scanner utilizado para la entrada de datos.
      */
     public void generarEvento(GestionMundial gestion, Scanner sc){
         ArrayList<Jugador> jugadores = new ArrayList<>();
@@ -249,7 +375,11 @@ public class Partido {
         evento.setJugador(jugador_asignar_evento);
         this.addEventos(evento);
     }
-
+    /**
+     * Devuelve una representación textual resumida del partido.
+     *
+     * @return cadena con la información principal del encuentro.
+     */
     @Override
     public String toString() {
         return "Partido -> fecha: " + fecha + " horario: " + horario + " fase:" + fase.getNombre() + " Local: "

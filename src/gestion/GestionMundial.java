@@ -23,7 +23,22 @@ import modelo.enums.CategoriaArbitro;
 import modelo.enums.NombreFase;
 import modelo.enums.Posicion;
 import modelo.enums.Rol;
-
+/**
+ * Centraliza la gestión operativa del mundial, administrando
+ * las colecciones de entidades del torneo y concentrando
+ * la lógica de registro, vinculación y planificación
+ * que no pertenece al modelo de dominio.
+ *
+ * <p>
+ * Actúa como intermediario entre la capa de presentación
+ * ({@link Menus}) y el modelo de dominio ({@code modelo}),
+ * evitando que las clases del diagrama dependan de la
+ * entrada/salida por consola o de colecciones globales.
+ * </p>
+ *
+ * @author Juan
+ * @author Liset
+ */
 public class GestionMundial {
         private Mundial mundial;
         private Scanner sc;
@@ -33,7 +48,14 @@ public class GestionMundial {
         private ArrayList<Grupo> grupos;
         private ArrayList<Fase> fases;
         private ArrayList<Partido> partidos;
-
+    /**
+     * Construye una instancia de {@code GestionMundial}, inicializa
+     * todas las colecciones del torneo y crea el mundial solicitando
+     * sus datos por consola.
+     *
+     * @param sc scanner utilizado para la entrada de datos durante
+     *           toda la ejecución del sistema
+     */
     public GestionMundial(Scanner sc) {
         this.sc = sc;
         this.mundial = crearMundial();
@@ -44,41 +66,67 @@ public class GestionMundial {
         this.fases = new ArrayList<>();
         this.partidos = new ArrayList<>();
     }
-
+    /**
+     * Retorna la instancia del mundial gestionado.
+     *
+     * @return el mundial del torneo
+     */
     public Mundial getMundial() {
         return mundial;
     }
-    
+    /**
+     * Retorna la lista de países registrados en el torneo.
+     *
+     * @return lista de países participantes
+     */
     public ArrayList<Pais> getPaises() {
         return paises;
     }
-
+    /**
+     * Retorna la lista de árbitros registrados en el torneo.
+     *
+     * @return lista de árbitros
+     */
     public ArrayList<Arbitro> getArbitros() {
         return arbitros;
     }
-
+    /**
+     * Retorna la lista de selecciones registradas en el torneo.
+     *
+     * @return lista de selecciones participantes
+     */
     public ArrayList<Seleccion> getSelecciones() {
         return selecciones;
     }
-
+    /**
+     * Retorna la lista de grupos configurados en el torneo.
+     *
+     * @return lista de grupos
+     */
     public ArrayList<Grupo> getGrupos() {
         return grupos;
     }
-
+    /**
+     * Retorna la lista de fases configuradas en el torneo.
+     *
+     * @return lista de fases
+     */
     public ArrayList<Fase> getFases() {
         return fases;
     }
-
+    /**
+     * Retorna la lista de partidos planificados en el torneo.
+     *
+     * @return lista de partidos
+     */
     public ArrayList<Partido> getPartidos() {
         return partidos;
     }
 
     /**
-     * Solicita por consola los datos necesarios para crear
-     * un mundial y valida que la fecha de finalización sea
-     * posterior a la fecha de inicio.
+     * Solicita por consola los datos necesarios para crear el mundial
+     * y valida que la fecha de finalización sea posterior a la de inicio.
      *
-     * @param sc scanner utilizado para la entrada de datos
      * @return instancia del mundial creada con los datos ingresados
      */
     public Mundial crearMundial(){
@@ -113,15 +161,12 @@ public class GestionMundial {
 
     }
     /**
-     * Registra un árbitro en el mundial solicitando sus datos
-     * por consola y asociándolo a un país participante.
-     *
-     * El árbitro creado se almacena tanto en la colección
-     * general de árbitros del mundial como en la del país
-     * seleccionado.
-     *
-     * @param mundial mundial donde se registrará el árbitro
-     * @param sc scanner utilizado para la entrada de datos
+     * Registra un árbitro en el torneo solicitando sus datos por consola
+     * y asociándolo al país seleccionado por el usuario.
+     * <p>
+     * El árbitro creado se almacena en la colección general de árbitros
+     * y en la lista de árbitros del país correspondiente.
+     * </p>
      */
     public void registrarArbitro(){
         String nombre;
@@ -157,12 +202,12 @@ public class GestionMundial {
         }
     }
 
-   /**
-    * Solicita por consola los datos necesarios para crear un estadio.
-    *
-    * @param sc scanner utilizado para la entrada de datos
-    * @return estadio creado con el nombre y capacidad ingresados
-    */
+    /**
+     * Solicita por consola los datos necesarios para crear un estadio
+     * y lo retorna sin asociarlo a ninguna sede todavía.
+     *
+     * @return estadio creado con el nombre y capacidad ingresados
+     */
     public Estadio agregarEstadio(){
         String nombre;
         int capacidad;
@@ -177,11 +222,13 @@ public class GestionMundial {
 
     }
     /**
-     * Permite crear una fase del mundial seleccionando su nombre
-     * y verificando que no exista previamente en el torneo.
-     *
-     * @param mundial mundial donde se registrará la fase
-     * @param sc scanner utilizado para la entrada de datos
+     * Crea una nueva fase del torneo y la agrega a la colección,
+     * verificando que no exista previamente una fase con el mismo nombre.
+     * <p>
+     * Presenta al usuario un menú con las fases disponibles según el
+     * formato del torneo (Grupos, Dieciseisavos, Octavos, Cuartos,
+     * Semifinal y Final).
+     * </p>
      */
     public void crearFase(){
         int opcion;
@@ -233,12 +280,9 @@ public class GestionMundial {
         }
     }
     /**
-     * Permite asociar uno o más grupos a una fase determinada,
-     * verificando que cada grupo no se encuentre previamente
-     * vinculado a otra fase.
-     *
-     * @param mundial mundial que contiene las fases y grupos
-     * @param sc scanner utilizado para la entrada de datos
+     * Vincula uno o más grupos a una fase del torneo seleccionada
+     * por el usuario, verificando que cada grupo no tenga ya una
+     * fase asignada.
      */
     public void vincularGrupos(){
         System.out.println("[+] Seleccione la fase a vincular los grupos: ");
@@ -295,10 +339,10 @@ public class GestionMundial {
     }  
 
     /**
-     * Este metodo crea nuevos grupos pertenecientes al mundial que estara en una fase especifica, agrupando selecciones.
-     * @param mundial
-     * @param sc
-     * @return
+     * Crea un nuevo grupo, lo agrega a la colección del torneo y lo
+     * retorna para que el llamador pueda vincularle selecciones.
+     *
+     * @return el grupo creado con la identificación y descripción ingresadas
      */
     public Grupo agregarGrupo(){
         System.out.print("\n[+] Ingrese la identificacion del grupo: ");
@@ -310,10 +354,13 @@ public class GestionMundial {
         return grupo;
     }
     /**
-     * Asocia selecciones que aún no poseen grupo a un grupo existente.
+     * Asocia selecciones sin grupo asignado al grupo indicado.
+     * <p>
+     * Permite agregar múltiples selecciones de forma iterativa.
+     * El proceso se detiene cuando el usuario decide no agregar más
+     * o cuando no quedan selecciones disponibles.
+     * </p>
      *
-     * @param mundial mundial que contiene las selecciones
-     * @param sc scanner utilizado para la entrada de datos
      * @param grupo grupo al que se vincularán las selecciones
      */
     public void vincularSelecciones(Grupo grupo){
@@ -363,17 +410,14 @@ public class GestionMundial {
 
     }
     /**
-     * Solicita al usuario los datos de un nuevo país y lo asocia
-     * opcionalmente a una sede disponible dentro del mundial.
+     * Solicita los datos de un nuevo país, lo registra en la colección
+     * del torneo y lo asocia opcionalmente a una sede sin país asignado.
      * <p>
-     * Si el usuario indica que una sede pertenece al país creado,
-     * la sede se vincula al país y este se agrega a la lista de
-     * países del mundial si aún no existe.
+     * Si el país ya se encuentra registrado, informa al usuario y
+     * retorna {@code null}.
      * </p>
      *
-     * @param mundial Mundial donde se registrará el país.
-     * @param sc Scanner utilizado para la entrada de datos.
-     * @return El país creado.
+     * @return el país creado, o {@code null} si ya existía
      */
     public Pais agregarPais(){
         String nombre;
@@ -407,11 +451,11 @@ public class GestionMundial {
 
     }
     /**
-     * Solicita los datos de una nueva sede y la crea.
+     * Solicita por consola los datos de una nueva sede y la retorna.
+     * La sede creada aún no está asociada a ninguna sede del mundial;
+     * la vinculación se realiza desde {@link Menus}.
      *
-     * @param mundial Mundial donde se registrará la sede.
-     * @param sc Scanner utilizado para la entrada de datos.
-     * @return Nueva sede creada.
+     * @return nueva sede creada con los datos ingresados
      */
     public Sede registSede(){
         String ciudad;
@@ -433,11 +477,14 @@ public class GestionMundial {
 
     }
     /**
-     * Vincula un estadio existente a una sede registrada en el mundial.
+     * Vincula un estadio a una sede registrada en el mundial.
+     * <p>
+     * Presenta las sedes disponibles, solicita al usuario que indique
+     * el identificador de la sede destino y realiza la asociación
+     * bidireccional entre el estadio y la sede seleccionada.
+     * </p>
      *
-     * @param estadio Estadio a vincular.
-     * @param mundial Mundial que contiene las sedes disponibles.
-     * @param sc Scanner utilizado para la entrada de datos.
+     * @param estadio estadio a vincular a una sede
      */
     public void vincularEstadiosSede(Estadio estadio){
         int id = 0;
@@ -469,16 +516,13 @@ public class GestionMundial {
         }
     }
     /**
-     * Registra una nueva selección en el mundial.
+     * Registra una nueva selección en el torneo solicitando por consola
+     * toda su información, incluyendo jugadores, cuerpo técnico,
+     * directores técnicos y el país que representa.
      * <p>
-     * Permite cargar toda la información relacionada con la selección,
-     * incluyendo jugadores, cuerpo técnico, directores técnicos y el
-     * país que representa. Finalmente, la selección queda registrada
-     * dentro del mundial.
+     * Si ninguno de los países registrados corresponde a la selección,
+     * permite agregar uno nuevo en el momento.
      * </p>
-     *
-     * @param mundial Mundial donde se registrará la selección.
-     * @param sc Scanner utilizado para la entrada de datos.
      */
     public void agregarSeleccion(){
         String nombreFederacion;
@@ -674,16 +718,15 @@ public class GestionMundial {
     }
 
     /**
-     * Configura el equipo arbitral de un partido.
+     * Configura el equipo arbitral de un partido permitiendo seleccionar
+     * árbitros de la colección del torneo y asignarles una categoría.
      * <p>
-     * Permite seleccionar árbitros y asignarles una categoría
-     * específica dentro del cuerpo arbitral. El método valida
-     * que exista al menos un árbitro principal.
+     * El método valida que el equipo cuente con al menos un árbitro de
+     * categoría {@link CategoriaArbitro#Principal} antes de finalizar
+     * la configuración.
      * </p>
      *
-     * @param mundial Mundial que contiene los árbitros disponibles.
-     * @param sc Scanner utilizado para la entrada de datos.
-     * @param partido Partido al que se asignará el arbitraje.
+     * @param partido partido al que se asignará el equipo de arbitraje
      */
     public void configurarArbitraje(Partido partido){
 
@@ -764,15 +807,14 @@ public class GestionMundial {
     }
 
     /**
-     * Planifica un nuevo partido dentro del mundial.
+     * Planifica un nuevo partido en el torneo solicitando por consola
+     * fecha, horario, duración, estadio, fase, selecciones participantes
+     * y equipo de arbitraje.
      * <p>
-     * Solicita la información necesaria, asigna estadio,
-     * fase, selecciones participantes y cuerpo arbitral,
-     * registrando finalmente el partido en el mundial.
+     * Valida que las selecciones local y visitante sean distintas antes
+     * de registrar el partido. Al finalizar, el partido queda registrado
+     * en la colección del torneo y en la fase correspondiente.
      * </p>
-     *
-     * @param mundial Mundial donde se registrará el partido.
-     * @param sc Scanner utilizado para la entrada de datos.
      */
     public void planificarPartido(){
 

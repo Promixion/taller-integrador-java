@@ -1,1 +1,1 @@
-tagSearchIndex = [];updateSearchResults();
+tagSearchIndex = [{"l":"Informes disponibles","h":"class gestion.Informes","k":"16","u":"gestion/Informes.html#informes-disponibles-heading"}];updateSearchResults();
