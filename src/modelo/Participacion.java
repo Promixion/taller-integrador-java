@@ -45,7 +45,7 @@ public class Participacion {
     public int cantidadGoles(){
         int goles = 0;
         for (Evento evento : this.partido.getEventos()) {
-            if (evento.getTipo() == TipoEvento.Gol) {
+            if (evento.getTipo() == TipoEvento.Gol || evento.getTipo() == TipoEvento.PenalConvertido) {
                 if (this.seleccion.getJugadores().contains(evento.getJugador())) {
                     goles++;
                 }
