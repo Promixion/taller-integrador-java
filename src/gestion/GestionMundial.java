@@ -438,7 +438,6 @@ public class GestionMundial {
                     if(opcion.equals("si")){
                         sede.setPais(pais);
                         pais.addSedes(sede);
-                        break;
                     }
                 }
             }
